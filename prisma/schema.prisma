@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrgType {
+  Vendor
+  Utility
+}
+
+enum RoleType {
+  Vendor
+  Utility
+}
+
+enum SlipStatus {
+  Draft
+  Billable
+  Confirmed
+  NonBillable
+}
+
+enum InvoiceStatus {
+  NotReconciled
+  PartiallyReconciled
+  Reconciled
+  Paid
+}
+
+enum WorkType {
+  HTMP
+  Trimming
+}
+
+enum DetailType {
+  Hourly
+}
+
+enum OfficerRank {
+  Officer
+  Sergeant
+  Lieutenant
+  Captain
+  Detective
+}
+
+model Organisation {
+  id        String   @id @default(uuid())
+  name      String
+  type      OrgType
+  createdBy String
+  createdAt DateTime @default(now())
+  users     User[]
+  slips     PoliceSlip[]
+  invoices  Invoice[]
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  appScope    String   @default("pdm")
+  type        RoleType
+  permissions String[]
+  users       User[]
+}
+
+model User {
+  id              String        @id @default(uuid())
+  name            String
+  email           String        @unique
+  phone           String
+  passwordHash    String
+  isActive        Boolean       @default(true)
+  organisationId  String
+  roleId          String
+  createdAt       DateTime      @default(now())
+  organisation    Organisation  @relation(fields: [organisationId], references: [id])
+  role            Role          @relation(fields: [roleId], references: [id])
+  createdSlips    PoliceSlip[]  @relation("CreatedByUser")
+  arboristSlips   PoliceSlip[]  @relation("ArboristUser")
+  createdInvoices Invoice[]     @relation("InvoiceCreatedBy")
+  paidInvoices    Invoice[]     @relation("InvoicePaidBy")
+}
+
+model PoliceSlip {
+  id                         String       @id @default(uuid())
+  status                     SlipStatus   @default(Draft)
+  region                     String
+  arboristDistrict           String
+  arboristId                 String
+  workType                   WorkType
+  budgetCode                 String
+  circuitId                  String
+  worksiteCountry            String       @default("US")
+  worksiteAddress            String
+  worksiteLatitude           Decimal?     @db.Decimal(9,6)
+  worksiteLongitude          Decimal?     @db.Decimal(9,6)
+  vendorCompanyId            String
+  crewForeman                String
+  crewForemanPhone           String
+  detailDate                 DateTime     @db.Date
+  detailType                 DetailType   @default(Hourly)
+  timeFrom                   String
+  timeTo                     String
+  hoursWorked                Decimal      @db.Decimal(5,2)
+  officerName                String
+  officerEmail               String
+  officerPhone               String
+  officerRank                OfficerRank
+  cruiserNumber              String
+  billingDepartment          String
+  hoursToBeBilled            Decimal      @db.Decimal(5,2)
+  officerBadgeNumber         String?
+  identityVerificationType   String?
+  identityVerificationStatus String       @default("Pending")
+  officerIdDocumentUrl       String?
+  policeHoursPhotoUrl        String?
+  policeHoursPhotoLatitude   Decimal?     @db.Decimal(9,6)
+  policeHoursPhotoLongitude  Decimal?     @db.Decimal(9,6)
+  policeHoursPhotoTakenAt    DateTime?
+  locationVerified           Boolean      @default(false)
+  timestampVerified          Boolean      @default(false)
+  officerSignatureUrl        String?
+  invoiceId                  String?
+  createdById                String
+  createdAt                  DateTime     @default(now())
+  updatedAt                  DateTime     @updatedAt
+  arborist                   User         @relation("ArboristUser", fields: [arboristId], references: [id])
+  vendorCompany              Organisation @relation(fields: [vendorCompanyId], references: [id])
+  createdBy                  User         @relation("CreatedByUser", fields: [createdById], references: [id])
+  invoice                    Invoice?     @relation(fields: [invoiceId], references: [id])
+
+  @@index([status])
+  @@index([vendorCompanyId])
+  @@index([arboristId])
+  @@index([invoiceId])
+}
+
+model Invoice {
+  id                  String        @id @default(uuid())
+  status              InvoiceStatus @default(NotReconciled)
+  contractCompanyId   String
+  ngInvoiceNumber     String        @unique
+  vendorInvoiceNumber String?
+  totalHours          String
+  invoiceAmount       Decimal       @db.Decimal(10,2)
+  invoiceDate         DateTime      @db.Date
+  createdById         String
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  paidAt              DateTime?
+  paidById            String?
+  contractCompany     Organisation  @relation(fields: [contractCompanyId], references: [id])
+  createdBy           User          @relation("InvoiceCreatedBy", fields: [createdById], references: [id])
+  paidBy              User?         @relation("InvoicePaidBy", fields: [paidById], references: [id])
+  slips               PoliceSlip[]
+
+  @@index([status])
+  @@index([contractCompanyId])
+}
+
+model AuditLog {
+  id         String      @id @default(uuid())
+  entityType String
+  entityId   String
+  actorId    String
+  action     String
+  fromState  String?
+  toState    String?
+  metadata   Json?
+  timestamp  DateTime    @default(now())
+  @@index([entityId])
+  @@index([entityType, entityId])
+  @@index([actorId])
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  token     String    @unique
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+}
