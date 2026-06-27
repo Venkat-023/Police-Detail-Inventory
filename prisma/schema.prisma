@@ -21,6 +21,7 @@ enum SlipStatus {
   Draft
   Billable
   Confirmed
+  ReturnedForRevision
   NonBillable
 }
 
@@ -122,6 +123,14 @@ model PoliceSlip {
   policeHoursPhotoLatitude   Decimal?     @db.Decimal(9,6)
   policeHoursPhotoLongitude  Decimal?     @db.Decimal(9,6)
   policeHoursPhotoTakenAt    DateTime?
+  entryPhotoUrl              String?
+  entryPhotoLatitude         Decimal?     @db.Decimal(9,6)
+  entryPhotoLongitude        Decimal?     @db.Decimal(9,6)
+  entryPhotoTakenAt          DateTime?
+  exitPhotoUrl               String?
+  exitPhotoLatitude          Decimal?     @db.Decimal(9,6)
+  exitPhotoLongitude         Decimal?     @db.Decimal(9,6)
+  exitPhotoTakenAt           DateTime?
   locationVerified           Boolean      @default(false)
   timestampVerified          Boolean      @default(false)
   officerSignatureUrl        String?

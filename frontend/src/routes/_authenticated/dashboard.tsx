@@ -55,10 +55,10 @@ function VendorGFDashboard({ user }: { user: User }) {
   return (
     <>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KPICard label="My Drafts" value={stats.mySlipsDraft} accentColor="#9E9E9E" to="/slips" search={{ status: "Draft" }} icon={<Clock size={20} />} />
-        <KPICard label="My Billable" value={stats.mySlipsBillable} accentColor="#1976D2" to="/slips" search={{ status: "Billable" }} icon={<ArrowUp size={20} />} />
-        <KPICard label="My Confirmed" value={stats.mySlipsConfirmed} accentColor="#1B5E20" to="/slips" search={{ status: "Confirmed" }} icon={<CheckCircle size={20} />} />
-        <KPICard label="My Non-Billable" value={stats.mySlipsNonBillable} accentColor="#B71C1C" to="/slips" search={{ status: "NonBillable" }} icon={<XCircle size={20} />} />
+        <KPICard label="My Drafts" value={stats.mySlipsDraft} accentColor="#9E9E9E" to="/slips/" search={{ status: "Draft" }} icon={<Clock size={20} />} />
+        <KPICard label="My Billable" value={stats.mySlipsBillable} accentColor="#1976D2" to="/slips/" search={{ status: "Billable" }} icon={<ArrowUp size={20} />} />
+        <KPICard label="My Confirmed" value={stats.mySlipsConfirmed} accentColor="#1B5E20" to="/slips/" search={{ status: "Confirmed" }} icon={<CheckCircle size={20} />} />
+        <KPICard label="My Non-Billable" value={stats.mySlipsNonBillable} accentColor="#B71C1C" to="/slips/" search={{ status: "NonBillable" }} icon={<XCircle size={20} />} />
       </div>
       <div className="mt-6 flex justify-end">
         <Link to="/slips/new" className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
@@ -76,10 +76,10 @@ function VendorBillingDashboard({ user }: { user: User }) {
   return (
     <>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KPICard label="Confirmed Available" value={stats.invoiceConfirmedAvailable} accentColor="#1B5E20" to="/slips" search={{ status: "Confirmed" }} />
-        <KPICard label="Not Reconciled" value={stats.invoiceNotReconciled} accentColor="#E65100" to="/invoices" search={{ status: "NotReconciled" }} />
-        <KPICard label="Partially Reconciled" value={stats.invoicePartiallyReconciled} accentColor="#F57F17" to="/invoices" search={{ status: "PartiallyReconciled" }} />
-        <KPICard label="Reconciled Awaiting Payment" value={stats.invoiceReconciled} accentColor="#1B5E20" to="/invoices" search={{ status: "Reconciled" }} />
+        <KPICard label="Confirmed Available" value={stats.invoiceConfirmedAvailable} accentColor="#1B5E20" to="/slips/" search={{ status: "Confirmed" }} />
+        <KPICard label="Not Reconciled" value={stats.invoiceNotReconciled} accentColor="#E65100" to="/invoices/" search={{ status: "NotReconciled" }} />
+        <KPICard label="Partially Reconciled" value={stats.invoicePartiallyReconciled} accentColor="#F57F17" to="/invoices/" search={{ status: "PartiallyReconciled" }} />
+        <KPICard label="Reconciled Awaiting Payment" value={stats.invoiceReconciled} accentColor="#1B5E20" to="/invoices/" search={{ status: "Reconciled" }} />
       </div>
       <div className="mt-6 flex justify-end">
         <Link to="/invoices/new" className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
@@ -97,10 +97,10 @@ function VendorSADashboard({ user }: { user: User }) {
     <>
       <h3 className="mb-2 text-sm font-semibold uppercase text-muted-foreground">Slips</h3>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KPICard label="Draft" value={stats.orgSlipsDraft} accentColor="#9E9E9E" to="/slips" search={{ status: "Draft" }} />
-        <KPICard label="Billable" value={stats.orgSlipsBillable} accentColor="#1976D2" to="/slips" search={{ status: "Billable" }} />
-        <KPICard label="Confirmed" value={stats.orgSlipsConfirmed} accentColor="#1B5E20" to="/slips" search={{ status: "Confirmed" }} />
-        <KPICard label="Non-Billable" value={stats.orgSlipsNonBillable} accentColor="#B71C1C" to="/slips" search={{ status: "NonBillable" }} />
+        <KPICard label="Draft" value={stats.orgSlipsDraft} accentColor="#9E9E9E" to="/slips/" search={{ status: "Draft" }} />
+        <KPICard label="Billable" value={stats.orgSlipsBillable} accentColor="#1976D2" to="/slips/" search={{ status: "Billable" }} />
+        <KPICard label="Confirmed" value={stats.orgSlipsConfirmed} accentColor="#1B5E20" to="/slips/" search={{ status: "Confirmed" }} />
+        <KPICard label="Non-Billable" value={stats.orgSlipsNonBillable} accentColor="#B71C1C" to="/slips/" search={{ status: "NonBillable" }} />
       </div>
       <h3 className="mb-2 mt-6 text-sm font-semibold uppercase text-muted-foreground">Invoices</h3>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -132,12 +132,12 @@ function NGArboristDashboard({ user }: { user: User }) {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <KPICard label="Pending Review" value={stats.pendingReview} accentColor="#1976D2" to="/slips" search={{ status: "Billable" }} icon={<ArrowUp size={20} />} />
-        <KPICard label="Confirmed Today" value={stats.confirmedToday} accentColor="#1B5E20" to="/slips" search={{ status: "Confirmed" }} icon={<CheckCircle size={20} />} />
-        <KPICard label="Non-Billable This Month" value={stats.nonBillableThisMonth} accentColor="#B71C1C" to="/slips" search={{ status: "NonBillable" }} icon={<XCircle size={20} />} />
+        <KPICard label="Pending Review" value={stats.pendingReview} accentColor="#1976D2" to="/slips/" search={{ status: "Billable" }} icon={<ArrowUp size={20} />} />
+        <KPICard label="Confirmed Today" value={stats.confirmedToday} accentColor="#1B5E20" to="/slips/" search={{ status: "Confirmed" }} icon={<CheckCircle size={20} />} />
+        <KPICard label="Non-Billable This Month" value={stats.nonBillableThisMonth} accentColor="#B71C1C" to="/slips/" search={{ status: "NonBillable" }} icon={<XCircle size={20} />} />
       </div>
       <div className="mt-6 flex justify-end">
-        <Link to="/slips" search={{ status: "Billable" } as any} className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
+        <Link to="/slips/" search={{ status: "Billable" } as any} className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
           Review Billable Slips
         </Link>
       </div>
@@ -152,12 +152,12 @@ function NGDADashboard({ user }: { user: User }) {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <KPICard label="Reconciled Awaiting Payment" value={stats.reconciledAwaitingPayment} accentColor="#1B5E20" to="/invoices" search={{ status: "Reconciled" }} />
+        <KPICard label="Reconciled Awaiting Payment" value={stats.reconciledAwaitingPayment} accentColor="#1B5E20" to="/invoices/" search={{ status: "Reconciled" }} />
         <KPICard label="Total Paid This Month" value={`$${stats.totalPaidThisMonth.toLocaleString()}`} accentColor="#1A237E" icon={<DollarSign size={20} />} />
         <KPICard label="Total Pending" value={`$${stats.totalPending.toLocaleString()}`} accentColor="#F57F17" icon={<DollarSign size={20} />} />
       </div>
       <div className="mt-6 flex justify-end">
-        <Link to="/invoices" search={{ status: "Reconciled" } as any} className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
+        <Link to="/invoices/" search={{ status: "Reconciled" } as any} className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
           Review Reconciled Invoices
         </Link>
       </div>
@@ -172,8 +172,8 @@ function NGSADashboard({ user }: { user: User }) {
     <>
       <h3 className="mb-2 text-sm font-semibold uppercase text-muted-foreground">Global KPIs</h3>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KPICard label="Total Slips" value={stats.totalSlips} accentColor="#0D47A1" to="/slips" icon={<ScrollText size={20} />} />
-        <KPICard label="Total Invoices" value={stats.totalInvoices} accentColor="#0D47A1" to="/invoices" />
+        <KPICard label="Total Slips" value={stats.totalSlips} accentColor="#0D47A1" to="/slips/" icon={<ScrollText size={20} />} />
+        <KPICard label="Total Invoices" value={stats.totalInvoices} accentColor="#0D47A1" to="/invoices/" />
         <KPICard label="Active Vendors" value={stats.activeVendors} accentColor="#1B5E20" icon={<Building2 size={20} />} />
         <KPICard label="Active Users" value={stats.activeUsers} accentColor="#1976D2" to="/admin/users" icon={<Users size={20} />} />
       </div>

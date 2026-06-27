@@ -40,7 +40,7 @@ export interface User {
   createdAt: string;
 }
 
-export type SlipStatus = "Draft" | "Billable" | "Confirmed" | "NonBillable";
+export type SlipStatus = "Draft" | "Billable" | "Confirmed" | "ReturnedForRevision" | "NonBillable";
 
 export interface AuditEntry {
   id: string;
@@ -68,6 +68,9 @@ export interface PoliceSlip {
   workType: "HTMP" | "Trimming";
   budgetCode: string;
   circuitId: string;
+  worksiteAddress?: string;
+  worksiteLatitude?: number;
+  worksiteLongitude?: number;
   // Vendor
   organisationId: string;
   vendorCompany: string;
@@ -87,6 +90,20 @@ export interface PoliceSlip {
   officerRank: "Officer" | "Sergeant" | "Lieutenant" | "Captain" | "Detective";
   cruiserNumber: string;
   billingDepartment: string;
+  officerBadgeNumber?: string;
+  identityVerificationType?: "PoliceBadge" | "GovernmentId";
+  identityVerificationStatus?: "Pending" | "Verified" | "Failed";
+  officerIdDocumentUrl?: string;
+  entryPhotoUrl?: string;
+  entryPhotoLatitude?: number;
+  entryPhotoLongitude?: number;
+  entryPhotoTakenAt?: string;
+  exitPhotoUrl?: string;
+  exitPhotoLatitude?: number;
+  exitPhotoLongitude?: number;
+  exitPhotoTakenAt?: string;
+  locationVerified?: boolean;
+  timestampVerified?: boolean;
   officerSignatureUrl?: string;
   // Meta
   status: SlipStatus;

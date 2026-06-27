@@ -136,7 +136,7 @@ function InvoiceListPage() {
                         <Link to="/invoices/$id" params={{ id: inv.id }} className="rounded p-1.5 text-foreground hover:bg-muted" aria-label="View">
                           <Eye size={16} />
                         </Link>
-                        {inv.status === "Reconciled" && user.roleName === "NG Detail Admin" && (
+                        {["Reconciled", "PartiallyReconciled"].includes(inv.status) && user.roleName === "NG Detail Admin" && (
                           <button onClick={() => setPayConfirm({ id: inv.id, num: inv.ngInvoiceNumber })}
                             className="inline-flex items-center gap-1 rounded-md bg-warning px-2.5 py-1 text-xs font-semibold text-warning-foreground hover:opacity-90">
                             <DollarSign size={14} /> Mark as Paid

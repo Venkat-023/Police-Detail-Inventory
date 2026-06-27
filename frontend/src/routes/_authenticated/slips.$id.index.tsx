@@ -9,7 +9,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Modal } from "@/components/ui/Overlays";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import { Pencil, CheckCircle2, XCircle, ArrowUp } from "lucide-react";
+import { Pencil, CheckCircle2, XCircle, ArrowUp, RotateCcw } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/slips/$id/")({
   ssr: false,
@@ -20,7 +20,8 @@ const CHECKLIST = [
   "Location and district verified",
   "Work type matches approved scope",
   "Hours are reasonable for work performed",
-  "Officer signature is present",
+  "Police badge is verified",
+  "Entry and exit geo-tag photos match the worksite",
   "Officer details are complete and accurate",
 ];
 
@@ -29,9 +30,11 @@ function SlipDetailPage() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [checks, setChecks] = useState<boolean[]>(Array(5).fill(false));
+  const [checks, setChecks] = useState<boolean[]>(Array(CHECKLIST.length).fill(false));
   const [nbOpen, setNbOpen] = useState(false);
   const [nbReason, setNbReason] = useState("");
+  const [returnOpen, setReturnOpen] = useState(false);
+  const [returnReason, setReturnReason] = useState("");
 
   const { data: slip, isLoading } = useQuery({
     queryKey: ["slip", id],
@@ -59,6 +62,11 @@ function SlipDetailPage() {
     onSuccess: () => { toast.success("Marked Non-Billable"); qc.invalidateQueries({ queryKey: ["slip", id] }); setNbOpen(false); setNbReason(""); },
     onError: (e: any) => toast.error(e?.message ?? "Failed"),
   });
+  const returnM = useMutation({
+    mutationFn: () => mockApi.transitionSlip(user!, id, "ReturnedForRevision", returnReason),
+    onSuccess: () => { toast.success("Returned for revision"); qc.invalidateQueries({ queryKey: ["slip", id] }); qc.invalidateQueries({ queryKey: ["audit", id] }); setReturnOpen(false); setReturnReason(""); },
+    onError: (e: any) => toast.error(e?.message ?? "Failed"),
+  });
 
   if (!user) return null;
   if (isLoading || !slip) return <AppLayout title="Slip"><SkeletonRows /></AppLayout>;
@@ -81,7 +89,7 @@ function SlipDetailPage() {
           <StatusBadge status={slip.status} size="lg" />
           <span className="font-mono text-sm text-muted-foreground">{slip.slipNumber}</span>
         </div>
-        <Link to="/slips" className="text-sm text-primary hover:underline">← Back to slips</Link>
+        <Link to="/slips/" className="text-sm text-primary hover:underline">Back to slips</Link>
       </div>
 
       {slip.status === "Billable" && isOwner && user.roleName === "Vendor GF" && (
@@ -100,6 +108,8 @@ function SlipDetailPage() {
             <Field label="Work Type" value={slip.workType} />
             <Field label="Budget Code" value={slip.budgetCode} />
             <Field label="Circuit ID" value={slip.circuitId} />
+            <Field label="Worksite" value={slip.worksiteAddress} />
+            <Field label="Worksite GPS" value={slip.worksiteLatitude && slip.worksiteLongitude ? `${slip.worksiteLatitude}, ${slip.worksiteLongitude}` : ""} />
           </div>
         </section>
         <section className="pdm-card p-5">
@@ -131,20 +141,28 @@ function SlipDetailPage() {
             <Field label="Phone" value={slip.officerPhone} />
             <Field label="Cruiser #" value={slip.cruiserNumber} />
             <Field label="Billing Dept" value={slip.billingDepartment} />
+            <Field label="Badge #" value={slip.officerBadgeNumber} />
+            <Field label="Badge Status" value={slip.identityVerificationStatus} />
           </div>
         </section>
         <section className="pdm-card p-5 lg:col-span-2">
-          <h3 className="mb-4 text-base font-semibold">Officer Signature</h3>
-          {slip.officerSignatureUrl ? (
-            <img src={slip.officerSignatureUrl} alt="Officer signature" className="h-32 rounded border border-border bg-surface object-contain" />
-          ) : (
-            <p className="text-sm text-muted-foreground">No signature captured.</p>
-          )}
+          <h3 className="mb-4 text-base font-semibold">Police Presence Verification</h3>
+          <div className="mb-4 grid grid-cols-2 gap-3 text-sm md:grid-cols-4">
+            <Field label="Location Verified" value={slip.locationVerified ? "Yes" : "No"} />
+            <Field label="Timestamp Verified" value={slip.timestampVerified ? "Yes" : "No"} />
+            <Field label="Entry GPS" value={slip.entryPhotoLatitude && slip.entryPhotoLongitude ? `${slip.entryPhotoLatitude}, ${slip.entryPhotoLongitude}` : ""} />
+            <Field label="Exit GPS" value={slip.exitPhotoLatitude && slip.exitPhotoLongitude ? `${slip.exitPhotoLatitude}, ${slip.exitPhotoLongitude}` : ""} />
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <EvidenceImage title="Badge Photo" src={slip.officerIdDocumentUrl} />
+            <EvidenceImage title="Entry Photo" src={slip.entryPhotoUrl} meta={slip.entryPhotoTakenAt ? format(new Date(slip.entryPhotoTakenAt), "PPp") : ""} />
+            <EvidenceImage title="Exit Photo" src={slip.exitPhotoUrl} meta={slip.exitPhotoTakenAt ? format(new Date(slip.exitPhotoTakenAt), "PPp") : ""} />
+          </div>
         </section>
       </div>
 
       {/* Vendor GF action panel for own drafts */}
-      {isOwner && user.roleName === "Vendor GF" && slip.status === "Draft" && (
+      {isOwner && user.roleName === "Vendor GF" && ["Draft", "ReturnedForRevision"].includes(slip.status) && (
         <section className="pdm-card mt-4 p-5">
           <h3 className="mb-3 text-base font-semibold">Actions</h3>
           <div className="flex flex-wrap gap-2">
@@ -185,6 +203,10 @@ function SlipDetailPage() {
             <button onClick={() => setNbOpen(true)}
               className="inline-flex items-center gap-2 rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:opacity-90">
               <XCircle size={16} /> Mark as Non-Billable
+            </button>
+            <button onClick={() => setReturnOpen(true)}
+              className="inline-flex items-center gap-2 rounded-md bg-warning px-4 py-2 text-sm font-medium text-warning-foreground hover:opacity-90">
+              <RotateCcw size={16} /> Return for Revision
             </button>
           </div>
         </section>
@@ -227,6 +249,41 @@ function SlipDetailPage() {
         <textarea rows={4} value={nbReason} onChange={(e) => setNbReason(e.target.value)}
           className="w-full rounded-md border border-input bg-surface px-3 py-2 text-sm" />
       </Modal>
+
+      <Modal
+        open={returnOpen}
+        onClose={() => setReturnOpen(false)}
+        title="Return slip for revision"
+        footer={
+          <>
+            <button onClick={() => setReturnOpen(false)} className="rounded-md px-4 py-2 text-sm">Cancel</button>
+            <button disabled={!returnReason.trim() || returnM.isPending} onClick={() => returnM.mutate()}
+              className="rounded-md bg-warning px-4 py-2 text-sm font-medium text-warning-foreground disabled:opacity-50">
+              Return
+            </button>
+          </>
+        }
+      >
+        <label className="mb-1 block text-sm font-medium">Comments (required)</label>
+        <textarea rows={4} value={returnReason} onChange={(e) => setReturnReason(e.target.value)}
+          className="w-full rounded-md border border-input bg-surface px-3 py-2 text-sm" />
+      </Modal>
     </AppLayout>
+  );
+}
+
+function EvidenceImage({ title, src, meta }: { title: string; src?: string; meta?: string }) {
+  return (
+    <div className="rounded-md border border-border bg-surface p-3">
+      <div className="mb-2 text-sm font-medium">{title}</div>
+      {src ? (
+        <img src={src} alt={title} className="h-36 w-full rounded border border-border bg-muted object-contain" />
+      ) : (
+        <div className="flex h-36 items-center justify-center rounded border border-dashed border-border text-xs text-muted-foreground">
+          No image captured
+        </div>
+      )}
+      {meta && <div className="mt-2 text-xs text-muted-foreground">{meta}</div>}
+    </div>
   );
 }

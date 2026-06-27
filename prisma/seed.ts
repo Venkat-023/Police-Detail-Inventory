@@ -7,10 +7,10 @@ const passwordHash = await bcrypt.hash("Test1234!", 12);
 
 const roles = [
   ["Vendor GF", "Vendor", ["slips:read", "slips:create", "slips:update"]],
-  ["Vendor Billing", "Vendor", ["invoices:read", "invoices:create", "invoices:update", "slips:read"]],
+  ["Vendor Billing", "Vendor", ["invoices:read", "invoices:create", "invoices:update", "invoices:reconcile", "slips:read"]],
   ["Vendor Super Admin", "Vendor", ["slips:*", "invoices:*", "users:*"]],
   ["NG Arborist", "Utility", ["slips:read", "slips:update"]],
-  ["NG Detail Admin", "Utility", ["invoices:read", "invoices:reconcile", "slips:read"]],
+  ["NG Detail Admin", "Utility", ["invoices:read", "invoices:pay", "slips:read"]],
   ["NG Super Admin", "Utility", ["*"]]
 ] as const;
 

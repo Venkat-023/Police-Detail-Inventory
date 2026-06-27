@@ -8,7 +8,7 @@ import { useState } from "react";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SkeletonRows } from "@/components/ui/SkeletonRows";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Eye, Pencil, ArrowUp, CheckCircle2, XCircle, Plus, Filter } from "lucide-react";
+import { Eye, Pencil, ArrowUp, CheckCircle2, XCircle, Plus, Filter, RotateCcw } from "lucide-react";
 import toast from "react-hot-toast";
 import type { SlipStatus } from "@/types";
 import { z } from "zod";
@@ -44,6 +44,7 @@ function SlipListPage() {
     ? [
         { key: "Billable", label: "Billable" },
         { key: "Confirmed", label: "Confirmed" },
+        { key: "ReturnedForRevision", label: "Returned" },
         { key: "NonBillable", label: "Non-Billable" },
       ]
     : [
@@ -51,6 +52,7 @@ function SlipListPage() {
         { key: "Draft", label: "Draft" },
         { key: "Billable", label: "Billable" },
         { key: "Confirmed", label: "Confirmed" },
+        { key: "ReturnedForRevision", label: "Returned" },
         { key: "NonBillable", label: "Non-Billable" },
       ];
 
@@ -81,9 +83,16 @@ function SlipListPage() {
   });
   const [nbId, setNbId] = useState<string | null>(null);
   const [nbReason, setNbReason] = useState("");
+  const [returnId, setReturnId] = useState<string | null>(null);
+  const [returnReason, setReturnReason] = useState("");
   const nbMutation = useMutation({
     mutationFn: () => mockApi.transitionSlip(user, nbId!, "NonBillable", nbReason),
     onSuccess: () => { toast.success("Non-Billable"); qc.invalidateQueries({ queryKey: ["slips"] }); setNbId(null); setNbReason(""); },
+    onError: (e: any) => toast.error(e?.message ?? "Failed"),
+  });
+  const returnMutation = useMutation({
+    mutationFn: () => mockApi.transitionSlip(user, returnId!, "ReturnedForRevision", returnReason),
+    onSuccess: () => { toast.success("Returned for revision"); qc.invalidateQueries({ queryKey: ["slips"] }); setReturnId(null); setReturnReason(""); },
     onError: (e: any) => toast.error(e?.message ?? "Failed"),
   });
 
@@ -180,7 +189,7 @@ function SlipListPage() {
                     <td className="px-3 py-2">{s.arboristName}</td>
                     <td className="px-3 py-2">
                       <div className="flex items-center gap-1">
-                        {user.roleName === "Vendor GF" && s.status === "Draft" && isMine ? (
+                        {user.roleName === "Vendor GF" && ["Draft", "ReturnedForRevision"].includes(s.status) && isMine ? (
                           <>
                             <Link to="/slips/$id/edit" params={{ id: s.id }} className="rounded p-1.5 text-primary hover:bg-accent" aria-label="Edit"><Pencil size={16} /></Link>
                             <button onClick={() => submitMutation.mutate(s.id)} className="rounded p-1.5 text-primary hover:bg-accent" aria-label="Submit"><ArrowUp size={16} /></button>
@@ -189,6 +198,7 @@ function SlipListPage() {
                           <>
                             <Link to="/slips/$id" params={{ id: s.id }} className="rounded p-1.5 text-foreground hover:bg-muted" aria-label="View"><Eye size={16} /></Link>
                             <button onClick={() => confirmMutation.mutate(s.id)} className="rounded p-1.5 text-success hover:bg-success/10" aria-label="Confirm"><CheckCircle2 size={16} /></button>
+                            <button onClick={() => setReturnId(s.id)} className="rounded p-1.5 text-warning hover:bg-warning/10" aria-label="Return for Revision"><RotateCcw size={16} /></button>
                             <button onClick={() => setNbId(s.id)} className="rounded p-1.5 text-destructive hover:bg-destructive/10" aria-label="Non-Billable"><XCircle size={16} /></button>
                           </>
                         ) : (
@@ -234,6 +244,24 @@ function SlipListPage() {
               <button disabled={!nbReason.trim() || nbMutation.isPending} onClick={() => nbMutation.mutate()}
                 className="rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground disabled:opacity-50">
                 Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {returnId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-md rounded-xl bg-surface p-5 shadow-xl">
+            <h3 className="mb-3 text-base font-semibold">Return for Revision</h3>
+            <label className="mb-1 block text-sm font-medium">Comments</label>
+            <textarea value={returnReason} onChange={(e) => setReturnReason(e.target.value)} rows={4}
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+            <div className="mt-4 flex justify-end gap-2">
+              <button onClick={() => setReturnId(null)} className="rounded-md px-3 py-2 text-sm">Cancel</button>
+              <button disabled={!returnReason.trim() || returnMutation.isPending} onClick={() => returnMutation.mutate()}
+                className="rounded-md bg-warning px-3 py-2 text-sm font-medium text-warning-foreground disabled:opacity-50">
+                Return
               </button>
             </div>
           </div>

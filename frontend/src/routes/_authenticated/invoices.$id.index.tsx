@@ -3,6 +3,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { mockApi } from "@/services/mockApi";
+import { usePermissions } from "@/hooks/usePermissions";
 import { SkeletonRows } from "@/components/ui/SkeletonRows";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Modal } from "@/components/ui/Overlays";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/_authenticated/invoices/$id/")({
 
 function InvoiceDetailPage() {
   const { user } = useAuth();
+  const { can } = usePermissions();
   const { id } = Route.useParams();
   const qc = useQueryClient();
   const [attached, setAttached] = useState<PoliceSlip[]>([]);
@@ -70,9 +72,11 @@ function InvoiceDetailPage() {
 
   const inv = data.invoice;
   const isPaid = inv.status === "Paid";
+  const canReconcile = can("invoices:reconcile");
+  const canPay = can("invoices:pay");
 
   const onDragEnd = (e: DragEndEvent) => {
-    if (isPaid) return;
+    if (isPaid || !canReconcile) return;
     const slipId = String(e.active.id);
     const over = e.over?.id;
     if (over === "attached-zone") {
@@ -141,7 +145,7 @@ function InvoiceDetailPage() {
       {/* Drag interface */}
       <DndContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <DropZone id="available-zone" disabled={isPaid}>
+          <DropZone id="available-zone" disabled={isPaid || !canReconcile}>
             <div className="mb-3 flex items-center justify-between">
               <h3 className="font-semibold">Available Confirmed Slips <span className="ml-1 rounded-full bg-muted px-2 py-0.5 text-xs">{filteredAvailable.length}</span></h3>
             </div>
@@ -150,8 +154,8 @@ function InvoiceDetailPage() {
             <ul role="list" aria-label="Available slips" className="space-y-2">
               {filteredAvailable.length === 0 && <li className="rounded border border-dashed border-border p-4 text-center text-sm text-muted-foreground">No available slips</li>}
               {filteredAvailable.map((s) => (
-                <DraggableCard key={s.id} slip={s} disabled={isPaid}>
-                  <button onClick={() => moveToAttached(s)} disabled={isPaid}
+                <DraggableCard key={s.id} slip={s} disabled={isPaid || !canReconcile}>
+                  <button onClick={() => moveToAttached(s)} disabled={isPaid || !canReconcile}
                     className="inline-flex items-center gap-1 rounded-md border border-primary px-2 py-1 text-xs text-primary hover:bg-accent disabled:opacity-50">
                     <Plus size={12} /> Add
                   </button>
@@ -160,7 +164,7 @@ function InvoiceDetailPage() {
             </ul>
           </DropZone>
 
-          <DropZone id="attached-zone" disabled={isPaid}>
+          <DropZone id="attached-zone" disabled={isPaid || !canReconcile}>
             <div className="mb-3 flex items-center justify-between">
               <h3 className="font-semibold">Attached to Invoice <span className="ml-1 rounded-full bg-muted px-2 py-0.5 text-xs">{attached.length}</span></h3>
               <span className="text-xs text-muted-foreground">{formatMinutesToHHMM(reconciledMins)}</span>
@@ -168,8 +172,8 @@ function InvoiceDetailPage() {
             <ul role="list" aria-label="Attached slips" className="space-y-2">
               {attached.length === 0 && <li className="rounded border border-dashed border-border p-4 text-center text-sm text-muted-foreground">Drop slips here</li>}
               {attached.map((s) => (
-                <DraggableCard key={s.id} slip={s} disabled={isPaid}>
-                  <button onClick={() => moveToAvailable(s)} disabled={isPaid}
+                <DraggableCard key={s.id} slip={s} disabled={isPaid || !canReconcile}>
+                  <button onClick={() => moveToAvailable(s)} disabled={isPaid || !canReconcile}
                     aria-label="Remove" className="rounded p-1 text-destructive hover:bg-destructive/10 disabled:opacity-50">
                     <X size={14} />
                   </button>
@@ -181,13 +185,13 @@ function InvoiceDetailPage() {
       </DndContext>
 
       <div className="mt-6 flex flex-wrap justify-end gap-2">
-        {!isPaid && (
+        {!isPaid && canReconcile && (
           <button disabled={saveM.isPending} onClick={() => saveM.mutate()}
             className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover disabled:opacity-50">
             {saveM.isPending ? "Saving…" : "Save Reconciliation"}
           </button>
         )}
-        {inv.status === "Reconciled" && user.roleName === "NG Detail Admin" && (
+        {["Reconciled", "PartiallyReconciled"].includes(inv.status) && canPay && user.roleName === "NG Detail Admin" && (
           <button onClick={() => setPayOpen(true)}
             className="inline-flex items-center gap-2 rounded-md bg-warning px-4 py-2 text-sm font-semibold text-warning-foreground hover:opacity-90">
             <DollarSign size={14} /> Mark as Paid

@@ -96,6 +96,14 @@ const createSlipSchema = z.object({
   policeHoursPhotoLatitude: z.number().min(18).max(72).optional(),
   policeHoursPhotoLongitude: z.number().min(-180).max(-60).optional(),
   policeHoursPhotoTakenAt: z.string().datetime().optional(),
+  entryPhotoUrl: z.string().optional(),
+  entryPhotoLatitude: z.number().min(18).max(72).optional(),
+  entryPhotoLongitude: z.number().min(-180).max(-60).optional(),
+  entryPhotoTakenAt: z.string().datetime().optional(),
+  exitPhotoUrl: z.string().optional(),
+  exitPhotoLatitude: z.number().min(18).max(72).optional(),
+  exitPhotoLongitude: z.number().min(-180).max(-60).optional(),
+  exitPhotoTakenAt: z.string().datetime().optional(),
   locationVerified: z.boolean().default(false),
   timestampVerified: z.boolean().default(false),
   officerSignatureUrl: z.string().optional(),
@@ -104,6 +112,10 @@ const createSlipSchema = z.object({
 });
 
 const updateSlipSchema = createSlipSchema.omit({ submitAsBillable: true, bypassDuplicateCheck: true }).partial();
+const createDraftSlipSchema = createSlipSchema.partial().extend({
+  submitAsBillable: z.literal(false).default(false),
+  bypassDuplicateCheck: z.boolean().default(false)
+});
 const createInvoiceSchema = z.object({
   contractCompanyId: z.string().uuid(),
   ngInvoiceNumber: z.string().min(1).max(50),
@@ -230,13 +242,105 @@ function ensureNoDetailAdminSlipWrite(req: Request) {
 
 function billableGuard(data: Record<string, unknown>) {
   const missing: string[] = [];
-  if (!data.officerSignatureUrl) missing.push("officerSignatureUrl");
-  if (!data.policeHoursPhotoUrl) missing.push("policeHoursPhotoUrl");
+  if (!data.officerBadgeNumber) missing.push("officerBadgeNumber");
+  if (!data.officerIdDocumentUrl) missing.push("officerIdDocumentUrl");
+  if (!data.entryPhotoUrl) missing.push("entryPhotoUrl");
+  if (!data.exitPhotoUrl) missing.push("exitPhotoUrl");
+  if (data.entryPhotoLatitude == null) missing.push("entryPhotoLatitude");
+  if (data.entryPhotoLongitude == null) missing.push("entryPhotoLongitude");
+  if (!data.entryPhotoTakenAt) missing.push("entryPhotoTakenAt");
+  if (data.exitPhotoLatitude == null) missing.push("exitPhotoLatitude");
+  if (data.exitPhotoLongitude == null) missing.push("exitPhotoLongitude");
+  if (!data.exitPhotoTakenAt) missing.push("exitPhotoTakenAt");
+  if (data.worksiteLatitude == null) missing.push("worksiteLatitude");
+  if (data.worksiteLongitude == null) missing.push("worksiteLongitude");
   if (data.locationVerified !== true) missing.push("locationVerified");
   if (data.timestampVerified !== true) missing.push("timestampVerified");
   if (data.identityVerificationStatus !== "Verified") missing.push("identityVerificationStatus");
   if (Number(data.hoursToBeBilled) <= 0) missing.push("hoursToBeBilled");
   if (missing.length) throw new ApiError(422, "VALIDATION_ERROR", "Billable guard failed.", missing.map((field) => ({ field, message: "Required for Billable status" })));
+}
+
+async function draftDefaults(user: AuthUser) {
+  const arborist = await prisma.user.findFirst({ where: { role: { name: "NG Arborist" }, isActive: true }, select: { id: true } });
+  if (!arborist) throw new ApiError(500, "CONFIGURATION_ERROR", "No active NG Arborist exists for draft defaults.");
+  return {
+    region: "Draft",
+    arboristDistrict: "Draft",
+    arboristId: arborist.id,
+    workType: "HTMP" as const,
+    budgetCode: "Draft",
+    circuitId: "Draft",
+    worksiteCountry: "US" as const,
+    worksiteAddress: "Draft worksite",
+    crewForeman: "Draft",
+    crewForemanPhone: "555-000-0000",
+    detailDate: new Date().toISOString().slice(0, 10),
+    detailType: "Hourly" as const,
+    timeFrom: "08:00",
+    timeTo: "08:15",
+    hoursWorked: 0.25,
+    officerName: `Draft Officer ${user.id.slice(0, 8)}`,
+    officerEmail: `draft-${randomUUID()}@example.com`,
+    officerPhone: "555-000-0000",
+    officerRank: "Officer" as const,
+    cruiserNumber: "Draft",
+    billingDepartment: "Draft",
+    hoursToBeBilled: 0
+  };
+}
+
+function cleanDraftInput(input: Record<string, unknown>) {
+  return Object.fromEntries(Object.entries(input).filter(([, value]) => value !== "" && value !== null && !(typeof value === "number" && Number.isNaN(value))));
+}
+
+function hasDraftContent(input: Record<string, unknown>) {
+  return Object.entries(cleanDraftInput(input)).some(([key, value]) => !["submitAsBillable", "bypassDuplicateCheck"].includes(key) && value !== false);
+}
+
+function distanceMeters(aLat: number, aLng: number, bLat: number, bLng: number) {
+  const toRad = (value: number) => value * Math.PI / 180;
+  const radius = 6371000;
+  const dLat = toRad(bLat - aLat);
+  const dLng = toRad(bLng - aLng);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLng / 2) ** 2;
+  return radius * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function assessSlipVerification(data: Record<string, unknown>) {
+  const flags: Array<{ code: string; severity: "low" | "medium" | "high"; message: string }> = [];
+  const workLat = Number(data.worksiteLatitude);
+  const workLng = Number(data.worksiteLongitude);
+  const entryLat = Number(data.entryPhotoLatitude);
+  const entryLng = Number(data.entryPhotoLongitude);
+  const exitLat = Number(data.exitPhotoLatitude);
+  const exitLng = Number(data.exitPhotoLongitude);
+  const hasLocation = [workLat, workLng, entryLat, entryLng, exitLat, exitLng].every(Number.isFinite);
+  const entryAt = data.entryPhotoTakenAt ? new Date(String(data.entryPhotoTakenAt)) : null;
+  const exitAt = data.exitPhotoTakenAt ? new Date(String(data.exitPhotoTakenAt)) : null;
+  const detailDate = data.detailDate ? new Date(String(data.detailDate)).toISOString().slice(0, 10) : "";
+
+  let locationVerified = false;
+  let timestampVerified = false;
+  if (hasLocation) {
+    const entryDistance = distanceMeters(workLat, workLng, entryLat, entryLng);
+    const exitDistance = distanceMeters(workLat, workLng, exitLat, exitLng);
+    locationVerified = entryDistance <= 500 && exitDistance <= 500;
+    if (!locationVerified) {
+      flags.push({ code: "GEO_DISTANCE", severity: "high", message: `Entry/exit photos must be within 500m of the worksite. Entry ${Math.round(entryDistance)}m, exit ${Math.round(exitDistance)}m.` });
+    }
+  }
+  if (entryAt && exitAt && !Number.isNaN(entryAt.getTime()) && !Number.isNaN(exitAt.getTime())) {
+    timestampVerified = entryAt <= exitAt && entryAt.toISOString().slice(0, 10) === detailDate && exitAt.toISOString().slice(0, 10) === detailDate;
+    if (!timestampVerified) flags.push({ code: "PHOTO_TIME", severity: "high", message: "Entry and exit photo timestamps must be in order and match the detail date." });
+  }
+  if (Number(data.hoursToBeBilled) > Number(data.hoursWorked)) {
+    flags.push({ code: "BILLED_GT_WORKED", severity: "medium", message: "Hours to be billed exceed hours worked." });
+  }
+  if (Number(data.hoursWorked) >= 16) {
+    flags.push({ code: "LONG_SHIFT", severity: "medium", message: "Shift is unusually long." });
+  }
+  return { locationVerified, timestampVerified, flags };
 }
 
 async function signKey(key?: string | null) {
@@ -283,12 +387,18 @@ function shapeSlip(slip: any) {
     createdAt: slip.createdAt?.toISOString?.() || slip.createdAt,
     updatedAt: slip.updatedAt?.toISOString?.() || slip.updatedAt,
     policeHoursPhotoTakenAt: slip.policeHoursPhotoTakenAt?.toISOString?.() || slip.policeHoursPhotoTakenAt,
+    entryPhotoTakenAt: slip.entryPhotoTakenAt?.toISOString?.() || slip.entryPhotoTakenAt,
+    exitPhotoTakenAt: slip.exitPhotoTakenAt?.toISOString?.() || slip.exitPhotoTakenAt,
     hoursWorked: Number(slip.hoursWorked),
     hoursToBeBilled: Number(slip.hoursToBeBilled),
     worksiteLatitude: slip.worksiteLatitude == null ? undefined : Number(slip.worksiteLatitude),
     worksiteLongitude: slip.worksiteLongitude == null ? undefined : Number(slip.worksiteLongitude),
     policeHoursPhotoLatitude: slip.policeHoursPhotoLatitude == null ? undefined : Number(slip.policeHoursPhotoLatitude),
     policeHoursPhotoLongitude: slip.policeHoursPhotoLongitude == null ? undefined : Number(slip.policeHoursPhotoLongitude),
+    entryPhotoLatitude: slip.entryPhotoLatitude == null ? undefined : Number(slip.entryPhotoLatitude),
+    entryPhotoLongitude: slip.entryPhotoLongitude == null ? undefined : Number(slip.entryPhotoLongitude),
+    exitPhotoLatitude: slip.exitPhotoLatitude == null ? undefined : Number(slip.exitPhotoLatitude),
+    exitPhotoLongitude: slip.exitPhotoLongitude == null ? undefined : Number(slip.exitPhotoLongitude),
     organisationId: slip.vendorCompanyId,
     vendorCompany: slip.vendorCompany?.name || slip.vendorCompanyId,
     arboristName: slip.arborist?.name || slip.arboristId,
@@ -322,7 +432,7 @@ app.use((req, _res, next) => {
 });
 
 const globalLimiter = rateLimit({ windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS || 60000), max: Number(process.env.RATE_LIMIT_MAX_REQUESTS || 100), standardHeaders: true, legacyHeaders: false });
-const authLimiter = rateLimit({ windowMs: Number(process.env.AUTH_RATE_LIMIT_WINDOW_MS || 900000), max: Number(process.env.AUTH_RATE_LIMIT_MAX || 5), standardHeaders: true, legacyHeaders: false });
+const authLimiter = rateLimit({ windowMs: Number(process.env.AUTH_RATE_LIMIT_WINDOW_MS || 900000), max: Number(process.env.AUTH_RATE_LIMIT_MAX || (process.env.NODE_ENV === "development" ? 100 : 5)), standardHeaders: true, legacyHeaders: false });
 
 app.get("/health", (_req, res) => ok(res, { status: "ok", service: "pdm-backend" }));
 
@@ -406,7 +516,7 @@ api.get("/slips", checkPermission("slips:read"), asyncRoute(async (req, res) => 
   for (const key of ["status", "region", "arboristDistrict", "arboristId"] as const) if (req.query[key]) (where as any)[key] = req.query[key];
   if (req.query.vendorCompanyId && req.user?.orgType === "Utility") where.vendorCompanyId = String(req.query.vendorCompanyId);
   if (req.query.dateFrom || req.query.dateTo) where.detailDate = { gte: req.query.dateFrom ? new Date(String(req.query.dateFrom)) : undefined, lte: req.query.dateTo ? new Date(String(req.query.dateTo)) : undefined };
-  if (req.user?.roleName === "NG Arborist") where.status = { in: ["Billable", "Confirmed", "NonBillable"] };
+  if (req.user?.roleName === "NG Arborist") where.status = { in: ["Billable", "Confirmed", "ReturnedForRevision", "NonBillable"] };
   const scoped = vendorSlipWhere(req, where);
   const total = await prisma.policeSlip.count({ where: scoped });
   const data = await prisma.policeSlip.findMany({ where: scoped, include: slipInclude, skip: (page - 1) * perPage, take: perPage, orderBy: { createdAt: "desc" } });
@@ -417,22 +527,28 @@ api.post("/slips", checkPermission("slips:create"), asyncRoute(async (req, res) 
   ensureNoDetailAdminSlipWrite(req);
   const user = requireUser(req);
   if (user.orgType !== "Vendor") throw new ApiError(403, "FORBIDDEN", "Only vendor users can create slips.");
-  const body = createSlipSchema.parse(req.body);
+  const draftMode = req.body?.submitAsBillable !== true;
+  if (draftMode && !hasDraftContent(req.body || {})) throw new ApiError(422, "VALIDATION_ERROR", "At least one slip field is required to save a draft.");
+  const parsed = draftMode
+    ? createSlipSchema.parse({ ...(await draftDefaults(user)), ...createDraftSlipSchema.parse(cleanDraftInput(req.body || {})), submitAsBillable: false })
+    : createSlipSchema.parse(req.body);
+  const assessment = assessSlipVerification(parsed);
+  const body = { ...parsed, locationVerified: assessment.locationVerified, timestampVerified: assessment.timestampVerified };
   if (body.submitAsBillable) billableGuard(body);
-  if (!body.bypassDuplicateCheck) {
+  if (body.submitAsBillable && !body.bypassDuplicateCheck) {
     const duplicate = await prisma.policeSlip.findFirst({ where: { officerName: body.officerName, detailDate: new Date(body.detailDate), vendorCompanyId: user.orgId, timeFrom: body.timeFrom, timeTo: body.timeTo, status: { not: "NonBillable" } } });
     if (duplicate) throw new ApiError(409, "CONFLICT", "Duplicate slip found.", [{ existingSlipId: duplicate.id }]);
   }
   const { submitAsBillable, bypassDuplicateCheck, ...data } = body;
-  const slip = await prisma.policeSlip.create({ data: { ...data, status: submitAsBillable ? "Billable" : "Draft", vendorCompanyId: user.orgId, createdById: user.id, detailDate: new Date(data.detailDate), policeHoursPhotoTakenAt: data.policeHoursPhotoTakenAt ? new Date(data.policeHoursPhotoTakenAt) : undefined }, include: slipInclude });
-  await audit(user.id, "PoliceSlip", slip.id, "CREATE", req);
+  const slip = await prisma.policeSlip.create({ data: { ...data, status: submitAsBillable ? "Billable" : "Draft", vendorCompanyId: user.orgId, createdById: user.id, detailDate: new Date(data.detailDate), policeHoursPhotoTakenAt: data.policeHoursPhotoTakenAt ? new Date(data.policeHoursPhotoTakenAt) : undefined, entryPhotoTakenAt: data.entryPhotoTakenAt ? new Date(data.entryPhotoTakenAt) : undefined, exitPhotoTakenAt: data.exitPhotoTakenAt ? new Date(data.exitPhotoTakenAt) : undefined }, include: slipInclude });
+  await audit(user.id, "PoliceSlip", slip.id, "CREATE", req, null, slip.status, { verificationFlags: assessment.flags });
   return ok(res, shapeSlip(slip));
 }));
 
 api.get("/slips/:id", checkPermission("slips:read"), asyncRoute(async (req, res) => {
   const slip = await prisma.policeSlip.findFirst({ where: vendorSlipWhere(req, { id: req.params.id }), include: slipInclude });
   if (!slip) throw new ApiError(404, "NOT_FOUND", "Slip not found.");
-  return ok(res, shapeSlip({ ...slip, officerSignatureUrl: await signKey(slip.officerSignatureUrl), policeHoursPhotoUrl: await signKey(slip.policeHoursPhotoUrl), officerIdDocumentUrl: await signKey(slip.officerIdDocumentUrl) }));
+  return ok(res, shapeSlip({ ...slip, officerSignatureUrl: await signKey(slip.officerSignatureUrl), policeHoursPhotoUrl: await signKey(slip.policeHoursPhotoUrl), officerIdDocumentUrl: await signKey(slip.officerIdDocumentUrl), entryPhotoUrl: await signKey(slip.entryPhotoUrl), exitPhotoUrl: await signKey(slip.exitPhotoUrl) }));
 }));
 
 api.put("/slips/:id", checkPermission("slips:update"), asyncRoute(async (req, res) => {
@@ -440,28 +556,36 @@ api.put("/slips/:id", checkPermission("slips:update"), asyncRoute(async (req, re
   const user = requireUser(req);
   const existing = await prisma.policeSlip.findFirst({ where: vendorSlipWhere(req, { id: req.params.id }) });
   if (!existing) throw new ApiError(404, "NOT_FOUND", "Slip not found.");
-  if (existing.status !== "Draft") throw new ApiError(403, "FORBIDDEN", "Only Draft slips can be updated.");
+  if (!["Draft", "ReturnedForRevision"].includes(existing.status)) throw new ApiError(403, "FORBIDDEN", "Only Draft or Returned for Revision slips can be updated.");
   if (existing.createdById !== user.id && user.roleName !== "Vendor Super Admin") throw new ApiError(403, "FORBIDDEN", "Only the creator or Vendor Super Admin can update this slip.");
-  const body = updateSlipSchema.parse(req.body);
+  const parsed = updateSlipSchema.parse(req.body);
+  const assessment = assessSlipVerification({ ...existing, ...parsed });
+  const body = { ...parsed, ...(Object.keys(parsed).some((key) => ["worksiteLatitude", "worksiteLongitude", "entryPhotoLatitude", "entryPhotoLongitude", "entryPhotoTakenAt", "exitPhotoLatitude", "exitPhotoLongitude", "exitPhotoTakenAt"].includes(key)) ? { locationVerified: assessment.locationVerified, timestampVerified: assessment.timestampVerified } : {}) };
   const changedFields = Object.keys(body).filter((key) => String((existing as any)[key]) !== String((body as any)[key]));
-  const slip = await prisma.policeSlip.update({ where: { id: existing.id }, data: { ...body, detailDate: body.detailDate ? new Date(body.detailDate) : undefined, policeHoursPhotoTakenAt: body.policeHoursPhotoTakenAt ? new Date(body.policeHoursPhotoTakenAt) : undefined }, include: slipInclude });
-  await audit(user.id, "PoliceSlip", slip.id, "UPDATE", req, null, null, { changedFields });
+  const slip = await prisma.policeSlip.update({ where: { id: existing.id }, data: { ...body, detailDate: body.detailDate ? new Date(body.detailDate) : undefined, policeHoursPhotoTakenAt: body.policeHoursPhotoTakenAt ? new Date(body.policeHoursPhotoTakenAt) : undefined, entryPhotoTakenAt: body.entryPhotoTakenAt ? new Date(body.entryPhotoTakenAt) : undefined, exitPhotoTakenAt: body.exitPhotoTakenAt ? new Date(body.exitPhotoTakenAt) : undefined }, include: slipInclude });
+  await audit(user.id, "PoliceSlip", slip.id, "UPDATE", req, null, null, { changedFields, verificationFlags: assessment.flags });
   return ok(res, shapeSlip(slip));
 }));
 
 api.patch("/slips/:id/status", checkPermission("slips:update"), asyncRoute(async (req, res) => {
   ensureNoDetailAdminSlipWrite(req);
   const user = requireUser(req);
-  const { status, reason } = z.object({ status: z.enum(["Draft", "Billable", "Confirmed", "NonBillable"]), reason: z.string().optional() }).parse(req.body);
+  const { status, reason } = z.object({ status: z.enum(["Draft", "Billable", "Confirmed", "ReturnedForRevision", "NonBillable"]), reason: z.string().optional() }).parse(req.body);
   const slip = await prisma.policeSlip.findFirst({ where: user.orgType === "Vendor" ? { id: req.params.id, vendorCompanyId: user.orgId } : { id: req.params.id } });
   if (!slip) throw new ApiError(404, "NOT_FOUND", "Slip not found.");
   let allowed = false;
-  if (slip.status === "Draft" && ["Billable", "NonBillable"].includes(status) && user.orgType === "Vendor" && (slip.createdById === user.id || user.roleName === "Vendor Super Admin")) allowed = true;
-  if (slip.status === "Billable" && ["Confirmed", "NonBillable"].includes(status) && user.roleName === "NG Arborist") allowed = true;
-  if (slip.status === "Billable" && status === "NonBillable" && user.roleName === "NG Arborist" && !reason) throw new ApiError(422, "VALIDATION_ERROR", "Reason is required.");
-  if (status === "Billable") billableGuard(slip as unknown as Record<string, unknown>);
+  if (["Draft", "ReturnedForRevision"].includes(slip.status) && ["Billable", "NonBillable"].includes(status) && user.orgType === "Vendor" && (slip.createdById === user.id || user.roleName === "Vendor Super Admin")) allowed = true;
+  if (slip.status === "Billable" && ["Confirmed", "ReturnedForRevision", "NonBillable"].includes(status) && user.roleName === "NG Arborist") allowed = true;
+  if (slip.status === "Billable" && ["ReturnedForRevision", "NonBillable"].includes(status) && user.roleName === "NG Arborist" && !reason) throw new ApiError(422, "VALIDATION_ERROR", "Reason is required.");
+  let verificationUpdate = {};
+  if (status === "Billable") {
+    const assessment = assessSlipVerification(slip as unknown as Record<string, unknown>);
+    const verifiedSlip = { ...(slip as unknown as Record<string, unknown>), locationVerified: assessment.locationVerified, timestampVerified: assessment.timestampVerified };
+    billableGuard(verifiedSlip);
+    verificationUpdate = { locationVerified: assessment.locationVerified, timestampVerified: assessment.timestampVerified };
+  }
   if (!allowed || user.roleName === "Vendor Super Admin" && status === "Confirmed") throw new ApiError(403, "INVALID_TRANSITION", "Illegal slip status transition.");
-  const updated = await prisma.policeSlip.update({ where: { id: slip.id }, data: { status }, include: slipInclude });
+  const updated = await prisma.policeSlip.update({ where: { id: slip.id }, data: { status, ...verificationUpdate }, include: slipInclude });
   await audit(user.id, "PoliceSlip", slip.id, "STATUS_CHANGE", req, slip.status, status, reason ? { reason } : {});
   return ok(res, shapeSlip(updated));
 }));
@@ -528,14 +652,14 @@ api.post("/invoices/:id/reconcile", checkPermission("invoices:reconcile"), async
   return ok(res, shapeInvoice(result));
 }));
 
-api.patch("/invoices/:id/mark-paid", checkPermission("invoices:reconcile"), asyncRoute(async (req, res) => {
+api.patch("/invoices/:id/mark-paid", checkPermission("invoices:pay"), asyncRoute(async (req, res) => {
   const user = requireUser(req);
   if (user.roleName !== "NG Detail Admin") throw new ApiError(403, "FORBIDDEN", "Only NG Detail Admin can mark paid.");
   const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } });
   if (!invoice) throw new ApiError(404, "NOT_FOUND", "Invoice not found.");
-  if (invoice.status !== "Reconciled") throw new ApiError(403, "FORBIDDEN", "Only Reconciled invoices can be marked Paid.");
+  if (!["Reconciled", "PartiallyReconciled"].includes(invoice.status)) throw new ApiError(403, "FORBIDDEN", "Only Reconciled or Partially Reconciled invoices can be marked Paid.");
   const updated = await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "Paid", paidAt: new Date(), paidById: user.id }, include: invoiceInclude });
-  await audit(user.id, "Invoice", invoice.id, "STATUS_CHANGE", req, "Reconciled", "Paid");
+  await audit(user.id, "Invoice", invoice.id, "STATUS_CHANGE", req, invoice.status, "Paid");
   return ok(res, shapeInvoice(updated));
 }));
 

@@ -53,8 +53,16 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
       const existing = (details[0] as any)?.existingSlipId;
       if (existing) throw apiError("DUPLICATE_SLIP", payload.error?.message || "Duplicate slip", { existingSlipId: existing });
     }
-    if (code === "VALIDATION_ERROR" && Array.isArray(details) && details.some((d: any) => d.field === "officerSignatureUrl")) {
-      throw apiError("SIGNATURE_REQUIRED", payload.error?.message || "Officer signature is required", details);
+    if (code === "VALIDATION_ERROR" && Array.isArray(details) && details.some((d: any) => [
+      "officerBadgeNumber",
+      "officerIdDocumentUrl",
+      "entryPhotoUrl",
+      "exitPhotoUrl",
+      "locationVerified",
+      "timestampVerified",
+      "identityVerificationStatus",
+    ].includes(d.field))) {
+      throw apiError("EVIDENCE_REQUIRED", payload.error?.message || "Police badge and geo-tag evidence are required", details);
     }
     throw apiError(code, payload.error?.message || response.statusText, details);
   }
@@ -68,7 +76,7 @@ function withPermissionAliases(permissions: string[]) {
     result.add("slips:transition:confirmed");
     result.add("slips:transition:nonbillable");
   }
-  if (permissions.includes("invoices:reconcile") || permissions.includes("invoices:*") || permissions.includes("*")) {
+  if (permissions.includes("invoices:pay") || permissions.includes("invoices:*") || permissions.includes("*")) {
     result.add("invoices:pay");
   }
   if (permissions.includes("users:*") || permissions.includes("*")) {
@@ -172,14 +180,10 @@ function slipPayload(data: Partial<PoliceSlip> & { submitAsBillable?: boolean; b
     ...data,
     worksiteCountry: "US",
     worksiteAddress: data.worksiteAddress || "Local workflow test address",
-    officerSignatureUrl: data.officerSignatureUrl,
-  };
-  if (payload.submitAsBillable) {
+  }
+  if (payload.officerIdDocumentUrl) {
     payload.identityVerificationType ||= "PoliceBadge";
     payload.identityVerificationStatus ||= "Verified";
-    payload.policeHoursPhotoUrl ||= "local-flow-test-photo.jpg";
-    payload.locationVerified ??= true;
-    payload.timestampVerified ??= true;
   }
   delete payload.slipNumber;
   delete payload.organisationId;

@@ -7,7 +7,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { mockApi } from "@/services/mockApi";
-import { SignaturePad } from "./SignaturePad";
 import type { PoliceSlip, User } from "@/types";
 import { calculateHoursWorked, isOvernight } from "@/utils/hoursCalc";
 import { Modal } from "@/components/ui/Overlays";
@@ -27,6 +26,9 @@ const schema = z.object({
   workType: z.enum(["HTMP", "Trimming"]),
   budgetCode: z.string().min(1, "Required").max(50),
   circuitId: z.string().min(1, "Required").max(50),
+  worksiteAddress: z.string().min(5, "Required").max(250),
+  worksiteLatitude: z.coerce.number().min(18).max(72),
+  worksiteLongitude: z.coerce.number().min(-180).max(-60),
   crewForeman: z.string().min(1, "Required").max(100),
   crewForemanPhone: phoneValidator,
   detailDate: z.string().refine((d) => new Date(d) <= new Date(new Date().toDateString() + " 23:59:59"), "Cannot be in the future"),
@@ -41,12 +43,20 @@ const schema = z.object({
   cruiserNumber: z.string().min(1).max(20),
   billingDepartment: z.string().min(1).max(100),
   hoursToBeBilled: z.coerce.number().min(0).max(24),
+  officerBadgeNumber: z.string().min(1, "Required").max(50),
 });
 
 type Vals = z.infer<typeof schema>;
 
 const DISTRICTS = ["North District", "South District", "Central District"];
 const REGIONS_SUGGEST = ["Boston Metro", "North Shore", "Central MA", "Cape Cod", "Springfield"];
+
+type CapturedPhoto = {
+  url?: string;
+  latitude?: number;
+  longitude?: number;
+  takenAt?: string;
+};
 
 interface Props {
   user: User;
@@ -61,31 +71,48 @@ export function SlipForm({ user, initial, mode }: Props) {
   const [dupOpen, setDupOpen] = useState<null | { existingId: string }>(null);
   const [nonBillableOpen, setNonBillableOpen] = useState(false);
   const [nonBillableReason, setNonBillableReason] = useState("");
-  const [signature, setSignature] = useState<string | undefined>(initial?.officerSignatureUrl);
-  const [sigHighlight, setSigHighlight] = useState(false);
+  const [badgePhoto, setBadgePhoto] = useState<string | undefined>(initial?.officerIdDocumentUrl);
+  const [entryPhoto, setEntryPhoto] = useState<CapturedPhoto>({
+    url: initial?.entryPhotoUrl,
+    latitude: initial?.entryPhotoLatitude,
+    longitude: initial?.entryPhotoLongitude,
+    takenAt: initial?.entryPhotoTakenAt,
+  });
+  const [exitPhoto, setExitPhoto] = useState<CapturedPhoto>({
+    url: initial?.exitPhotoUrl,
+    latitude: initial?.exitPhotoLatitude,
+    longitude: initial?.exitPhotoLongitude,
+    takenAt: initial?.exitPhotoTakenAt,
+  });
+  const [evidenceHighlight, setEvidenceHighlight] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const [hoursOverridden, setHoursOverridden] = useState(false);
 
-  const { register, handleSubmit, watch, setValue, control, formState: { errors, isDirty } } = useForm<Vals>({
+  const { register, handleSubmit, watch, getValues, setValue, control, formState: { errors, isDirty } } = useForm<Vals>({
     resolver: zodResolver(schema),
     defaultValues: initial ? {
       region: initial.region, arboristDistrict: initial.arboristDistrict, arboristId: initial.arboristId,
       workType: initial.workType, budgetCode: initial.budgetCode, circuitId: initial.circuitId,
+      worksiteAddress: initial.worksiteAddress ?? "", worksiteLatitude: initial.worksiteLatitude ?? undefined,
+      worksiteLongitude: initial.worksiteLongitude ?? undefined,
       crewForeman: initial.crewForeman, crewForemanPhone: initial.crewForemanPhone,
       detailDate: initial.detailDate, detailType: "Hourly",
       timeFrom: initial.timeFrom, timeTo: initial.timeTo,
       hoursWorked: initial.hoursWorked, hoursToBeBilled: initial.hoursToBeBilled,
       officerName: initial.officerName, officerEmail: initial.officerEmail, officerPhone: initial.officerPhone,
       officerRank: initial.officerRank, cruiserNumber: initial.cruiserNumber, billingDepartment: initial.billingDepartment,
+      officerBadgeNumber: initial.officerBadgeNumber ?? "",
     } : {
       region: "", arboristDistrict: "", arboristId: "",
       workType: "HTMP", budgetCode: "", circuitId: "",
+      worksiteAddress: "", worksiteLatitude: undefined as any, worksiteLongitude: undefined as any,
       crewForeman: "", crewForemanPhone: "",
       detailDate: format(new Date(), "yyyy-MM-dd"), detailType: "Hourly" as const,
       timeFrom: "08:00", timeTo: "16:00",
       hoursWorked: 8, hoursToBeBilled: 8,
       officerName: "", officerEmail: "", officerPhone: "",
       officerRank: "Officer", cruiserNumber: "", billingDepartment: "",
+      officerBadgeNumber: "",
     },
   });
 
@@ -108,6 +135,57 @@ export function SlipForm({ user, initial, mode }: Props) {
 
   const overnight = isOvernight(timeFrom, timeTo);
 
+  const readFileAsDataUrl = (file: File) => new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+
+  const currentPosition = () => new Promise<GeolocationPosition>((resolve, reject) => {
+    if (!navigator.geolocation) reject(new Error("Geolocation is not available in this browser"));
+    navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 12000 });
+  });
+
+  const useCurrentWorksiteLocation = async () => {
+    try {
+      const position = await currentPosition();
+      setValue("worksiteLatitude", Number(position.coords.latitude.toFixed(6)));
+      setValue("worksiteLongitude", Number(position.coords.longitude.toFixed(6)));
+      toast.success("Worksite GPS captured");
+    } catch (error: any) {
+      toast.error(error?.message ?? "Unable to capture location");
+    }
+  };
+
+  const captureBadgePhoto = async (file?: File) => {
+    if (!file) return;
+    setBadgePhoto(await readFileAsDataUrl(file));
+    setEvidenceHighlight(false);
+  };
+
+  const captureGeoPhoto = async (file: File | undefined, kind: "entry" | "exit") => {
+    if (!file) return;
+    try {
+      const [url, position] = await Promise.all([readFileAsDataUrl(file), currentPosition()]);
+      const captured = {
+        url,
+        latitude: Number(position.coords.latitude.toFixed(6)),
+        longitude: Number(position.coords.longitude.toFixed(6)),
+        takenAt: new Date().toISOString(),
+      };
+      if (kind === "entry") setEntryPhoto(captured);
+      else setExitPhoto(captured);
+      setEvidenceHighlight(false);
+      toast.success(`${kind === "entry" ? "Entry" : "Exit"} geo photo captured`);
+    } catch (error: any) {
+      toast.error(error?.message ?? "Unable to capture geo tagged photo");
+    }
+  };
+
+  const evidenceComplete = !!badgePhoto && !!entryPhoto.url && !!entryPhoto.takenAt && entryPhoto.latitude != null && entryPhoto.longitude != null
+    && !!exitPhoto.url && !!exitPhoto.takenAt && exitPhoto.latitude != null && exitPhoto.longitude != null;
+
   // Auto-save (edit mode, dirty)
   useAutoSave(mode === "edit" && isDirty && !!initial, 60_000, async () => {
     if (!initial) return;
@@ -117,20 +195,40 @@ export function SlipForm({ user, initial, mode }: Props) {
     } catch {}
   });
 
-  const doSubmit = async (values: Vals, submitAsBillable: boolean, bypass = false) => {
+  const doSubmit = async (values: Partial<Vals>, submitAsBillable: boolean, bypass = false) => {
     setSubmitting(true);
     try {
       if (mode === "create") {
         await mockApi.createSlip(user, {
           ...values,
-          officerSignatureUrl: signature,
+          identityVerificationType: "PoliceBadge",
+          identityVerificationStatus: badgePhoto ? "Verified" : "Pending",
+          officerIdDocumentUrl: badgePhoto,
+          entryPhotoUrl: entryPhoto.url,
+          entryPhotoLatitude: entryPhoto.latitude,
+          entryPhotoLongitude: entryPhoto.longitude,
+          entryPhotoTakenAt: entryPhoto.takenAt,
+          exitPhotoUrl: exitPhoto.url,
+          exitPhotoLatitude: exitPhoto.latitude,
+          exitPhotoLongitude: exitPhoto.longitude,
+          exitPhotoTakenAt: exitPhoto.takenAt,
           submitAsBillable,
           bypassDuplicateCheck: bypass,
         } as any);
       } else if (initial) {
         await mockApi.updateSlip(user, initial.id, {
           ...values,
-          officerSignatureUrl: signature,
+          identityVerificationType: "PoliceBadge",
+          identityVerificationStatus: badgePhoto ? "Verified" : "Pending",
+          officerIdDocumentUrl: badgePhoto,
+          entryPhotoUrl: entryPhoto.url,
+          entryPhotoLatitude: entryPhoto.latitude,
+          entryPhotoLongitude: entryPhoto.longitude,
+          entryPhotoTakenAt: entryPhoto.takenAt,
+          exitPhotoUrl: exitPhoto.url,
+          exitPhotoLatitude: exitPhoto.latitude,
+          exitPhotoLongitude: exitPhoto.longitude,
+          exitPhotoTakenAt: exitPhoto.takenAt,
           submitAsBillable,
         } as any);
       }
@@ -141,9 +239,9 @@ export function SlipForm({ user, initial, mode }: Props) {
         setDupOpen({ existingId: e.details?.existingSlipId });
         return;
       }
-      if (e?.code === "SIGNATURE_REQUIRED") {
-        setSigHighlight(true);
-        document.getElementById("signature-section")?.scrollIntoView({ behavior: "smooth" });
+      if (e?.code === "EVIDENCE_REQUIRED" || e?.code === "VALIDATION_ERROR") {
+        setEvidenceHighlight(true);
+        document.getElementById("verification-section")?.scrollIntoView({ behavior: "smooth" });
         toast.error(e.message);
         return;
       }
@@ -155,17 +253,17 @@ export function SlipForm({ user, initial, mode }: Props) {
   };
 
   const handleBillableClick = handleSubmit((values) => {
-    if (!signature) {
-      setSigHighlight(true);
-      document.getElementById("signature-section")?.scrollIntoView({ behavior: "smooth" });
-      toast.error("Officer signature required to submit as Billable");
+    if (!evidenceComplete) {
+      setEvidenceHighlight(true);
+      document.getElementById("verification-section")?.scrollIntoView({ behavior: "smooth" });
+      toast.error("Police badge and entry/exit geo-tag photos are required");
       return;
     }
     setConfirmOpen(true);
     (window as any).__pendingValues = values;
   });
 
-  const handleDraftSave = handleSubmit((values) => doSubmit(values, false));
+  const handleDraftSave = () => doSubmit(getValues(), false);
 
   const handleNonBillable = async () => {
     if (!initial) return;
@@ -235,6 +333,21 @@ export function SlipForm({ user, initial, mode }: Props) {
         <Field label="Circuit ID" error={errors.circuitId?.message}>
           <input className={inputCls} {...register("circuitId")} />
         </Field>
+        <Field label="Worksite Address" error={errors.worksiteAddress?.message} full>
+          <input className={inputCls} {...register("worksiteAddress")} />
+        </Field>
+        <Field label="Worksite Latitude" error={errors.worksiteLatitude?.message}>
+          <input type="number" step="0.000001" className={inputCls} {...register("worksiteLatitude")} />
+        </Field>
+        <Field label="Worksite Longitude" error={errors.worksiteLongitude?.message}>
+          <div className="flex gap-2">
+            <input type="number" step="0.000001" className={inputCls} {...register("worksiteLongitude")} />
+            <button type="button" onClick={useCurrentWorksiteLocation}
+              className="whitespace-nowrap rounded-md border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-accent">
+              Use GPS
+            </button>
+          </div>
+        </Field>
       </Section>
 
       <Section title="Section 2 — Vendor Details">
@@ -299,11 +412,21 @@ export function SlipForm({ user, initial, mode }: Props) {
         <Field label="Billing Department" error={errors.billingDepartment?.message}>
           <input className={inputCls} {...register("billingDepartment")} />
         </Field>
+        <Field label="Police Badge Number" error={errors.officerBadgeNumber?.message}>
+          <input className={inputCls} {...register("officerBadgeNumber")} />
+        </Field>
       </Section>
 
-      <section id="signature-section" className="pdm-card mb-4 p-5">
-        <h3 className="mb-4 text-base font-semibold text-foreground">Section 5 — Officer Signature</h3>
-        <SignaturePad initialUrl={signature} onChange={(u) => { setSignature(u); setSigHighlight(false); }} invalid={sigHighlight} />
+      <section id="verification-section" className={`pdm-card mb-4 p-5 ${evidenceHighlight ? "ring-2 ring-destructive" : ""}`}>
+        <h3 className="mb-4 text-base font-semibold text-foreground">Section 5 - Police Presence Verification</h3>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <PhotoCapture label="Police Badge Photo" photoUrl={badgePhoto} onChange={(file) => captureBadgePhoto(file)} />
+          <GeoPhotoCapture label="Entry Geo-Tag Photo" photo={entryPhoto} onChange={(file) => captureGeoPhoto(file, "entry")} />
+          <GeoPhotoCapture label="Exit Geo-Tag Photo" photo={exitPhoto} onChange={(file) => captureGeoPhoto(file, "exit")} />
+        </div>
+        <div className="mt-3 rounded-md border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
+          Billable submission requires a badge photo plus entry and exit photos captured with GPS permission enabled. The backend verifies photo coordinates against the worksite and checks entry/exit timestamps.
+        </div>
       </section>
 
       <div className="flex flex-wrap items-center justify-end gap-2 pt-2">
@@ -390,5 +513,54 @@ export function SlipForm({ user, initial, mode }: Props) {
           className="w-full rounded-md border border-input bg-surface px-3 py-2 text-sm" />
       </Modal>
     </form>
+  );
+}
+
+function PhotoCapture({ label, photoUrl, onChange }: { label: string; photoUrl?: string; onChange: (file?: File) => void }) {
+  return (
+    <div className="rounded-md border border-border bg-surface p-3">
+      <label className="mb-2 block text-sm font-medium text-foreground">{label}</label>
+      {photoUrl ? (
+        <img src={photoUrl} alt={label} className="mb-2 h-32 w-full rounded border border-border bg-muted object-contain" />
+      ) : (
+        <div className="mb-2 flex h-32 items-center justify-center rounded border border-dashed border-border text-xs text-muted-foreground">
+          No photo captured
+        </div>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={(event) => onChange(event.target.files?.[0])}
+        className="w-full text-xs"
+      />
+    </div>
+  );
+}
+
+function GeoPhotoCapture({ label, photo, onChange }: { label: string; photo: CapturedPhoto; onChange: (file?: File) => void }) {
+  return (
+    <div className="rounded-md border border-border bg-surface p-3">
+      <label className="mb-2 block text-sm font-medium text-foreground">{label}</label>
+      {photo.url ? (
+        <img src={photo.url} alt={label} className="mb-2 h-32 w-full rounded border border-border bg-muted object-contain" />
+      ) : (
+        <div className="mb-2 flex h-32 items-center justify-center rounded border border-dashed border-border text-xs text-muted-foreground">
+          No geo photo captured
+        </div>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={(event) => onChange(event.target.files?.[0])}
+        className="w-full text-xs"
+      />
+      <div className="mt-2 space-y-1 text-xs text-muted-foreground">
+        <div>Lat: {photo.latitude ?? "-"}</div>
+        <div>Lng: {photo.longitude ?? "-"}</div>
+        <div>Time: {photo.takenAt ? format(new Date(photo.takenAt), "yyyy-MM-dd HH:mm") : "-"}</div>
+      </div>
+    </div>
   );
 }

@@ -22,7 +22,7 @@ function EditSlipPage() {
     enabled: !!user,
   });
   useEffect(() => {
-    if (slip && slip.status !== "Draft") navigate({ to: "/slips/$id", params: { id } });
+    if (slip && !["Draft", "ReturnedForRevision"].includes(slip.status)) navigate({ to: "/slips/$id", params: { id } });
   }, [slip, id, navigate]);
 
   return (

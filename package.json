@@ -11,7 +11,9 @@
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:push": "prisma db push",
     "seed": "tsx prisma/seed.ts",
-    "test:smoke": "tsx scripts/smoke-test.ts"
+    "test:smoke": "tsx scripts/smoke-test.ts",
+    "test:stories": "tsx scripts/story-workflow-check.ts",
+    "app:start": "powershell -ExecutionPolicy Bypass -File scripts/start-and-verify.ps1"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.614.0",

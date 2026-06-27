@@ -1,227 +1,131 @@
-# Police Detail Management Portal
+# Police Detail Inventory
 
-A full-stack Police Detail Management (PDM) portal for creating police detail slips, reviewing billable work, reconciling invoices, and releasing payments through role-based workflows.
+A full-stack Police Detail Inventory and reconciliation system for managing police detail slips, Arborist review, vendor invoice reconciliation, and National Grid payment release.
 
-The system includes:
+The application is built as a local full-stack development system with:
 
-- A React/TanStack frontend for operational users.
-- A Node.js/Express/TypeScript backend API.
-- PostgreSQL persistence through Prisma ORM.
-- Docker-based local database setup.
-- JWT authentication, role-based permissions, audit logging, and invoice reconciliation.
+- React/TanStack frontend
+- Node.js, Express, and TypeScript backend
+- PostgreSQL through Prisma ORM
+- Docker-based local database startup
+- JWT authentication, role permissions, audit logs, workflow validation, and automated user-story QA
 
-## Table of Contents
+## Current Verification Status
 
-- [System Overview](#system-overview)
-- [Core Workflows](#core-workflows)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Requirements](#requirements)
-- [Environment Variables](#environment-variables)
-- [Local Setup](#local-setup)
-- [Run the Application](#run-the-application)
-- [Seeded Test Users](#seeded-test-users)
-- [Useful Commands](#useful-commands)
-- [API Overview](#api-overview)
-- [Feature Coverage](#feature-coverage)
-- [Troubleshooting](#troubleshooting)
+Latest local verification:
 
-## System Overview
+- User-story workflow QA: `26 PASS`, `0 FAIL`, `0 GAP`, `1 WARN`
+- Backend build: passing
+- Frontend build: passing
+- Working frontend URL: `http://127.0.0.1:3000/`
+- Backend health URL: `http://localhost:3001/health`
 
-The PDM portal supports a complete operational flow for police detail work:
+The remaining warning is a production-hardening note: entry and exit photos are verified with browser geolocation captured at upload time. The system does not yet parse EXIF GPS metadata from the image file itself, because many mobile cameras and upload flows strip EXIF data.
 
-1. A General Foreman creates a police detail slip.
-2. The slip can be saved as a draft or submitted as billable.
-3. An Arborist reviews billable slips and confirms eligible work.
-4. Vendor billing/admin users create invoices and attach confirmed slips.
-5. The system reconciles invoice hours against attached slip hours.
-6. A National Grid Detail Admin marks reconciled invoices as paid.
+## Personas
 
-The backend enforces workflow rules, organisation scoping, status transitions, and audit logging. The frontend provides role-specific dashboards and workflow screens for each persona.
-
-## Core Workflows
-
-### Slip Creation
-
-- Create a new police detail slip.
-- Capture region, district, arborist, work type, budget code, circuit, worksite, crew, officer, time, and billing details.
-- Save a slip as `Draft`.
-- Edit draft slips.
-- Capture officer signature.
-- Submit a slip as `Billable`.
-- Prevent duplicate slips for the same officer/date/time unless explicitly bypassed.
-
-### Arborist Review
-
-- View billable slips waiting for review.
-- Open slip details.
-- Confirm a billable slip as `Confirmed`.
-- Mark a slip as `NonBillable` with a required reason.
-- Audit review transitions.
-
-### Invoice Reconciliation
-
-- Create invoices for a vendor organisation.
-- Attach available confirmed slips to an invoice.
-- Reconcile invoice total hours against attached slip billable hours.
-- Set invoice status to:
-  - `NotReconciled`
-  - `PartiallyReconciled`
-  - `Reconciled`
-  - `Paid`
-
-### Payment Release
-
-- NG Detail Admin reviews reconciled invoices.
-- Mark reconciled invoices as `Paid`.
-- Record paid timestamp and paid-by user.
-- Prevent paid invoices from being edited or reconciled further.
-
-## Technology Stack
-
-### Frontend
-
-- React 19
-- TanStack Router
-- TanStack React Query
-- Vite
-- Tailwind CSS
-- Radix UI components
-- Lucide icons
-- Zustand auth store
-- React Hook Form and Zod validation
-
-### Backend
-
-- Node.js
-- Express
-- TypeScript
-- Prisma ORM
-- PostgreSQL
-- JWT authentication
-- bcrypt password hashing
-- Zod request validation
-- Helmet, CORS, Morgan, cookie-parser, rate limiting
-- AWS S3 presigned upload support for production document/image uploads
-
-### Local Infrastructure
-
-- Docker Desktop
-- PostgreSQL 15 container
-
-## Project Structure
-
-```text
-.
-├── frontend/                 # React/TanStack frontend application
-│   ├── src/
-│   │   ├── components/       # Shared UI and workflow components
-│   │   ├── hooks/            # Auth and utility hooks
-│   │   ├── routes/           # TanStack file routes
-│   │   ├── services/         # API adapter used by the UI
-│   │   ├── store/            # Zustand auth store
-│   │   ├── types/            # Domain types
-│   │   └── utils/            # Status, hours, reconciliation helpers
-│   ├── package.json
-│   └── vite.config.ts
-├── prisma/
-│   ├── schema.prisma         # Database schema
-│   └── seed.ts               # Seed roles, organisations, users
-├── scripts/
-│   ├── smoke-test.ts         # Backend smoke test helper
-│   └── dev-memory-api.mjs    # Optional in-memory local API fallback
-├── src/
-│   └── server.ts             # Express API server
-├── .env.example
-├── package.json              # Backend package scripts
-└── README.md
-```
+| Persona | Email | Password | Main Responsibility |
+| --- | --- | --- | --- |
+| Vendor General Foreman | `gf@compilecraft.com` | `Test1234!` | Create drafts, submit billable slips, revise returned slips |
+| Vendor Billing | `billing@compilecraft.com` | `Test1234!` | Create invoices and reconcile confirmed slips |
+| Vendor Super Admin | `admin@compilecraft.com` | `Test1234!` | Vendor user administration |
+| NG Arborist | `arborist@nationalgrid.com` | `Test1234!` | Confirm, reject, or return billable slips |
+| NG Detail Admin | `finance@nationalgrid.com` | `Test1234!` | Mark reconciled or partially reconciled invoices as paid |
+| NG Super Admin | `super@nationalgrid.com` | `Test1234!` | Full system administration and audit access |
 
 ## Requirements
 
-Install these before running the system:
+Install these before running the application:
 
-- Windows 10/11, macOS, or Linux
 - Node.js 20 or newer
 - npm
 - Docker Desktop
 - Git
 
-Recommended:
+Docker Desktop must be running before starting the app because the local PostgreSQL database runs in Docker.
 
-- Docker Desktop with Linux containers enabled
-- At least 4 GB free memory for Docker and the dev servers
-
-## Environment Variables
-
-Create a `.env` file in the project root. You can copy from `.env.example`.
-
-```bash
-cp .env.example .env
-```
-
-For local Docker-based development, use:
-
-```env
-DATABASE_URL="postgresql://pdm_user:pdm_password@localhost:5432/pdm_db"
-JWT_SECRET="local-dev-access-secret-change-me-32-chars"
-JWT_REFRESH_SECRET="local-dev-refresh-secret-change-me-32-chars"
-JWT_ACCESS_EXPIRY="15m"
-JWT_REFRESH_EXPIRY="7d"
-AWS_ACCESS_KEY_ID=""
-AWS_SECRET_ACCESS_KEY=""
-AWS_REGION="us-east-1"
-AWS_S3_BUCKET="pdm-signatures"
-S3_SIGNED_URL_EXPIRY=3600
-NODE_ENV="development"
-PORT=3001
-FRONTEND_URL="http://localhost:3000"
-CORS_ORIGIN="http://localhost:3000"
-RATE_LIMIT_WINDOW_MS=60000
-RATE_LIMIT_MAX_REQUESTS=100
-AUTH_RATE_LIMIT_MAX=5
-AUTH_RATE_LIMIT_WINDOW_MS=900000
-```
-
-## Local Setup
-
-### 1. Clone the Repository
-
-```bash
-git clone <repository-url>
-cd <repository-folder>
-```
-
-### 2. Install Backend Dependencies
+## One-Command Start
 
 From the project root:
 
-```bash
+```powershell
+npm run app:start
+```
+
+This command:
+
+- Checks Node, npm, and Docker
+- Starts Docker Desktop if available and needed
+- Starts or creates the `pdm-postgres` PostgreSQL container
+- Installs missing dependencies
+- Generates the Prisma client
+- Pushes the database schema
+- Seeds roles, organisations, and test users
+- Starts the backend and frontend dev servers
+- Verifies backend health, frontend availability, and login
+
+Open the app here:
+
+```text
+http://127.0.0.1:3000/
+```
+
+## Automated Verification
+
+After the app is running, execute:
+
+```powershell
+npm run test:stories
+```
+
+This runs the end-to-end user-story workflow checks across all personas:
+
+- Login for every seeded persona
+- Frontend route shell checks
+- Empty slip validation
+- Partial draft save
+- Complete draft save
+- Billable evidence enforcement
+- Badge plus entry/exit geo-photo submission
+- Arborist confirmation
+- Arborist non-billable rejection with comments
+- Arborist return-for-revision
+- Vendor GF resubmission after revision
+- Vendor Billing invoice creation
+- Confirmed slip availability
+- Billing reconciliation
+- NG Detail Admin blocked from reconciliation
+- NG Detail Admin payment of reconciled invoices
+- Partial reconciliation exception handling
+- NG Detail Admin payment of partially reconciled invoices
+- Invoice audit trail visibility
+- Vendor and NG admin access checks
+
+The latest run writes:
+
+```text
+USER_STORY_QA_REPORT.md
+```
+
+## Manual Setup
+
+Use this only if you do not want the one-command starter.
+
+1. Install backend dependencies:
+
+```powershell
 npm install
 ```
 
-### 3. Install Frontend Dependencies
+2. Install frontend dependencies:
 
-```bash
+```powershell
 cd frontend
 npm install
 cd ..
 ```
 
-### 4. Start PostgreSQL with Docker
-
-Make sure Docker Desktop is running, then start a local PostgreSQL 15 container:
-
-```bash
-docker run -d --name pdm-postgres ^
-  -e POSTGRES_USER=pdm_user ^
-  -e POSTGRES_PASSWORD=pdm_password ^
-  -e POSTGRES_DB=pdm_db ^
-  -p 5432:5432 ^
-  postgres:15
-```
-
-PowerShell users can also run it on one line:
+3. Start PostgreSQL:
 
 ```powershell
 docker run -d --name pdm-postgres -e POSTGRES_USER=pdm_user -e POSTGRES_PASSWORD=pdm_password -e POSTGRES_DB=pdm_db -p 5432:5432 postgres:15
@@ -229,163 +133,134 @@ docker run -d --name pdm-postgres -e POSTGRES_USER=pdm_user -e POSTGRES_PASSWORD
 
 If the container already exists:
 
-```bash
+```powershell
 docker start pdm-postgres
 ```
 
-### 5. Generate Prisma Client
+4. Prepare the database:
 
-```bash
+```powershell
 npm run prisma:generate
-```
-
-### 6. Push the Database Schema
-
-```bash
 npm run prisma:push
-```
-
-### 7. Seed Roles, Organisations, and Users
-
-```bash
 npm run seed
 ```
 
-All seeded users use this password:
+5. Start the backend:
 
-```text
-Test1234!
-```
-
-## Run the Application
-
-Open two terminals.
-
-### Terminal 1: Backend API
-
-From the project root:
-
-```bash
+```powershell
 npm run dev
 ```
 
-The backend runs at:
+6. Start the frontend in another terminal:
 
-```text
-http://localhost:3001
-```
-
-Health check:
-
-```text
-http://localhost:3001/health
-```
-
-### Terminal 2: Frontend
-
-From the `frontend` folder:
-
-```bash
+```powershell
+cd frontend
 npm run dev -- --host 127.0.0.1 --port 3000
 ```
 
-Open:
+## Core Workflows
 
-```text
-http://127.0.0.1:3000/
-```
+### Slip Creation
 
-The frontend Vite proxy forwards `/api` requests to the backend at `http://localhost:3001`.
+- Vendor GF can save incomplete slips as drafts.
+- Empty draft submissions are rejected.
+- Billable submission requires complete slip data.
+- Billable submission requires police badge verification.
+- Billable submission requires entry and exit geo-photo evidence.
+- Entry and exit timestamps must match the detail date and be in order.
+- Entry and exit coordinates must be within 500 meters of the worksite.
+- Duplicate billable slips are blocked unless explicitly bypassed.
 
-## Seeded Test Users
+### Arborist Review
 
-| Persona | Email | Password | Organisation |
-| --- | --- | --- | --- |
-| Vendor General Foreman | `gf@compilecraft.com` | `Test1234!` | Compile Craft |
-| Vendor Billing | `billing@compilecraft.com` | `Test1234!` | Compile Craft |
-| Vendor Super Admin | `admin@compilecraft.com` | `Test1234!` | Compile Craft |
-| NG Arborist | `arborist@nationalgrid.com` | `Test1234!` | National Grid |
-| NG Detail Admin | `finance@nationalgrid.com` | `Test1234!` | National Grid |
-| NG Super Admin | `super@nationalgrid.com` | `Test1234!` | National Grid |
+- NG Arborist can view billable slips.
+- NG Arborist can confirm valid billable slips.
+- NG Arborist can mark slips non-billable with a required reason.
+- NG Arborist can return slips for revision with comments.
+- Returned slips can be edited and resubmitted by the Vendor GF.
 
-## Suggested Manual Test Flow
+### Invoice Reconciliation
 
-### 1. Create and Submit a Slip
+- Vendor Billing creates invoices.
+- Vendor Billing attaches confirmed slips.
+- Invoice status is calculated from invoice total hours versus attached slip hours:
+  - `NotReconciled`
+  - `PartiallyReconciled`
+  - `Reconciled`
+- NG Detail Admin cannot reconcile invoices.
+- Billing users can reconcile invoices.
 
-1. Login as `gf@compilecraft.com`.
-2. Go to `Police Slip Details`.
-3. Select `New Slip`.
-4. Fill all required fields.
-5. Draw or save an officer signature.
-6. Select `Submit as Billable`.
-7. Confirm the slip appears with status `Billable`.
+### Payment
 
-### 2. Confirm the Slip
-
-1. Login as `arborist@nationalgrid.com`.
-2. Go to the Billable review queue.
-3. Open the slip.
-4. Select `Mark as Confirmed`.
-5. Confirm the slip status becomes `Confirmed`.
-
-### 3. Create and Reconcile an Invoice
-
-1. Login as `admin@compilecraft.com`.
-2. Go to `Invoices & Reconciliation`.
-3. Create an invoice.
-4. Open the invoice detail screen.
-5. Attach a confirmed slip.
-6. Save reconciliation.
-7. Confirm the invoice status becomes `Reconciled` when hours match.
-
-### 4. Mark Invoice Paid
-
-1. Login as `finance@nationalgrid.com`.
-2. Open a `Reconciled` invoice.
-3. Select `Mark as Paid`.
-4. Confirm the invoice status becomes `Paid`.
+- NG Detail Admin can mark `Reconciled` invoices as `Paid`.
+- NG Detail Admin can also mark reviewed `PartiallyReconciled` invoices as `Paid`.
+- Paid invoices record paid timestamp and paid-by user.
+- Paid invoices cannot be edited or reconciled further.
 
 ## Useful Commands
 
-### Backend
+Root project:
 
-```bash
-npm run dev
+```powershell
+npm run app:start
+npm run test:stories
+npm run test:smoke
 npm run build
-npm run start
 npm run prisma:generate
 npm run prisma:push
 npm run seed
-npm run test:smoke
 ```
 
-### Frontend
+Frontend:
 
-```bash
+```powershell
 cd frontend
-npm run dev
 npm run build
-npm run preview
-npm run lint
+npm run dev -- --host 127.0.0.1 --port 3000
 ```
 
-### Docker
+Docker:
 
-```bash
+```powershell
 docker ps
 docker logs pdm-postgres
 docker start pdm-postgres
 docker stop pdm-postgres
 ```
 
-To reset the local database completely:
+## Environment
 
-```bash
-docker stop pdm-postgres
-docker rm pdm-postgres
-docker run -d --name pdm-postgres -e POSTGRES_USER=pdm_user -e POSTGRES_PASSWORD=pdm_password -e POSTGRES_DB=pdm_db -p 5432:5432 postgres:15
-npm run prisma:push
-npm run seed
+Create `.env` from `.env.example` if it does not exist. Local development uses:
+
+```env
+DATABASE_URL="postgresql://pdm_user:pdm_password@localhost:5432/pdm_db"
+JWT_SECRET="local-dev-access-secret-change-me-32-chars"
+JWT_REFRESH_SECRET="local-dev-refresh-secret-change-me-32-chars"
+NODE_ENV="development"
+PORT=3001
+FRONTEND_URL="http://localhost:3000"
+CORS_ORIGIN="http://localhost:3000"
+AUTH_RATE_LIMIT_MAX=1000
+AUTH_RATE_LIMIT_WINDOW_MS=900000
+```
+
+## Project Structure
+
+```text
+.
+|-- frontend/                  React/TanStack frontend
+|-- prisma/
+|   |-- schema.prisma          Prisma schema
+|   `-- seed.ts                Seed roles, organisations, users
+|-- scripts/
+|   |-- start-and-verify.ps1   One-command local startup
+|   |-- smoke-test.ts          Basic backend smoke test
+|   `-- story-workflow-check.ts User-story workflow QA
+|-- src/
+|   `-- server.ts              Express backend API
+|-- USER_STORY_QA_REPORT.md    Latest workflow QA output
+|-- package.json
+`-- README.md
 ```
 
 ## API Overview
@@ -396,7 +271,7 @@ The backend API is mounted at:
 /api/v1
 ```
 
-Important endpoint groups:
+Important endpoints:
 
 - `POST /api/v1/auth/login`
 - `POST /api/v1/auth/refresh`
@@ -423,84 +298,37 @@ Authorization: Bearer <access-token>
 X-PDM-Request: true
 ```
 
-## Feature Coverage
-
-Implemented:
-
-- Role-based login and dashboards
-- Slip creation and draft saving
-- Billable slip submission
-- Officer signature capture
-- Arborist review and confirmation
-- Non-billable transition with reason
-- Invoice creation
-- Confirmed slip attachment
-- Hour-based reconciliation
-- Paid status transition
-- User, role, organisation, and audit administration
-- Vendor organisation scoping
-- Audit log persistence
-
-Known gaps and next improvements:
-
-- Add a `Returned for Revision` workflow.
-- Add stakeholder comments/notes on slips.
-- Add explicit signature signer name, signed date, and signed timestamp fields.
-- Add billing period and payment reference fields on invoices.
-- Add slip amount/rate modelling if reconciliation must compare money instead of hours.
-- Decide whether Vendor Billing should receive `invoices:reconcile`.
-- Decide whether NG Detail Admin may move `PartiallyReconciled` invoices directly to `Paid`, or whether the current stricter `Reconciled -> Paid` rule should remain.
-
-For detailed story mapping, see:
-
-```text
-USER_STORY_FEATURE_NOTES.md
-```
-
 ## Troubleshooting
 
-### Docker says permission denied
+### Docker Desktop is not running
 
-Make sure Docker Desktop is open and fully started. On Windows, restart Docker Desktop and try again.
+Open Docker Desktop and wait until the engine is ready, then run:
+
+```powershell
+npm run app:start
+```
 
 ### Port 5432 is already in use
 
-Another PostgreSQL instance is already running. Either stop it or change the `DATABASE_URL` and Docker port mapping.
+Another PostgreSQL service may already be running. Stop it or change the Docker port and `DATABASE_URL`.
 
-### Backend cannot connect to database
+### Login says too many requests
 
-Check the database container:
+The one-command starter sets local development auth limits to a high value. Restart with:
 
-```bash
-docker ps
-docker logs pdm-postgres
+```powershell
+npm run app:start
 ```
 
-Then confirm `.env` contains:
+### Prisma generate fails with EPERM on Windows
 
-```env
-DATABASE_URL="postgresql://pdm_user:pdm_password@localhost:5432/pdm_db"
+Stop the running backend Node process and retry:
+
+```powershell
+npm run prisma:generate
 ```
 
-### Login returns too many requests
-
-The backend has an auth rate limiter. Wait for the configured window or restart the backend dev server during local development.
-
-### Frontend cannot call the backend
-
-Confirm:
-
-- Backend is running at `http://localhost:3001`.
-- Frontend is running at `http://127.0.0.1:3000`.
-- `frontend/vite.config.ts` contains the `/api` proxy.
-
-### Prisma seed fails with spawn EPERM on Windows
-
-Run the seed command from an elevated terminal:
-
-```bash
-npm run seed
-```
+This happens when Windows is holding Prisma's generated query-engine DLL open.
 
 ## Production Notes
 
@@ -508,9 +336,10 @@ Before production deployment:
 
 - Use strong JWT secrets.
 - Use managed PostgreSQL with backups.
-- Configure AWS S3 credentials for real uploads.
+- Configure durable object/image storage.
 - Restrict CORS to production frontend origins.
 - Use HTTPS.
-- Review rate-limit settings.
+- Tune rate limits for real traffic.
 - Add monitoring and structured logging.
-- Run database migrations through a controlled release process.
+- Run Prisma migrations through a controlled release process.
+- Decide whether EXIF GPS extraction is required in addition to browser geolocation capture.
