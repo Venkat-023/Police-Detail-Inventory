@@ -14,6 +14,9 @@ import { parseHHMMtoMinutes, formatMinutesToHHMM, deriveInvoiceStatus } from "@/
 import { DollarSign, X, Plus } from "lucide-react";
 import type { PoliceSlip } from "@/types";
 import { format } from "date-fns";
+import { AiAnomalyPanel } from "@/components/ai/AiAnomalyPanel";
+import { AiAuditNarrativePanel } from "@/components/ai/AiAuditNarrativePanel";
+import { AiReconcilePanel } from "@/components/ai/AiReconcilePanel";
 
 export const Route = createFileRoute("/_authenticated/invoices/$id/")({
   ssr: false,
@@ -142,6 +145,9 @@ function InvoiceDetailPage() {
         </div>
       </section>
 
+      <AiAnomalyPanel invoiceId={inv.id} />
+      <AiReconcilePanel invoiceId={inv.id} />
+
       {/* Drag interface */}
       <DndContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -211,6 +217,7 @@ function InvoiceDetailPage() {
       >
         <p className="text-sm">Mark invoice <span className="font-mono">{inv.ngInvoiceNumber}</span> as paid? This cannot be undone.</p>
       </Modal>
+      <AiAuditNarrativePanel entityType="invoice" entityId={inv.id} />
     </AppLayout>
   );
 }

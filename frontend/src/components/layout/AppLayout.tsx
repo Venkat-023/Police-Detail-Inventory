@@ -1,11 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
-  LayoutDashboard, FileText, Receipt, Users, Shield, ScrollText, LogOut, Menu, X,
+  LayoutDashboard, FileText, Receipt, Users, Shield, ScrollText, LogOut, Menu, X, Sparkles,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "@tanstack/react-router";
+import { AI_ENABLED } from "@/config/ai";
 
 const NAV: { to: string; label: string; icon: ReactNode; perm?: string; exact?: boolean }[] = [
   { to: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
@@ -14,6 +15,7 @@ const NAV: { to: string; label: string; icon: ReactNode; perm?: string; exact?: 
   { to: "/admin/users", label: "User Management", icon: <Users size={18} />, perm: "users:read" },
   { to: "/admin/roles", label: "Role Management", icon: <Shield size={18} />, perm: "roles:read" },
   { to: "/admin/audit", label: "Audit Logs", icon: <ScrollText size={18} />, perm: "audit:read" },
+  { to: "/ai-reports", label: "AI Reports", icon: <Sparkles size={18} />, perm: "invoices:read" },
 ];
 
 export function AppLayout({ children, title }: { children: ReactNode; title: string }) {
@@ -23,7 +25,8 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const visible = NAV.filter((n) => !n.perm || can(n.perm));
+  const canUseAiReports = AI_ENABLED && ["admin@avis.com", "finance@nationalgrid.com"].includes(user?.email ?? "");
+  const visible = NAV.filter((n) => (!n.perm || can(n.perm)) && (n.to !== "/ai-reports" || canUseAiReports));
 
   const handleLogout = () => {
     logout();

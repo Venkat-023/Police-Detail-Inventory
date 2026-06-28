@@ -20,10 +20,10 @@ async function main() {
     update: {},
     create: { id: "00000000-0000-0000-0000-000000000001", name: "National Grid", type: "Utility", createdBy: "seed" }
   });
-  const compileCraft = await prisma.organisation.upsert({
+  const avis = await prisma.organisation.upsert({
     where: { id: "00000000-0000-0000-0000-000000000002" },
-    update: {},
-    create: { id: "00000000-0000-0000-0000-000000000002", name: "Compile Craft", type: "Vendor", createdBy: "seed" }
+    update: { name: "Avis" },
+    create: { id: "00000000-0000-0000-0000-000000000002", name: "Avis", type: "Vendor", createdBy: "seed" }
   });
   await prisma.organisation.upsert({
     where: { id: "00000000-0000-0000-0000-000000000003" },
@@ -42,9 +42,9 @@ async function main() {
   }
 
   const users = [
-    ["GF User", "gf@compilecraft.com", "555-111-1234", "Vendor GF", compileCraft.id],
-    ["Billing User", "billing@compilecraft.com", "555-222-1234", "Vendor Billing", compileCraft.id],
-    ["Vendor Admin", "admin@compilecraft.com", "555-333-1234", "Vendor Super Admin", compileCraft.id],
+    ["GF User", "gf@avis.com", "555-111-1234", "Vendor GF", avis.id],
+    ["Billing User", "billing@avis.com", "555-222-1234", "Vendor Billing", avis.id],
+    ["Vendor Admin", "admin@avis.com", "555-333-1234", "Vendor Super Admin", avis.id],
     ["NG Arborist", "arborist@nationalgrid.com", "555-444-1234", "NG Arborist", nationalGrid.id],
     ["NG Finance", "finance@nationalgrid.com", "555-555-1234", "NG Detail Admin", nationalGrid.id],
     ["NG Super", "super@nationalgrid.com", "555-666-1234", "NG Super Admin", nationalGrid.id]

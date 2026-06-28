@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAiReportsRouteImport } from './routes/_authenticated/ai-reports'
 import { Route as AuthenticatedSlipsIndexRouteImport } from './routes/_authenticated/slips.index'
 import { Route as AuthenticatedInvoicesIndexRouteImport } from './routes/_authenticated/invoices.index'
 import { Route as AuthenticatedSlipsNewRouteImport } from './routes/_authenticated/slips.new'
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAiReportsRoute = AuthenticatedAiReportsRouteImport.update({
+  id: '/ai-reports',
+  path: '/ai-reports',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedSlipsIndexRoute = AuthenticatedSlipsIndexRouteImport.update({
@@ -102,6 +108,7 @@ const AuthenticatedSlipsIdEditRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/ai-reports': typeof AuthenticatedAiReportsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/roles': typeof AuthenticatedAdminRolesRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/ai-reports': typeof AuthenticatedAiReportsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/roles': typeof AuthenticatedAdminRolesRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/_authenticated/ai-reports': typeof AuthenticatedAiReportsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/roles': typeof AuthenticatedAdminRolesRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/ai-reports'
     | '/dashboard'
     | '/admin/audit'
     | '/admin/roles'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/ai-reports'
     | '/dashboard'
     | '/admin/audit'
     | '/admin/roles'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/login'
+    | '/_authenticated/ai-reports'
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/audit'
     | '/_authenticated/admin/roles'
@@ -229,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ai-reports': {
+      id: '/_authenticated/ai-reports'
+      path: '/ai-reports'
+      fullPath: '/ai-reports'
+      preLoaderRoute: typeof AuthenticatedAiReportsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/slips/': {
@@ -305,6 +324,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedAiReportsRoute: typeof AuthenticatedAiReportsRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminRolesRoute: typeof AuthenticatedAdminRolesRoute
@@ -319,6 +339,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAiReportsRoute: AuthenticatedAiReportsRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
   AuthenticatedAdminRolesRoute: AuthenticatedAdminRolesRoute,

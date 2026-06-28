@@ -10,6 +10,8 @@ import { Modal } from "@/components/ui/Overlays";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import { Pencil, CheckCircle2, XCircle, ArrowUp, RotateCcw } from "lucide-react";
+import { AiArboristPanel } from "@/components/ai/AiArboristPanel";
+import { AiAuditNarrativePanel } from "@/components/ai/AiAuditNarrativePanel";
 
 export const Route = createFileRoute("/_authenticated/slips/$id/")({
   ssr: false,
@@ -183,33 +185,36 @@ function SlipDetailPage() {
 
       {/* Arborist review panel */}
       {isArborist && slip.status === "Billable" && (
-        <section className="pdm-card mt-4 p-5">
-          <h3 className="mb-3 text-base font-semibold">Arborist Review</h3>
-          <ul className="space-y-2">
-            {CHECKLIST.map((item, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <input type="checkbox" id={`chk-${i}`} checked={checks[i]}
-                  onChange={(e) => setChecks((prev) => prev.map((v, j) => j === i ? e.target.checked : v))}
-                  className="h-4 w-4 rounded border-input" />
-                <label htmlFor={`chk-${i}`} className="text-sm">{item}</label>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button disabled={!allChecked || confirmM.isPending} onClick={() => confirmM.mutate()}
-              className="inline-flex items-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-medium text-success-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed">
-              <CheckCircle2 size={16} /> Mark as Confirmed
-            </button>
-            <button onClick={() => setNbOpen(true)}
-              className="inline-flex items-center gap-2 rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:opacity-90">
-              <XCircle size={16} /> Mark as Non-Billable
-            </button>
-            <button onClick={() => setReturnOpen(true)}
-              className="inline-flex items-center gap-2 rounded-md bg-warning px-4 py-2 text-sm font-medium text-warning-foreground hover:opacity-90">
-              <RotateCcw size={16} /> Return for Revision
-            </button>
-          </div>
-        </section>
+        <>
+          <AiArboristPanel slipId={slip.id} />
+          <section className="pdm-card mt-4 p-5">
+            <h3 className="mb-3 text-base font-semibold">Arborist Review</h3>
+            <ul className="space-y-2">
+              {CHECKLIST.map((item, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <input type="checkbox" id={`chk-${i}`} checked={checks[i]}
+                    onChange={(e) => setChecks((prev) => prev.map((v, j) => j === i ? e.target.checked : v))}
+                    className="h-4 w-4 rounded border-input" />
+                  <label htmlFor={`chk-${i}`} className="text-sm">{item}</label>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button disabled={!allChecked || confirmM.isPending} onClick={() => confirmM.mutate()}
+                className="inline-flex items-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-medium text-success-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed">
+                <CheckCircle2 size={16} /> Mark as Confirmed
+              </button>
+              <button onClick={() => setNbOpen(true)}
+                className="inline-flex items-center gap-2 rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:opacity-90">
+                <XCircle size={16} /> Mark as Non-Billable
+              </button>
+              <button onClick={() => setReturnOpen(true)}
+                className="inline-flex items-center gap-2 rounded-md bg-warning px-4 py-2 text-sm font-medium text-warning-foreground hover:opacity-90">
+                <RotateCcw size={16} /> Return for Revision
+              </button>
+            </div>
+          </section>
+        </>
       )}
 
       {/* Audit trail */}
@@ -230,6 +235,8 @@ function SlipDetailPage() {
           {(!audit || audit.length === 0) && <p className="text-sm text-muted-foreground">No audit entries.</p>}
         </ol>
       </details>
+
+      <AiAuditNarrativePanel entityType="slip" entityId={slip.id} />
 
       <Modal
         open={nbOpen}

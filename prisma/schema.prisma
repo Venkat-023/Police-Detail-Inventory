@@ -195,3 +195,27 @@ model RefreshToken {
   revokedAt DateTime?
   createdAt DateTime  @default(now())
 }
+
+model AiInsight {
+  id          String   @id @default(cuid())
+  entityType  String
+  entityId    String
+  insightType String
+  payload     Json
+  confidence  Float?
+  createdAt   DateTime @default(now())
+  createdBy   String?
+
+  @@index([entityType, entityId])
+  @@index([insightType])
+}
+
+model AiFeatureLog {
+  id         String   @id @default(cuid())
+  feature    String
+  userId     String?
+  input      Json?
+  output     Json?
+  durationMs Int?
+  createdAt  DateTime @default(now())
+}

@@ -141,9 +141,9 @@ async function main() {
   if (!health.ok) throw new Error(`Backend health failed: ${health.status}`);
 
   const sessions = {
-    gf: await login("gf@compilecraft.com"),
-    billing: await login("billing@compilecraft.com"),
-    vendorAdmin: await login("admin@compilecraft.com"),
+    gf: await login("gf@avis.com"),
+    billing: await login("billing@avis.com"),
+    vendorAdmin: await login("admin@avis.com"),
     arborist: await login("arborist@nationalgrid.com"),
     ngDetail: await login("finance@nationalgrid.com"),
     ngSuper: await login("super@nationalgrid.com")

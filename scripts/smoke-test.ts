@@ -18,7 +18,7 @@ assert(health.status === 200, "health endpoint failed");
 
 const login = await request("/api/v1/auth/login", {
   method: "POST",
-  body: JSON.stringify({ email: "gf@compilecraft.com", password: "Test1234!" })
+  body: JSON.stringify({ email: "gf@avis.com", password: "Test1234!" })
 });
 assert(login.status === 200, `login failed: ${JSON.stringify(login.body)}`);
 const token = login.body.data.accessToken;

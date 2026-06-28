@@ -68,7 +68,7 @@ function makeSlip(
   };
 }
 
-const CC = { orgId: "org-cc", name: "Compile Craft" };
+const CC = { orgId: "org-cc", name: "Avis" };
 const ACME = { orgId: "org-acme", name: "Acme Tree Services" };
 const GF1 = { id: "u-gf-1", name: "George Fenton" };
 const GF2 = { id: "u-gf-2", name: "Glen Foster" };

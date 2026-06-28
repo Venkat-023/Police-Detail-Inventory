@@ -125,7 +125,7 @@ Wait-HttpOk $ApiHealthUrl "Backend API" 60
 Wait-HttpOk $AppUrl "Frontend" 90
 
 Write-Step "Verifying login through frontend proxy"
-$loginBody = @{ email = "gf@compilecraft.com"; password = "Test1234!" } | ConvertTo-Json
+$loginBody = @{ email = "gf@avis.com"; password = "Test1234!" } | ConvertTo-Json
 $login = Invoke-RestMethod -Uri "http://localhost:3000/api/v1/auth/login" -Method Post -ContentType "application/json" -Body $loginBody
 if (-not $login.success) {
   throw "Login verification failed."

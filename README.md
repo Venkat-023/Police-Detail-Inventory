@@ -26,9 +26,9 @@ The remaining warning is a production-hardening note: entry and exit photos are 
 
 | Persona | Email | Password | Main Responsibility |
 | --- | --- | --- | --- |
-| Vendor General Foreman | `gf@compilecraft.com` | `Test1234!` | Create drafts, submit billable slips, revise returned slips |
-| Vendor Billing | `billing@compilecraft.com` | `Test1234!` | Create invoices and reconcile confirmed slips |
-| Vendor Super Admin | `admin@compilecraft.com` | `Test1234!` | Vendor user administration |
+| Vendor General Foreman | `gf@avis.com` | `Test1234!` | Create drafts, submit billable slips, revise returned slips |
+| Vendor Billing | `billing@avis.com` | `Test1234!` | Create invoices and reconcile confirmed slips |
+| Vendor Super Admin | `admin@avis.com` | `Test1234!` | Vendor user administration |
 | NG Arborist | `arborist@nationalgrid.com` | `Test1234!` | Confirm, reject, or return billable slips |
 | NG Detail Admin | `finance@nationalgrid.com` | `Test1234!` | Mark reconciled or partially reconciled invoices as paid |
 | NG Super Admin | `super@nationalgrid.com` | `Test1234!` | Full system administration and audit access |

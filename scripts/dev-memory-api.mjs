@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 const orgs = [
   { id: "00000000-0000-0000-0000-000000000001", name: "National Grid", type: "Utility", createdBy: "seed", createdAt: new Date().toISOString() },
-  { id: "00000000-0000-0000-0000-000000000002", name: "Compile Craft", type: "Vendor", createdBy: "seed", createdAt: new Date().toISOString() },
+  { id: "00000000-0000-0000-0000-000000000002", name: "Avis", type: "Vendor", createdBy: "seed", createdAt: new Date().toISOString() },
   { id: "00000000-0000-0000-0000-000000000003", name: "Lewis Tree Service", type: "Vendor", createdBy: "seed", createdAt: new Date().toISOString() },
 ];
 
@@ -29,9 +29,9 @@ const roles = [
 ];
 
 const users = [
-  user("GF User", "gf@compilecraft.com", "555-111-1234", "role-vgf", orgs[1].id),
-  user("Billing User", "billing@compilecraft.com", "555-222-1234", "role-vbill", orgs[1].id),
-  user("Vendor Admin", "admin@compilecraft.com", "555-333-1234", "role-vadmin", orgs[1].id),
+  user("GF User", "gf@avis.com", "555-111-1234", "role-vgf", orgs[1].id),
+  user("Billing User", "billing@avis.com", "555-222-1234", "role-vbill", orgs[1].id),
+  user("Vendor Admin", "admin@avis.com", "555-333-1234", "role-vadmin", orgs[1].id),
   user("NG Arborist", "arborist@nationalgrid.com", "555-444-1234", "role-arb", orgs[0].id),
   user("NG Finance", "finance@nationalgrid.com", "555-555-1234", "role-fin", orgs[0].id),
   user("NG Super", "super@nationalgrid.com", "555-666-1234", "role-super", orgs[0].id),

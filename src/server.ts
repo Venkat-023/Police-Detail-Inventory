@@ -13,6 +13,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { z, ZodError } from "zod";
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { aiRouter } from "./routes/ai.routes.js";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -743,6 +744,7 @@ api.get("/audit-logs", checkPermission("*"), asyncRoute(async (req, res) => {
   return ok(res, data, { page, perPage, total, totalPages: Math.ceil(total / perPage) });
 }));
 
+app.use("/api/v1/ai", aiRouter);
 app.use("/api/v1", api);
 
 app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {

@@ -12,6 +12,10 @@ import { calculateHoursWorked, isOvernight } from "@/utils/hoursCalc";
 import { Modal } from "@/components/ui/Overlays";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { format } from "date-fns";
+import { AiDuplicateWarning } from "@/components/ai/AiDuplicateWarning";
+import { AiOcrPanel } from "@/components/ai/AiOcrPanel";
+import { AiPrefillBanner } from "@/components/ai/AiPrefillBanner";
+import { AiSignaturePanel } from "@/components/ai/AiSignaturePanel";
 
 const phoneValidator = z.string().regex(
   /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
@@ -118,6 +122,10 @@ export function SlipForm({ user, initial, mode }: Props) {
 
   const timeFrom = watch("timeFrom");
   const timeTo = watch("timeTo");
+  const officerName = watch("officerName");
+  const detailDate = watch("detailDate");
+  const circuitId = watch("circuitId");
+  const worksiteAddress = watch("worksiteAddress");
   const { data: arborists = [] } = useQuery({
     queryKey: ["arborists"],
     queryFn: () => mockApi.listArborists(),
@@ -297,12 +305,17 @@ export function SlipForm({ user, initial, mode }: Props) {
   );
 
   const inputCls = "w-full rounded-md border border-input bg-surface px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-ring";
+  const applyAiValue = (field: string, value: string) => {
+    setValue(field as keyof Vals, value as never, { shouldDirty: true, shouldValidate: true });
+  };
 
   return (
     <form className="pb-6">
       {savedAt && (
         <div className="mb-3 text-xs text-muted-foreground">Auto-saved at {format(savedAt, "HH:mm")}</div>
       )}
+      <AiOcrPanel onApply={applyAiValue} />
+      <AiPrefillBanner onApply={applyAiValue} />
 
       <Section title="Section 1 — Location & Metadata">
         <Field label="Region" error={errors.region?.message}>
@@ -394,6 +407,15 @@ export function SlipForm({ user, initial, mode }: Props) {
         <Field label="Officer Name" error={errors.officerName?.message}>
           <input className={inputCls} {...register("officerName")} />
         </Field>
+        <AiDuplicateWarning
+          officerName={officerName}
+          slipDate={detailDate}
+          startTime={timeFrom}
+          endTime={timeTo}
+          worksiteId={worksiteAddress}
+          circuitId={circuitId}
+          excludeSlipId={initial?.id}
+        />
         <Field label="Officer Email" error={errors.officerEmail?.message}>
           <input className={inputCls} type="email" {...register("officerEmail")} />
         </Field>
@@ -427,6 +449,7 @@ export function SlipForm({ user, initial, mode }: Props) {
         <div className="mt-3 rounded-md border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
           Billable submission requires a badge photo plus entry and exit photos captured with GPS permission enabled. The backend verifies photo coordinates against the worksite and checks entry/exit timestamps.
         </div>
+        {initial?.id && <AiSignaturePanel slipId={initial.id} />}
       </section>
 
       <div className="flex flex-wrap items-center justify-end gap-2 pt-2">

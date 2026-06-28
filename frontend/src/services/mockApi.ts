@@ -10,6 +10,19 @@ import type {
   SlipStatus,
   User,
 } from "@/types";
+import type {
+  AnomalyResult,
+  ArboristSuggestion,
+  AuditNlpResult,
+  DuplicateCheckParams,
+  DuplicateResult,
+  OcrResult,
+  PrefillSuggestion,
+  ReconcileSuggestion,
+  ReportParams,
+  ReportResult,
+  SignatureVerificationResult,
+} from "@/types/ai";
 
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || "/api/v1").replace(/\/$/, "");
 
@@ -67,6 +80,19 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     throw apiError(code, payload.error?.message || response.statusText, details);
   }
   return payload.data as T;
+}
+
+async function aiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const headers = new Headers(options.headers);
+  headers.set("Accept", "application/json");
+  if (options.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
+  if (options.method && !["GET", "HEAD"].includes(options.method)) headers.set("X-PDM-Request", "true");
+  const authToken = token();
+  if (authToken) headers.set("Authorization", `Bearer ${authToken}`);
+  const response = await fetch(`${API_BASE}${path}`, { ...options, headers, credentials: "include" });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw apiError(payload?.error?.code || "AI_REQUEST_FAILED", payload?.error?.message || payload?.error || response.statusText, payload);
+  return payload as T;
 }
 
 function withPermissionAliases(permissions: string[]) {
@@ -399,4 +425,33 @@ export const mockApi = {
       failedLogins24h: 0,
     };
   },
+};
+
+export const ai = {
+  checkDuplicate: (params: DuplicateCheckParams) =>
+    aiRequest<DuplicateResult>("/ai/slips/duplicate-check", { method: "POST", body: JSON.stringify(params) }),
+
+  getPrefill: () =>
+    aiRequest<{ suggestions: PrefillSuggestion[] }>("/ai/slips/prefill"),
+
+  getInvoiceAnomalies: (invoiceId: string) =>
+    aiRequest<AnomalyResult>(`/ai/invoices/${invoiceId}/anomalies`),
+
+  getArboristSuggestion: (slipId: string) =>
+    aiRequest<ArboristSuggestion>(`/ai/slips/${slipId}/arborist-suggestion`),
+
+  getReconcileSuggestion: (invoiceId: string) =>
+    aiRequest<ReconcileSuggestion>(`/ai/invoices/${invoiceId}/reconcile-suggestion`),
+
+  getAuditNarrative: (entityType: string, entityId: string) =>
+    aiRequest<AuditNlpResult>(`/ai/audit/${entityType}/${entityId}/narrative`),
+
+  verifySignature: (slipId: string) =>
+    aiRequest<SignatureVerificationResult>(`/ai/slips/${slipId}/signature-verification`),
+
+  generateReport: (params: ReportParams) =>
+    aiRequest<ReportResult>("/ai/reports/generate", { method: "POST", body: JSON.stringify(params) }),
+
+  extractOcr: (imageBase64: string) =>
+    aiRequest<OcrResult>("/ai/ocr/slip", { method: "POST", body: JSON.stringify({ imageBase64 }) }),
 };

@@ -111,9 +111,9 @@ function LoginPage() {
           <div className="mt-4 rounded-md border border-border bg-surface p-3 text-[11px] text-muted-foreground">
             <div className="mb-1 font-medium text-foreground">Demo accounts (password: Test1234!):</div>
             <ul className="space-y-0.5">
-              <li>gf@compilecraft.com — Vendor GF</li>
-              <li>billing@compilecraft.com — Vendor Billing</li>
-              <li>admin@compilecraft.com — Vendor Super Admin</li>
+              <li>gf@avis.com — Vendor GF</li>
+              <li>billing@avis.com — Vendor Billing</li>
+              <li>admin@avis.com — Vendor Super Admin</li>
               <li>arborist@nationalgrid.com — NG Arborist</li>
               <li>finance@nationalgrid.com — NG Detail Admin</li>
               <li>super@nationalgrid.com — NG Super Admin</li>
