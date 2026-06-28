@@ -1,6 +1,6 @@
 # AI Feature Test Matrix
 
-The AI feature layer is visible from every persona dashboard in the **AI Feature Layer** panel. When the backend AI service is disabled, the frontend uses deterministic prototype rules so users still see useful AI-style guidance.
+The AI feature layer is visible from every persona dashboard in the **AI Feature Layer** panel. The panel is filtered by persona so each user only sees AI tools that match their workflow. When the backend AI service is disabled, the frontend uses deterministic prototype rules so users still see useful AI-style guidance.
 
 | Feature | Persona(s) | Where to test | Working behavior | Predefined fallback |
 | --- | --- | --- | --- | --- |

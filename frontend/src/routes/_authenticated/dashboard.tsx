@@ -21,7 +21,7 @@ function DashboardPage() {
   return (
     <AppLayout title="Dashboard">
       <Greeting user={user} />
-      <AiFeatureShowcase />
+      <AiFeatureShowcase user={user} />
       {user.roleName === "Vendor GF" && <VendorGFDashboard user={user} />}
       {user.roleName === "Vendor Billing" && <VendorBillingDashboard user={user} />}
       {user.roleName === "Vendor Super Admin" && <VendorSADashboard user={user} />}

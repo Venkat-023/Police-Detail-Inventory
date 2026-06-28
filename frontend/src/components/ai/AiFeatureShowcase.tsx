@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { AlertTriangle, Bot, Copy, FileText, ScanLine, ScrollText, ShieldCheck, Sparkles, Wand2 } from "lucide-react";
 import { AiBadge } from "./AiBadge";
+import type { User } from "@/types";
 
 const features = [
   {
@@ -9,6 +10,7 @@ const features = [
     rule: "Predefined fallback: no duplicate risk unless matching date, officer, and overlapping time are found.",
     icon: AlertTriangle,
     to: "/slips/new",
+    roles: ["Vendor GF"],
   },
   {
     title: "Smart prefill",
@@ -16,6 +18,7 @@ const features = [
     rule: "Predefined fallback: Boston Metro, HTMP, and AVIS-DETAIL are offered.",
     icon: Copy,
     to: "/slips/new",
+    roles: ["Vendor GF"],
   },
   {
     title: "Anomaly detection",
@@ -23,6 +26,7 @@ const features = [
     rule: "Predefined fallback: shows a no-anomaly prototype status when statistics are unavailable.",
     icon: AlertTriangle,
     to: "/invoices",
+    roles: ["Vendor Billing", "Vendor Super Admin", "NG Detail Admin", "NG Super Admin"],
   },
   {
     title: "Arborist co-pilot",
@@ -30,6 +34,7 @@ const features = [
     rule: "Predefined fallback: suggests confirm with evidence and hour-range reasons.",
     icon: Bot,
     to: "/slips",
+    roles: ["NG Arborist", "NG Super Admin"],
   },
   {
     title: "Auto-reconciliation",
@@ -37,6 +42,7 @@ const features = [
     rule: "Predefined fallback: advises attaching confirmed slips that match total hours.",
     icon: Wand2,
     to: "/invoices",
+    roles: ["Vendor Billing", "Vendor Super Admin", "NG Super Admin"],
   },
   {
     title: "Audit log NLP",
@@ -44,6 +50,7 @@ const features = [
     rule: "Predefined fallback: describes standard PDM workflow movement.",
     icon: ScrollText,
     to: "/slips",
+    roles: ["Vendor GF", "Vendor Billing", "Vendor Super Admin", "NG Arborist", "NG Detail Admin", "NG Super Admin"],
   },
   {
     title: "Signature verification",
@@ -51,6 +58,7 @@ const features = [
     rule: "Predefined fallback: accepts signatures for demo purposes.",
     icon: ShieldCheck,
     to: "/slips",
+    roles: ["Vendor GF", "Vendor Super Admin", "NG Arborist", "NG Super Admin"],
   },
   {
     title: "Report generation",
@@ -58,6 +66,7 @@ const features = [
     rule: "Predefined fallback: generates a two-section prototype report.",
     icon: FileText,
     to: "/ai-reports",
+    emails: ["admin@avis.com", "finance@nationalgrid.com"],
   },
   {
     title: "OCR ingestion",
@@ -65,10 +74,18 @@ const features = [
     rule: "Predefined fallback: returns a structured preview with common time defaults.",
     icon: ScanLine,
     to: "/slips/new",
+    roles: ["Vendor GF"],
   },
 ];
 
-export function AiFeatureShowcase() {
+export function AiFeatureShowcase({ user }: { user: User }) {
+  const visibleFeatures = features.filter((feature) => {
+    const roleMatch = !feature.roles || feature.roles.includes(user.roleName);
+    const emailMatch = !feature.emails || feature.emails.includes(user.email);
+    return roleMatch && emailMatch;
+  });
+  if (visibleFeatures.length === 0) return null;
+
   return (
     <section className="pdm-card mb-6 p-5">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -77,13 +94,13 @@ export function AiFeatureShowcase() {
             <Sparkles size={18} /> AI Feature Layer
           </h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Prototype AI remains visible even when the backend AI switch is off, using deterministic rules for testing.
+            Persona-specific AI tools for {user.roleName}. Prototype answers appear when the backend AI switch is off.
           </p>
         </div>
         <AiBadge prototype />
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {features.map((feature) => {
+        {visibleFeatures.map((feature) => {
           const Icon = feature.icon;
           return (
             <Link
