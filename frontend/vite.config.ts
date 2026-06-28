@@ -6,12 +6,16 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// In Docker, the backend service is reachable at http://backend:3001
+// Outside Docker, it defaults to http://localhost:3001
+const backendTarget = process.env.BACKEND_URL || "http://localhost:3001";
+
 export default defineConfig({
   vite: {
     server: {
       proxy: {
         "/api": {
-          target: "http://localhost:3001",
+          target: backendTarget,
           changeOrigin: true,
         },
       },

@@ -1,0 +1,24 @@
+FROM node:22-slim
+
+WORKDIR /app
+
+# Install dependencies first (layer cache)
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copy config files
+COPY tsconfig.json ./
+COPY vite.config.ts ./
+COPY components.json ./
+
+# Copy source code
+COPY src ./src
+
+# Copy TanStack and Lovable config directories if they exist
+COPY .tanstack ./.tanstack
+COPY .lovable ./.lovable
+
+EXPOSE 3000
+
+# Start Vite dev server, bind to 0.0.0.0 so it's accessible from outside the container
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]

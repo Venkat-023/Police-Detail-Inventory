@@ -64,7 +64,7 @@ if (-not $container) {
     -e POSTGRES_USER=pdm_user `
     -e POSTGRES_PASSWORD=pdm_password `
     -e POSTGRES_DB=pdm_db `
-    -p 5432:5432 `
+    -p 5600:5432 `
     postgres:15 | Out-Null
 } else {
   docker start $PostgresName | Out-Null
@@ -73,7 +73,7 @@ if (-not $container) {
 Write-Step "Waiting for PostgreSQL"
 $dbReady = $false
 for ($i = 0; $i -lt 30; $i++) {
-  $tcp = Test-NetConnection localhost -Port 5432 -WarningAction SilentlyContinue
+  $tcp = Test-NetConnection localhost -Port 5600 -WarningAction SilentlyContinue
   if ($tcp.TcpTestSucceeded) {
     $dbReady = $true
     break
@@ -81,9 +81,9 @@ for ($i = 0; $i -lt 30; $i++) {
   Start-Sleep -Seconds 2
 }
 if (-not $dbReady) {
-  throw "PostgreSQL did not open port 5432."
+  throw "PostgreSQL did not open port 5600."
 }
-Write-Host "PostgreSQL is ready on localhost:5432" -ForegroundColor Green
+Write-Host "PostgreSQL is ready on localhost:5600" -ForegroundColor Green
 
 Write-Step "Installing dependencies if needed"
 if (-not (Test-Path (Join-Path $Root "node_modules"))) {

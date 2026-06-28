@@ -1,0 +1,5 @@
+node_modules
+dist
+*.log
+frontend-dev.out.log
+frontend-dev.err.log

@@ -44,7 +44,43 @@ Install these before running the application:
 
 Docker Desktop must be running before starting the app because the local PostgreSQL database runs in Docker.
 
-## One-Command Start
+## Running with Docker Compose (Recommended)
+
+The easiest way to start the entire application is using Docker Compose. This starts the PostgreSQL database, the backend, and the frontend on an isolated virtual network, completely avoiding local port conflicts.
+
+From the project root:
+
+```bash
+# Build and start all services (frontend, backend, database)
+docker compose up --build
+```
+
+Subsequent runs (without rebuilding):
+```bash
+docker compose up
+```
+
+This will automatically:
+- Spin up PostgreSQL on an internal docker network (port `5432` container-to-container).
+- Sync the database schema and run seed scripts (creates all roles, organisations, and personas).
+- Start the Express backend on `http://localhost:3001`.
+- Start the React/TanStack frontend on `http://localhost:3000`.
+
+Once running, access the frontend at:
+```text
+http://localhost:3000/
+```
+
+### Stopping the services
+If running in the foreground, press `Ctrl + C` in the terminal.
+Otherwise, run:
+```bash
+docker compose down
+```
+
+## Legacy Native Startup (One-Command Start)
+
+If you prefer to run the Node processes directly on your host machine instead of inside Docker:
 
 From the project root:
 
@@ -52,23 +88,8 @@ From the project root:
 npm run app:start
 ```
 
-This command:
+This script runs PostgreSQL in Docker on port `5600` (to avoid Windows Hyper-V port exclusion ranges) and runs Node/npm processes locally.
 
-- Checks Node, npm, and Docker
-- Starts Docker Desktop if available and needed
-- Starts or creates the `pdm-postgres` PostgreSQL container
-- Installs missing dependencies
-- Generates the Prisma client
-- Pushes the database schema
-- Seeds roles, organisations, and test users
-- Starts the backend and frontend dev servers
-- Verifies backend health, frontend availability, and login
-
-Open the app here:
-
-```text
-http://127.0.0.1:3000/
-```
 
 ## Automated Verification
 
@@ -308,9 +329,11 @@ Open Docker Desktop and wait until the engine is ready, then run:
 npm run app:start
 ```
 
-### Port 5432 is already in use
+### Port 5432 (or other ports) are already in use / forbidden access
+On Windows machines, Hyper-V or WSL often reserves large blocks of ports (known as exclusion ranges), preventing Docker or Node from binding to them (e.g., `5432` or `5433` binding errors).
+- **Recommended fix:** Use the **Docker Compose** start method. It runs PostgreSQL internally on the container network without exposing any host port for the database, bypassing Windows exclusion range conflicts completely.
+- **For local native startup:** The `npm run app:start` script has been updated to bind PostgreSQL to host port `5600`, which is outside standard Windows exclusion ranges. You can verify reserved port ranges using `netsh interface ipv4 show excludedportrange protocol=tcp`.
 
-Another PostgreSQL service may already be running. Stop it or change the Docker port and `DATABASE_URL`.
 
 ### Login says too many requests
 

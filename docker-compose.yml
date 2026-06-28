@@ -1,0 +1,78 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pdm_user
+      POSTGRES_PASSWORD: pdm_password
+      POSTGRES_DB: pdm_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pdm_user -d pdm_db"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+    networks:
+      - pdm-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://pdm_user:pdm_password@db:5432/pdm_db
+      JWT_SECRET: local-dev-access-secret-change-me-32-chars
+      JWT_REFRESH_SECRET: local-dev-refresh-secret-change-me-32-chars
+      JWT_ACCESS_EXPIRY: "15m"
+      JWT_REFRESH_EXPIRY: "7d"
+      NODE_ENV: development
+      PORT: "3001"
+      FRONTEND_URL: http://localhost:3000
+      CORS_ORIGIN: http://localhost:3000
+      RATE_LIMIT_WINDOW_MS: "60000"
+      RATE_LIMIT_MAX_REQUESTS: "100"
+      AUTH_RATE_LIMIT_MAX: "1000"
+      AUTH_RATE_LIMIT_WINDOW_MS: "900000"
+      AWS_ACCESS_KEY_ID: ""
+      AWS_SECRET_ACCESS_KEY: ""
+      AWS_REGION: us-east-1
+      AWS_S3_BUCKET: pdm-signatures
+      S3_SIGNED_URL_EXPIRY: "3600"
+    volumes:
+      - ./src:/app/src
+      - ./prisma:/app/prisma
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pdm-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      BACKEND_URL: http://backend:3001
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+    networks:
+      - pdm-net
+
+volumes:
+  pgdata:
+
+networks:
+  pdm-net:
+    driver: bridge
