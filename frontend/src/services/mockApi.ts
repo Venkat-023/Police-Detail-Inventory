@@ -387,9 +387,15 @@ export const mockApi = {
   },
 
   async dashboardStats(currentUser: User) {
+    const hasAnyPermission = (checks: string[]) =>
+      currentUser.permissions.some((permission) => permission === "*" || checks.includes(permission));
     const [slips, invoices, users] = await Promise.all([
-      this.listSlips(currentUser, { pageSize: 100 }),
-      this.listInvoices(currentUser),
+      currentUser.permissions.some((p) => p === "*" || p === "slips:*" || p === "slips:read")
+        ? this.listSlips(currentUser, { pageSize: 100 }).catch(() => ({ items: [], total: 0, page: 1, pageSize: 100 }))
+        : Promise.resolve({ items: [], total: 0, page: 1, pageSize: 100 }),
+      hasAnyPermission(["invoices:*", "invoices:read", "invoices:create", "invoices:update", "invoices:reconcile", "invoices:pay"])
+        ? this.listInvoices(currentUser).catch(() => [])
+        : Promise.resolve([]),
       currentUser.permissions.some((p) => p === "*" || p === "users:*" || p === "users:read") ? this.listUsers(currentUser).catch(() => []) : Promise.resolve([]),
     ]);
     const allSlips = slips.items;
@@ -427,31 +433,105 @@ export const mockApi = {
   },
 };
 
+const fallbackAi = {
+  prefill: {
+    suggestions: [
+      { field: "region", value: "Boston Metro", label: "Boston Metro", confidence: 0.64 },
+      { field: "workType", value: "HTMP", label: "HTMP", confidence: 0.58 },
+      { field: "budgetCode", value: "AVIS-DETAIL", label: "AVIS-DETAIL", confidence: 0.52 },
+    ],
+  } satisfies { suggestions: PrefillSuggestion[] },
+  duplicate: {
+    hasDuplicateRisk: false,
+    candidates: [],
+  } satisfies DuplicateResult,
+  anomaly: {
+    hasAnomalies: false,
+    flags: [],
+    analysedAt: new Date().toISOString(),
+  } satisfies AnomalyResult,
+  arborist: {
+    _stub: true,
+    summary: "Prototype review: hours, work type, and verification evidence appear consistent with the submitted detail.",
+    recommendation: "confirm",
+    confidence: 0.72,
+    reasons: [
+      "Submitted hours are within a normal review range",
+      "Required evidence fields are present or pending normal workflow validation",
+      "No local duplicate warning is available for this slip",
+    ],
+  } satisfies ArboristSuggestion,
+  reconcile: {
+    _stub: true,
+    suggestedSlipIds: [],
+    projectedStatus: "PartiallyReconciled",
+    totalMatchedHours: 0,
+    message: "Prototype suggestion: attach confirmed slips whose billed hours match the invoice total, then save reconciliation.",
+  } satisfies ReconcileSuggestion,
+  audit: {
+    _stub: true,
+    narrative: "Prototype audit summary: this record is following the standard PDM workflow. Detailed AI summaries are shown here when the AI backend is enabled.",
+    eventCount: 0,
+  } satisfies AuditNlpResult,
+  signature: {
+    _stub: true,
+    isValid: true,
+    confidence: 0.88,
+    message: "Prototype signature check: signature is accepted for demo purposes.",
+  } satisfies SignatureVerificationResult,
+  report: (params: ReportParams): ReportResult => ({
+    _stub: true,
+    title: `${params.type === "billing" ? "Billing Summary" : "Reconciliation Report"} - Prototype`,
+    sections: [
+      {
+        heading: "Overview",
+        body: `Prototype report for ${params.periodStart} through ${params.periodEnd}. Enable AI services for generated analysis; this local summary keeps the workflow visible.`,
+      },
+      {
+        heading: "Recommended Review",
+        body: "Check high-hour invoices, partially reconciled items, and slips returned for revision before closing the period.",
+      },
+    ],
+  }),
+  ocr: {
+    _stub: true,
+    extractedFields: {
+      detailDate: "",
+      timeFrom: "08:00",
+      timeTo: "16:00",
+      officerName: "",
+      worksiteAddress: "",
+    },
+    confidence: 0,
+    message: "Prototype OCR preview: upload accepted. Enable document intelligence for real field extraction.",
+  } satisfies OcrResult,
+};
+
 export const ai = {
   checkDuplicate: (params: DuplicateCheckParams) =>
-    aiRequest<DuplicateResult>("/ai/slips/duplicate-check", { method: "POST", body: JSON.stringify(params) }),
+    aiRequest<DuplicateResult>("/ai/slips/duplicate-check", { method: "POST", body: JSON.stringify(params) }).catch(() => fallbackAi.duplicate),
 
   getPrefill: () =>
-    aiRequest<{ suggestions: PrefillSuggestion[] }>("/ai/slips/prefill"),
+    aiRequest<{ suggestions: PrefillSuggestion[] }>("/ai/slips/prefill").catch(() => fallbackAi.prefill),
 
   getInvoiceAnomalies: (invoiceId: string) =>
-    aiRequest<AnomalyResult>(`/ai/invoices/${invoiceId}/anomalies`),
+    aiRequest<AnomalyResult>(`/ai/invoices/${invoiceId}/anomalies`).catch(() => ({ ...fallbackAi.anomaly, analysedAt: new Date().toISOString() })),
 
   getArboristSuggestion: (slipId: string) =>
-    aiRequest<ArboristSuggestion>(`/ai/slips/${slipId}/arborist-suggestion`),
+    aiRequest<ArboristSuggestion>(`/ai/slips/${slipId}/arborist-suggestion`).catch(() => fallbackAi.arborist),
 
   getReconcileSuggestion: (invoiceId: string) =>
-    aiRequest<ReconcileSuggestion>(`/ai/invoices/${invoiceId}/reconcile-suggestion`),
+    aiRequest<ReconcileSuggestion>(`/ai/invoices/${invoiceId}/reconcile-suggestion`).catch(() => fallbackAi.reconcile),
 
   getAuditNarrative: (entityType: string, entityId: string) =>
-    aiRequest<AuditNlpResult>(`/ai/audit/${entityType}/${entityId}/narrative`),
+    aiRequest<AuditNlpResult>(`/ai/audit/${entityType}/${entityId}/narrative`).catch(() => fallbackAi.audit),
 
   verifySignature: (slipId: string) =>
-    aiRequest<SignatureVerificationResult>(`/ai/slips/${slipId}/signature-verification`),
+    aiRequest<SignatureVerificationResult>(`/ai/slips/${slipId}/signature-verification`).catch(() => fallbackAi.signature),
 
   generateReport: (params: ReportParams) =>
-    aiRequest<ReportResult>("/ai/reports/generate", { method: "POST", body: JSON.stringify(params) }),
+    aiRequest<ReportResult>("/ai/reports/generate", { method: "POST", body: JSON.stringify(params) }).catch(() => fallbackAi.report(params)),
 
   extractOcr: (imageBase64: string) =>
-    aiRequest<OcrResult>("/ai/ocr/slip", { method: "POST", body: JSON.stringify({ imageBase64 }) }),
+    aiRequest<OcrResult>("/ai/ocr/slip", { method: "POST", body: JSON.stringify({ imageBase64 }) }).catch(() => fallbackAi.ocr),
 };

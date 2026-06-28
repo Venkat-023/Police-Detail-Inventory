@@ -1,6 +1,6 @@
 # User Story Workflow QA Report
 
-Generated: 2026-06-28T17:10:28.744Z
+Generated: 2026-06-28T17:40:45.565Z
 Backend: http://localhost:3001
 Frontend: http://localhost:3000
 
@@ -23,17 +23,17 @@ Frontend: http://localhost:3000
 | NG Super Admin | Persona access | Login with seeded account | PASS | super@nationalgrid.com authenticated |
 | All | Navigation | Frontend route shell responds | PASS | Statuses: 200, 200, 200 |
 | Vendor GF | Create New Slip | Mandatory validation rejects empty slip | PASS | HTTP 422 |
-| Vendor GF | Create New Slip | Save partial draft from incomplete form | PASS | HTTP 200, slip PDM-A2191ED4 |
-| Vendor GF | Create New Slip | Create complete draft slip | PASS | Slip PDM-DB2291EC status Draft |
+| Vendor GF | Create New Slip | Save partial draft from incomplete form | PASS | HTTP 200, slip PDM-C8089036 |
+| Vendor GF | Create New Slip | Create complete draft slip | PASS | Slip PDM-3F9E8F6C status Draft |
 | Vendor GF | Create New Slip | Billable submission requires badge and geo evidence | PASS | HTTP 422 |
 | Vendor GF | Create New Slip | Submit billable slip with police badge and entry/exit geo photos | PASS | Status Billable, locationVerified=true, timestampVerified=true |
 | Vendor GF | Create New Slip | Photo geotag source | WARN | Workflow records browser geolocation at upload time; it does not yet parse EXIF metadata from the photo file. |
-| NG Arborist | Confirm Billable Slip | Confirm billable slip | PASS | Slip PDM-92C5A432 status Confirmed |
-| NG Arborist | Confirm Billable Slip | Reject billable slip with comments | PASS | Slip PDM-F39D301B status NonBillable |
-| NG Arborist | Confirm Billable Slip | Return slip for revision | PASS | Slip PDM-00ACE9CA status ReturnedForRevision |
-| Vendor GF | Create New Slip | Resubmit returned slip after revision | PASS | Slip PDM-00ACE9CA status Billable |
-| Vendor Billing | Generate and Reconcile Invoice | Create invoice | PASS | Invoice NG-QA-66628031 status NotReconciled |
-| Vendor Billing | Generate and Reconcile Invoice | Confirmed slip appears for reconciliation | PASS | 1 available slip(s) |
+| NG Arborist | Confirm Billable Slip | Confirm billable slip | PASS | Slip PDM-84497DBE status Confirmed |
+| NG Arborist | Confirm Billable Slip | Reject billable slip with comments | PASS | Slip PDM-19685FC0 status NonBillable |
+| NG Arborist | Confirm Billable Slip | Return slip for revision | PASS | Slip PDM-09884DCA status ReturnedForRevision |
+| Vendor GF | Create New Slip | Resubmit returned slip after revision | PASS | Slip PDM-09884DCA status Billable |
+| Vendor Billing | Generate and Reconcile Invoice | Create invoice | PASS | Invoice NG-QA-68444890 status NotReconciled |
+| Vendor Billing | Generate and Reconcile Invoice | Confirmed slip appears for reconciliation | PASS | 13 available slip(s) |
 | Vendor Billing | Generate and Reconcile Invoice | Billing can reconcile matching slip total | PASS | Invoice status Reconciled |
 | NG Detail Admin | Move Partially Reconciled Records to Paid | NG Detail Admin cannot reconcile | PASS | HTTP 403 |
 | NG Detail Admin | Move Partially Reconciled Records to Paid | Mark reconciled invoice paid | PASS | Invoice status Paid |
@@ -41,7 +41,7 @@ Frontend: http://localhost:3000
 | NG Detail Admin | Move Partially Reconciled Records to Paid | Move partially reconciled invoice to paid | PASS | HTTP 200, invoice status Paid |
 | NG Detail Admin | Move Partially Reconciled Records to Paid | Invoice audit trail is visible | PASS | 3 audit event(s) |
 | Vendor Super Admin | Admin | Vendor admin can manage scoped users | PASS | 6 user(s) visible |
-| NG Super Admin | Admin | NG super admin can read roles and audit logs | PASS | 6 roles, 19 audit log(s) |
+| NG Super Admin | Admin | NG super admin can read roles and audit logs | PASS | 6 roles, 20 audit log(s) |
 
 ## Notes
 

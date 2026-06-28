@@ -8,6 +8,7 @@ import { SkeletonRows } from "@/components/ui/SkeletonRows";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Plus, ArrowUp, CheckCircle, XCircle, Clock, DollarSign, ScrollText, Users, Building2 } from "lucide-react";
 import type { User, PoliceSlip } from "@/types";
+import { AiFeatureShowcase } from "@/components/ai/AiFeatureShowcase";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   ssr: false,
@@ -20,6 +21,7 @@ function DashboardPage() {
   return (
     <AppLayout title="Dashboard">
       <Greeting user={user} />
+      <AiFeatureShowcase />
       {user.roleName === "Vendor GF" && <VendorGFDashboard user={user} />}
       {user.roleName === "Vendor Billing" && <VendorBillingDashboard user={user} />}
       {user.roleName === "Vendor Super Admin" && <VendorSADashboard user={user} />}
