@@ -47,6 +47,7 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
         <div>
           <div className="font-bold text-foreground leading-tight">PDM</div>
           <div className="text-[11px] text-muted-foreground">Police Detail Mgmt</div>
+          {user && <div className="font-bold text-foreground leading-tight">{user.persona}</div>}
         </div>
       </div>
       <nav className="flex-1 overflow-y-auto p-3" aria-label="Main navigation">
