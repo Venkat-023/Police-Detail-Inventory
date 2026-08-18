@@ -102,6 +102,7 @@
   --sidebar-accent-foreground: oklch(0.42 0.18 263);
   --sidebar-border: oklch(0.9 0.005 250);
   --sidebar-ring: oklch(0.55 0.15 263);
+  --login-background: beige; /* Beige background for login page */
 }
 
 @layer base {
