@@ -615,23 +615,23 @@
       "frontend_src_routes_authenticated_slips_id_index_slipdetailpage"
     ],
     "16": [
-      "eslint",
       "eslint_config_prettier",
       "eslint_js",
       "eslint_plugin_prettier",
       "frontend_package_devdependencies",
-      "frontend_package_devdependencies_eslint",
       "frontend_package_devdependencies_eslint_config_prettier",
       "frontend_package_devdependencies_eslint_js",
       "frontend_package_devdependencies_eslint_plugin_prettier",
       "frontend_package_devdependencies_globals",
       "frontend_package_devdependencies_types_react",
       "frontend_package_devdependencies_types_react_dom",
+      "frontend_package_devdependencies_types_react_signature_canvas",
       "frontend_package_devdependencies_typescript_eslint",
       "frontend_package_devdependencies_vite",
       "globals",
       "types_react",
       "types_react_dom",
+      "types_react_signature_canvas",
       "typescript_eslint",
       "vite"
     ],
@@ -1001,208 +1001,208 @@
       "docker_entrypoint_sh__entry"
     ],
     "52": [
+      "eslint",
+      "frontend_package_devdependencies_eslint"
+    ],
+    "53": [
       "eslint_plugin_react_hooks",
       "frontend_package_devdependencies_eslint_plugin_react_hooks"
     ],
-    "53": [
+    "54": [
       "eslint_plugin_react_refresh",
       "frontend_package_devdependencies_eslint_plugin_react_refresh"
     ],
-    "54": [
+    "55": [
       "frontend_package_dependencies_hookform_resolvers",
       "hookform_resolvers"
     ],
-    "55": [
+    "56": [
       "frontend_package_dependencies_input_otp",
       "input_otp"
     ],
-    "56": [
+    "57": [
       "frontend_package_dependencies_lucide_react",
       "lucide_react"
     ],
-    "57": [
+    "58": [
       "frontend_package_dependencies_radix_ui_react_alert_dialog",
       "radix_ui_react_alert_dialog"
     ],
-    "58": [
+    "59": [
       "frontend_package_dependencies_radix_ui_react_aspect_ratio",
       "radix_ui_react_aspect_ratio"
     ],
-    "59": [
+    "60": [
       "frontend_package_dependencies_radix_ui_react_avatar",
       "radix_ui_react_avatar"
     ],
-    "60": [
+    "61": [
       "frontend_package_dependencies_radix_ui_react_checkbox",
       "radix_ui_react_checkbox"
     ],
-    "61": [
+    "62": [
       "frontend_package_dependencies_radix_ui_react_collapsible",
       "radix_ui_react_collapsible"
     ],
-    "62": [
+    "63": [
       "frontend_package_dependencies_radix_ui_react_context_menu",
       "radix_ui_react_context_menu"
     ],
-    "63": [
+    "64": [
       "frontend_package_dependencies_radix_ui_react_dialog",
       "radix_ui_react_dialog"
     ],
-    "64": [
+    "65": [
       "frontend_package_dependencies_radix_ui_react_dropdown_menu",
       "radix_ui_react_dropdown_menu"
     ],
-    "65": [
+    "66": [
       "frontend_package_dependencies_radix_ui_react_hover_card",
       "radix_ui_react_hover_card"
     ],
-    "66": [
+    "67": [
       "frontend_package_dependencies_radix_ui_react_label",
       "radix_ui_react_label"
     ],
-    "67": [
+    "68": [
       "frontend_package_dependencies_radix_ui_react_menubar",
       "radix_ui_react_menubar"
     ],
-    "68": [
+    "69": [
       "frontend_package_dependencies_radix_ui_react_navigation_menu",
       "radix_ui_react_navigation_menu"
     ],
-    "69": [
+    "70": [
       "frontend_package_dependencies_radix_ui_react_progress",
       "radix_ui_react_progress"
     ],
-    "70": [
+    "71": [
       "frontend_package_dependencies_radix_ui_react_scroll_area",
       "radix_ui_react_scroll_area"
     ],
-    "71": [
+    "72": [
       "frontend_package_dependencies_radix_ui_react_select",
       "radix_ui_react_select"
     ],
-    "72": [
+    "73": [
       "frontend_package_dependencies_radix_ui_react_separator",
       "radix_ui_react_separator"
     ],
-    "73": [
+    "74": [
       "frontend_package_dependencies_radix_ui_react_slider",
       "radix_ui_react_slider"
     ],
-    "74": [
+    "75": [
       "frontend_package_dependencies_radix_ui_react_slot",
       "radix_ui_react_slot"
     ],
-    "75": [
+    "76": [
       "frontend_package_dependencies_radix_ui_react_switch",
       "radix_ui_react_switch"
     ],
-    "76": [
+    "77": [
       "frontend_package_dependencies_radix_ui_react_tabs",
       "radix_ui_react_tabs"
     ],
-    "77": [
+    "78": [
       "frontend_package_dependencies_radix_ui_react_toggle_group",
       "radix_ui_react_toggle_group"
     ],
-    "78": [
+    "79": [
       "frontend_package_dependencies_radix_ui_react_tooltip",
       "radix_ui_react_tooltip"
     ],
-    "79": [
+    "80": [
       "frontend_package_dependencies_react",
       "react"
     ],
-    "80": [
+    "81": [
       "frontend_package_dependencies_react_day_picker",
       "react_day_picker"
     ],
-    "81": [
+    "82": [
       "frontend_package_dependencies_react_hook_form",
       "react_hook_form"
     ],
-    "82": [
+    "83": [
       "frontend_package_dependencies_react_hot_toast",
       "react_hot_toast"
     ],
-    "83": [
+    "84": [
       "frontend_package_dependencies_react_resizable_panels",
       "react_resizable_panels"
     ],
-    "84": [
+    "85": [
       "frontend_package_dependencies_react_signature_canvas",
       "react_signature_canvas"
     ],
-    "85": [
+    "86": [
       "frontend_package_dependencies_recharts",
       "recharts"
     ],
-    "86": [
+    "87": [
       "frontend_package_dependencies_sonner",
       "sonner"
     ],
-    "87": [
+    "88": [
       "frontend_package_dependencies_tailwind_merge",
       "tailwind_merge"
     ],
-    "88": [
+    "89": [
       "frontend_package_dependencies_tailwindcss",
       "tailwindcss"
     ],
-    "89": [
+    "90": [
       "frontend_package_dependencies_tailwindcss_vite",
       "tailwindcss_vite"
     ],
-    "90": [
+    "91": [
       "frontend_package_dependencies_tanstack_react_query",
       "tanstack_react_query"
     ],
-    "91": [
+    "92": [
       "frontend_package_dependencies_tanstack_react_router",
       "tanstack_react_router"
     ],
-    "92": [
+    "93": [
       "frontend_package_dependencies_tanstack_react_start",
       "tanstack_react_start"
     ],
-    "93": [
+    "94": [
       "frontend_package_dependencies_tanstack_router_plugin",
       "tanstack_router_plugin"
     ],
-    "94": [
+    "95": [
       "frontend_package_dependencies_tw_animate_css",
       "tw_animate_css"
     ],
-    "95": [
+    "96": [
       "frontend_package_dependencies_vaul",
       "vaul"
     ],
-    "96": [
+    "97": [
       "frontend_package_dependencies_vite_tsconfig_paths",
       "vite_tsconfig_paths"
     ],
-    "97": [
+    "98": [
       "frontend_package_dependencies_zod",
       "frontend_package_json_zod"
     ],
-    "98": [
+    "99": [
       "frontend_package_dependencies_zustand",
       "zustand"
     ],
-    "99": [
+    "100": [
       "frontend_package_devdependencies_lovable_dev_vite_tanstack_config",
       "lovable_dev_vite_tanstack_config"
     ],
-    "100": [
+    "101": [
       "frontend_package_devdependencies_nitro",
       "nitro"
     ],
-    "101": [
+    "102": [
       "frontend_package_devdependencies_prettier",
       "prettier"
-    ],
-    "102": [
-      "frontend_package_devdependencies_types_react_signature_canvas",
-      "types_react_signature_canvas"
     ],
     "103": [
       "frontend_package_devdependencies_vitejs_plugin_react",
@@ -1232,6 +1232,9 @@
     ],
     "110": [
       "frontend_vite_config"
+    ],
+    "111": [
+      "tests_login_test"
     ]
   },
   "cohesion": {
@@ -1345,7 +1348,8 @@
     "107": 1.0,
     "108": 1.0,
     "109": 1.0,
-    "110": 1.0
+    "110": 1.0,
+    "111": 1.0
   },
   "gods": [
     {
@@ -1401,50 +1405,6 @@
   ],
   "surprises": [
     {
-      "source": "BreadcrumbEllipsis()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/breadcrumb.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `BreadcrumbEllipsis()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "BreadcrumbSeparator()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/breadcrumb.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `BreadcrumbSeparator()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "ResizableHandle()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/resizable.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `ResizableHandle()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "ResizablePanelGroup()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/resizable.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `ResizablePanelGroup()` unexpectedly reaches hub `cn()`"
-    },
-    {
       "source": "AlertDescription",
       "target": "cn()",
       "source_files": [
@@ -1454,6 +1414,50 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities; peripheral node `AlertDescription` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertTitle",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertTitle` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDialogContent",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert-dialog.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertDialogContent` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDialogDescription",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert-dialog.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertDialogDescription` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDialogFooter()",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert-dialog.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertDialogFooter()` unexpectedly reaches hub `cn()`"
     }
   ],
   "tokens": {
