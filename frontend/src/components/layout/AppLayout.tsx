@@ -73,8 +73,8 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
         <div className="border-t border-sidebar-border p-4">
           <div className="mb-1 truncate text-sm font-medium text-foreground">{user.name}</div>
           <div className="mb-3 flex items-center gap-2">
-            <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium ${scopePillClass}`}>
-              {user.roleName}
+            <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium ${scopePillClass}`}>  
+              {user.roleName}  
             </span>
           </div>
           <button
@@ -89,7 +89,7 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
   );
 
   return (
-    <div className="flex min-h-dvh bg-background">
+    <div className="flex min-h-dvh bg-background dark:bg-gray-900"> {/* Apply dark mode background */}
       {/* Desktop sidebar */}
       <aside className="hidden w-64 shrink-0 border-r border-sidebar-border bg-sidebar xl:block">
         {SidebarContent}
@@ -123,8 +123,8 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
                 <div className="text-sm font-medium text-foreground">{user.name}</div>
                 <div className="text-xs text-muted-foreground">{user.organisationName}</div>
               </div>
-              <span className={`hidden rounded-full px-2 py-0.5 text-[10px] font-medium sm:inline-block ${scopePillClass}`}>
-                {user.roleName}
+              <span className={`hidden rounded-full px-2 py-0.5 text-[10px] font-medium sm:inline-block ${scopePillClass}`}>  
+                {user.roleName}  
               </span>
               <button onClick={handleLogout} aria-label="Log out" className="rounded-md p-2 text-foreground hover:bg-muted">
                 <LogOut size={18} />
