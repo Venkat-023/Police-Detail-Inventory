@@ -1368,9 +1368,9 @@
       "source_location": "L21",
       "_callable": true,
       "_origin": "ast",
-      "id": "frontend_src_components_layout_applayout_applayout",
       "community": 11,
-      "norm_label": "applayout()"
+      "norm_label": "applayout()",
+      "id": "frontend_src_components_layout_applayout_applayout"
     },
     {
       "label": "useAuth()",
@@ -4213,32 +4213,12 @@
       "id": "frontend_src_components_ui_pagination_paginationitem"
     },
     {
-      "label": "@lovable.dev/vite-tanstack-config",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L75",
-      "_origin": "ast",
-      "community": 100,
-      "norm_label": "@lovable.dev/vite-tanstack-config",
-      "id": "frontend_package_devdependencies_lovable_dev_vite_tanstack_config"
-    },
-    {
-      "label": "@lovable.dev/vite-tanstack-config",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L75",
-      "_origin": "ast",
-      "community": 100,
-      "norm_label": "@lovable.dev/vite-tanstack-config",
-      "id": "lovable_dev_vite_tanstack_config"
-    },
-    {
       "label": "nitro",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 101,
+      "community": 100,
       "norm_label": "nitro",
       "id": "frontend_package_devdependencies_nitro"
     },
@@ -4248,7 +4228,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 101,
+      "community": 100,
       "norm_label": "nitro",
       "id": "nitro"
     },
@@ -4258,7 +4238,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 102,
+      "community": 101,
       "norm_label": "prettier",
       "id": "frontend_package_devdependencies_prettier"
     },
@@ -4268,9 +4248,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 102,
+      "community": 101,
       "norm_label": "prettier",
       "id": "prettier"
+    },
+    {
+      "label": "@types/react-signature-canvas",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L79",
+      "_origin": "ast",
+      "community": 102,
+      "norm_label": "@types/react-signature-canvas",
+      "id": "frontend_package_devdependencies_types_react_signature_canvas"
+    },
+    {
+      "label": "@types/react-signature-canvas",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L79",
+      "_origin": "ast",
+      "community": 102,
+      "norm_label": "@types/react-signature-canvas",
+      "id": "types_react_signature_canvas"
     },
     {
       "label": "@vitejs/plugin-react",
@@ -4318,9 +4318,9 @@
       "source_file": "frontend/src/components/layout/AppLayout.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "frontend_src_components_layout_applayout",
       "community": 11,
-      "norm_label": "applayout.tsx"
+      "norm_label": "applayout.tsx",
+      "id": "frontend_src_components_layout_applayout"
     },
     {
       "label": "NAV",
@@ -4328,9 +4328,9 @@
       "source_file": "frontend/src/components/layout/AppLayout.tsx",
       "source_location": "L11",
       "_origin": "ast",
-      "id": "frontend_src_components_layout_applayout_nav",
       "community": 11,
-      "norm_label": "nav"
+      "norm_label": "nav",
+      "id": "frontend_src_components_layout_applayout_nav"
     },
     {
       "label": "admin.audit.tsx",
@@ -4478,9 +4478,9 @@
       "source_file": "tests/login.test.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_login_test",
       "community": 111,
-      "norm_label": "login.test.ts"
+      "norm_label": "login.test.ts",
+      "id": "tests_login_test"
     },
     {
       "label": "slips.ts",
@@ -5043,6 +5043,16 @@
       "id": "frontend_package_devdependencies"
     },
     {
+      "label": "eslint",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L81",
+      "_origin": "ast",
+      "community": 16,
+      "norm_label": "eslint",
+      "id": "frontend_package_devdependencies_eslint"
+    },
+    {
       "label": "eslint-config-prettier",
       "file_type": "code",
       "source_file": "frontend/package.json",
@@ -5103,16 +5113,6 @@
       "id": "frontend_package_devdependencies_types_react_dom"
     },
     {
-      "label": "@types/react-signature-canvas",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L79",
-      "_origin": "ast",
-      "community": 16,
-      "norm_label": "@types/react-signature-canvas",
-      "id": "frontend_package_devdependencies_types_react_signature_canvas"
-    },
-    {
       "label": "typescript-eslint",
       "file_type": "code",
       "source_file": "frontend/package.json",
@@ -5131,6 +5131,16 @@
       "community": 16,
       "norm_label": "vite",
       "id": "frontend_package_devdependencies_vite"
+    },
+    {
+      "label": "eslint",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L81",
+      "_origin": "ast",
+      "community": 16,
+      "norm_label": "eslint",
+      "id": "eslint"
     },
     {
       "label": "eslint-config-prettier",
@@ -5191,16 +5201,6 @@
       "community": 16,
       "norm_label": "@types/react-dom",
       "id": "types_react_dom"
-    },
-    {
-      "label": "@types/react-signature-canvas",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L79",
-      "_origin": "ast",
-      "community": 16,
-      "norm_label": "@types/react-signature-canvas",
-      "id": "types_react_signature_canvas"
     },
     {
       "label": "typescript-eslint",
@@ -6173,14 +6173,14 @@
       "id": "frontend_package_dependencies"
     },
     {
-      "label": "class-variance-authority",
+      "label": "clsx",
       "file_type": "code",
       "source_file": "frontend/package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast",
       "community": 22,
-      "norm_label": "class-variance-authority",
-      "id": "frontend_package_dependencies_class_variance_authority"
+      "norm_label": "clsx",
+      "id": "frontend_package_dependencies_clsx"
     },
     {
       "label": "embla-carousel-react",
@@ -6243,14 +6243,14 @@
       "id": "frontend_package_dependencies_react_dom"
     },
     {
-      "label": "class-variance-authority",
+      "label": "clsx",
       "file_type": "concept",
       "source_file": "frontend/package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast",
       "community": 22,
-      "norm_label": "class-variance-authority",
-      "id": "class_variance_authority"
+      "norm_label": "clsx",
+      "id": "clsx"
     },
     {
       "label": "embla-carousel-react",
@@ -7993,24 +7993,24 @@
       "id": "scripts_smoke_test"
     },
     {
-      "label": "clsx",
+      "label": "class-variance-authority",
       "file_type": "code",
       "source_file": "frontend/package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "_origin": "ast",
       "community": 46,
-      "norm_label": "clsx",
-      "id": "frontend_package_dependencies_clsx"
+      "norm_label": "class-variance-authority",
+      "id": "frontend_package_dependencies_class_variance_authority"
     },
     {
-      "label": "clsx",
+      "label": "class-variance-authority",
       "file_type": "concept",
       "source_file": "frontend/package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "_origin": "ast",
       "community": 46,
-      "norm_label": "clsx",
-      "id": "clsx"
+      "norm_label": "class-variance-authority",
+      "id": "class_variance_authority"
     },
     {
       "label": "cmdk",
@@ -8521,32 +8521,12 @@
       "id": "docker_entrypoint_sh__entry"
     },
     {
-      "label": "eslint",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L81",
-      "_origin": "ast",
-      "community": 52,
-      "norm_label": "eslint",
-      "id": "frontend_package_devdependencies_eslint"
-    },
-    {
-      "label": "eslint",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L81",
-      "_origin": "ast",
-      "community": 52,
-      "norm_label": "eslint",
-      "id": "eslint"
-    },
-    {
       "label": "eslint-plugin-react-hooks",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 53,
+      "community": 52,
       "norm_label": "eslint-plugin-react-hooks",
       "id": "frontend_package_devdependencies_eslint_plugin_react_hooks"
     },
@@ -8556,7 +8536,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 53,
+      "community": 52,
       "norm_label": "eslint-plugin-react-hooks",
       "id": "eslint_plugin_react_hooks"
     },
@@ -8566,7 +8546,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 54,
+      "community": 53,
       "norm_label": "eslint-plugin-react-refresh",
       "id": "frontend_package_devdependencies_eslint_plugin_react_refresh"
     },
@@ -8576,7 +8556,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 54,
+      "community": 53,
       "norm_label": "eslint-plugin-react-refresh",
       "id": "eslint_plugin_react_refresh"
     },
@@ -8586,7 +8566,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 55,
+      "community": 54,
       "norm_label": "@hookform/resolvers",
       "id": "frontend_package_dependencies_hookform_resolvers"
     },
@@ -8596,7 +8576,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 55,
+      "community": 54,
       "norm_label": "@hookform/resolvers",
       "id": "hookform_resolvers"
     },
@@ -8606,7 +8586,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 56,
+      "community": 55,
       "norm_label": "input-otp",
       "id": "frontend_package_dependencies_input_otp"
     },
@@ -8616,7 +8596,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 56,
+      "community": 55,
       "norm_label": "input-otp",
       "id": "input_otp"
     },
@@ -8626,7 +8606,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 57,
+      "community": 56,
       "norm_label": "lucide-react",
       "id": "frontend_package_dependencies_lucide_react"
     },
@@ -8636,7 +8616,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 57,
+      "community": 56,
       "norm_label": "lucide-react",
       "id": "lucide_react"
     },
@@ -8646,7 +8626,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 58,
+      "community": 57,
       "norm_label": "@radix-ui/react-alert-dialog",
       "id": "frontend_package_dependencies_radix_ui_react_alert_dialog"
     },
@@ -8656,7 +8636,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 58,
+      "community": 57,
       "norm_label": "@radix-ui/react-alert-dialog",
       "id": "radix_ui_react_alert_dialog"
     },
@@ -8666,7 +8646,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 59,
+      "community": 58,
       "norm_label": "@radix-ui/react-aspect-ratio",
       "id": "frontend_package_dependencies_radix_ui_react_aspect_ratio"
     },
@@ -8676,9 +8656,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 59,
+      "community": 58,
       "norm_label": "@radix-ui/react-aspect-ratio",
       "id": "radix_ui_react_aspect_ratio"
+    },
+    {
+      "label": "@radix-ui/react-avatar",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "community": 59,
+      "norm_label": "@radix-ui/react-avatar",
+      "id": "frontend_package_dependencies_radix_ui_react_avatar"
+    },
+    {
+      "label": "@radix-ui/react-avatar",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "community": 59,
+      "norm_label": "@radix-ui/react-avatar",
+      "id": "radix_ui_react_avatar"
     },
     {
       "label": "router.tsx",
@@ -9011,32 +9011,12 @@
       "id": "frontend_src_start_startinstance"
     },
     {
-      "label": "@radix-ui/react-avatar",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L21",
-      "_origin": "ast",
-      "community": 60,
-      "norm_label": "@radix-ui/react-avatar",
-      "id": "frontend_package_dependencies_radix_ui_react_avatar"
-    },
-    {
-      "label": "@radix-ui/react-avatar",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L21",
-      "_origin": "ast",
-      "community": 60,
-      "norm_label": "@radix-ui/react-avatar",
-      "id": "radix_ui_react_avatar"
-    },
-    {
       "label": "@radix-ui/react-checkbox",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 61,
+      "community": 60,
       "norm_label": "@radix-ui/react-checkbox",
       "id": "frontend_package_dependencies_radix_ui_react_checkbox"
     },
@@ -9046,7 +9026,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 61,
+      "community": 60,
       "norm_label": "@radix-ui/react-checkbox",
       "id": "radix_ui_react_checkbox"
     },
@@ -9056,7 +9036,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 62,
+      "community": 61,
       "norm_label": "@radix-ui/react-collapsible",
       "id": "frontend_package_dependencies_radix_ui_react_collapsible"
     },
@@ -9066,7 +9046,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 62,
+      "community": 61,
       "norm_label": "@radix-ui/react-collapsible",
       "id": "radix_ui_react_collapsible"
     },
@@ -9076,7 +9056,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 63,
+      "community": 62,
       "norm_label": "@radix-ui/react-context-menu",
       "id": "frontend_package_dependencies_radix_ui_react_context_menu"
     },
@@ -9086,7 +9066,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 63,
+      "community": 62,
       "norm_label": "@radix-ui/react-context-menu",
       "id": "radix_ui_react_context_menu"
     },
@@ -9096,7 +9076,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 64,
+      "community": 63,
       "norm_label": "@radix-ui/react-dialog",
       "id": "frontend_package_dependencies_radix_ui_react_dialog"
     },
@@ -9106,7 +9086,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 64,
+      "community": 63,
       "norm_label": "@radix-ui/react-dialog",
       "id": "radix_ui_react_dialog"
     },
@@ -9116,7 +9096,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 65,
+      "community": 64,
       "norm_label": "@radix-ui/react-dropdown-menu",
       "id": "frontend_package_dependencies_radix_ui_react_dropdown_menu"
     },
@@ -9126,7 +9106,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 65,
+      "community": 64,
       "norm_label": "@radix-ui/react-dropdown-menu",
       "id": "radix_ui_react_dropdown_menu"
     },
@@ -9136,7 +9116,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 66,
+      "community": 65,
       "norm_label": "@radix-ui/react-hover-card",
       "id": "frontend_package_dependencies_radix_ui_react_hover_card"
     },
@@ -9146,7 +9126,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 66,
+      "community": 65,
       "norm_label": "@radix-ui/react-hover-card",
       "id": "radix_ui_react_hover_card"
     },
@@ -9156,7 +9136,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 67,
+      "community": 66,
       "norm_label": "@radix-ui/react-label",
       "id": "frontend_package_dependencies_radix_ui_react_label"
     },
@@ -9166,7 +9146,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 67,
+      "community": 66,
       "norm_label": "@radix-ui/react-label",
       "id": "radix_ui_react_label"
     },
@@ -9176,7 +9156,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 68,
+      "community": 67,
       "norm_label": "@radix-ui/react-menubar",
       "id": "frontend_package_dependencies_radix_ui_react_menubar"
     },
@@ -9186,7 +9166,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 68,
+      "community": 67,
       "norm_label": "@radix-ui/react-menubar",
       "id": "radix_ui_react_menubar"
     },
@@ -9196,7 +9176,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 69,
+      "community": 68,
       "norm_label": "@radix-ui/react-navigation-menu",
       "id": "frontend_package_dependencies_radix_ui_react_navigation_menu"
     },
@@ -9206,9 +9186,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 69,
+      "community": 68,
       "norm_label": "@radix-ui/react-navigation-menu",
       "id": "radix_ui_react_navigation_menu"
+    },
+    {
+      "label": "@radix-ui/react-progress",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L32",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "@radix-ui/react-progress",
+      "id": "frontend_package_dependencies_radix_ui_react_progress"
+    },
+    {
+      "label": "@radix-ui/react-progress",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L32",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "@radix-ui/react-progress",
+      "id": "radix_ui_react_progress"
     },
     {
       "label": "aiRouter",
@@ -9401,32 +9401,12 @@
       "id": "src_server_uploadschema"
     },
     {
-      "label": "@radix-ui/react-progress",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L32",
-      "_origin": "ast",
-      "community": 70,
-      "norm_label": "@radix-ui/react-progress",
-      "id": "frontend_package_dependencies_radix_ui_react_progress"
-    },
-    {
-      "label": "@radix-ui/react-progress",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L32",
-      "_origin": "ast",
-      "community": 70,
-      "norm_label": "@radix-ui/react-progress",
-      "id": "radix_ui_react_progress"
-    },
-    {
       "label": "@radix-ui/react-scroll-area",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 71,
+      "community": 70,
       "norm_label": "@radix-ui/react-scroll-area",
       "id": "frontend_package_dependencies_radix_ui_react_scroll_area"
     },
@@ -9436,7 +9416,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 71,
+      "community": 70,
       "norm_label": "@radix-ui/react-scroll-area",
       "id": "radix_ui_react_scroll_area"
     },
@@ -9446,7 +9426,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 72,
+      "community": 71,
       "norm_label": "@radix-ui/react-select",
       "id": "frontend_package_dependencies_radix_ui_react_select"
     },
@@ -9456,7 +9436,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 72,
+      "community": 71,
       "norm_label": "@radix-ui/react-select",
       "id": "radix_ui_react_select"
     },
@@ -9466,7 +9446,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 73,
+      "community": 72,
       "norm_label": "@radix-ui/react-separator",
       "id": "frontend_package_dependencies_radix_ui_react_separator"
     },
@@ -9476,7 +9456,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 73,
+      "community": 72,
       "norm_label": "@radix-ui/react-separator",
       "id": "radix_ui_react_separator"
     },
@@ -9486,7 +9466,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 74,
+      "community": 73,
       "norm_label": "@radix-ui/react-slider",
       "id": "frontend_package_dependencies_radix_ui_react_slider"
     },
@@ -9496,7 +9476,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 74,
+      "community": 73,
       "norm_label": "@radix-ui/react-slider",
       "id": "radix_ui_react_slider"
     },
@@ -9506,7 +9486,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 75,
+      "community": 74,
       "norm_label": "@radix-ui/react-slot",
       "id": "frontend_package_dependencies_radix_ui_react_slot"
     },
@@ -9516,7 +9496,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 75,
+      "community": 74,
       "norm_label": "@radix-ui/react-slot",
       "id": "radix_ui_react_slot"
     },
@@ -9526,7 +9506,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 76,
+      "community": 75,
       "norm_label": "@radix-ui/react-switch",
       "id": "frontend_package_dependencies_radix_ui_react_switch"
     },
@@ -9536,7 +9516,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 76,
+      "community": 75,
       "norm_label": "@radix-ui/react-switch",
       "id": "radix_ui_react_switch"
     },
@@ -9546,7 +9526,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 77,
+      "community": 76,
       "norm_label": "@radix-ui/react-tabs",
       "id": "frontend_package_dependencies_radix_ui_react_tabs"
     },
@@ -9556,7 +9536,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 77,
+      "community": 76,
       "norm_label": "@radix-ui/react-tabs",
       "id": "radix_ui_react_tabs"
     },
@@ -9566,7 +9546,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 78,
+      "community": 77,
       "norm_label": "@radix-ui/react-toggle-group",
       "id": "frontend_package_dependencies_radix_ui_react_toggle_group"
     },
@@ -9576,7 +9556,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 78,
+      "community": 77,
       "norm_label": "@radix-ui/react-toggle-group",
       "id": "radix_ui_react_toggle_group"
     },
@@ -9586,7 +9566,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 79,
+      "community": 78,
       "norm_label": "@radix-ui/react-tooltip",
       "id": "frontend_package_dependencies_radix_ui_react_tooltip"
     },
@@ -9596,9 +9576,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 79,
+      "community": 78,
       "norm_label": "@radix-ui/react-tooltip",
       "id": "radix_ui_react_tooltip"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L56",
+      "_origin": "ast",
+      "community": 79,
+      "norm_label": "react",
+      "id": "frontend_package_dependencies_react"
+    },
+    {
+      "label": "react",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L56",
+      "_origin": "ast",
+      "community": 79,
+      "norm_label": "react",
+      "id": "react"
     },
     {
       "label": "frontend/tsconfig.json",
@@ -9871,32 +9871,12 @@
       "id": "ref_vite_config_ts"
     },
     {
-      "label": "react",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L56",
-      "_origin": "ast",
-      "community": 80,
-      "norm_label": "react",
-      "id": "frontend_package_dependencies_react"
-    },
-    {
-      "label": "react",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L56",
-      "_origin": "ast",
-      "community": 80,
-      "norm_label": "react",
-      "id": "react"
-    },
-    {
       "label": "react-day-picker",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 81,
+      "community": 80,
       "norm_label": "react-day-picker",
       "id": "frontend_package_dependencies_react_day_picker"
     },
@@ -9906,7 +9886,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 81,
+      "community": 80,
       "norm_label": "react-day-picker",
       "id": "react_day_picker"
     },
@@ -9916,7 +9896,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 82,
+      "community": 81,
       "norm_label": "react-hook-form",
       "id": "frontend_package_dependencies_react_hook_form"
     },
@@ -9926,7 +9906,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 82,
+      "community": 81,
       "norm_label": "react-hook-form",
       "id": "react_hook_form"
     },
@@ -9936,7 +9916,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 83,
+      "community": 82,
       "norm_label": "react-hot-toast",
       "id": "frontend_package_dependencies_react_hot_toast"
     },
@@ -9946,7 +9926,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 83,
+      "community": 82,
       "norm_label": "react-hot-toast",
       "id": "react_hot_toast"
     },
@@ -9956,7 +9936,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 84,
+      "community": 83,
       "norm_label": "react-resizable-panels",
       "id": "frontend_package_dependencies_react_resizable_panels"
     },
@@ -9966,7 +9946,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 84,
+      "community": 83,
       "norm_label": "react-resizable-panels",
       "id": "react_resizable_panels"
     },
@@ -9976,7 +9956,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L62",
       "_origin": "ast",
-      "community": 85,
+      "community": 84,
       "norm_label": "react-signature-canvas",
       "id": "frontend_package_dependencies_react_signature_canvas"
     },
@@ -9986,7 +9966,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L62",
       "_origin": "ast",
-      "community": 85,
+      "community": 84,
       "norm_label": "react-signature-canvas",
       "id": "react_signature_canvas"
     },
@@ -9996,7 +9976,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 86,
+      "community": 85,
       "norm_label": "recharts",
       "id": "frontend_package_dependencies_recharts"
     },
@@ -10006,7 +9986,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 86,
+      "community": 85,
       "norm_label": "recharts",
       "id": "recharts"
     },
@@ -10016,7 +9996,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 87,
+      "community": 86,
       "norm_label": "sonner",
       "id": "frontend_package_dependencies_sonner"
     },
@@ -10026,7 +10006,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 87,
+      "community": 86,
       "norm_label": "sonner",
       "id": "sonner"
     },
@@ -10036,7 +10016,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 88,
+      "community": 87,
       "norm_label": "tailwind-merge",
       "id": "frontend_package_dependencies_tailwind_merge"
     },
@@ -10046,7 +10026,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 88,
+      "community": 87,
       "norm_label": "tailwind-merge",
       "id": "tailwind_merge"
     },
@@ -10056,7 +10036,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 89,
+      "community": 88,
       "norm_label": "tailwindcss",
       "id": "frontend_package_dependencies_tailwindcss"
     },
@@ -10066,9 +10046,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 89,
+      "community": 88,
       "norm_label": "tailwindcss",
       "id": "tailwindcss"
+    },
+    {
+      "label": "@tailwindcss/vite",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L44",
+      "_origin": "ast",
+      "community": 89,
+      "norm_label": "@tailwindcss/vite",
+      "id": "frontend_package_dependencies_tailwindcss_vite"
+    },
+    {
+      "label": "@tailwindcss/vite",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L44",
+      "_origin": "ast",
+      "community": 89,
+      "norm_label": "@tailwindcss/vite",
+      "id": "tailwindcss_vite"
     },
     {
       "label": "checkbox.tsx",
@@ -10311,32 +10311,12 @@
       "id": "frontend_src_lib_utils"
     },
     {
-      "label": "@tailwindcss/vite",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L44",
-      "_origin": "ast",
-      "community": 90,
-      "norm_label": "@tailwindcss/vite",
-      "id": "frontend_package_dependencies_tailwindcss_vite"
-    },
-    {
-      "label": "@tailwindcss/vite",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L44",
-      "_origin": "ast",
-      "community": 90,
-      "norm_label": "@tailwindcss/vite",
-      "id": "tailwindcss_vite"
-    },
-    {
       "label": "@tanstack/react-query",
       "file_type": "code",
       "source_file": "frontend/package.json",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 91,
+      "community": 90,
       "norm_label": "@tanstack/react-query",
       "id": "frontend_package_dependencies_tanstack_react_query"
     },
@@ -10346,7 +10326,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 91,
+      "community": 90,
       "norm_label": "@tanstack/react-query",
       "id": "tanstack_react_query"
     },
@@ -10356,7 +10336,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 92,
+      "community": 91,
       "norm_label": "@tanstack/react-router",
       "id": "frontend_package_dependencies_tanstack_react_router"
     },
@@ -10366,7 +10346,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 92,
+      "community": 91,
       "norm_label": "@tanstack/react-router",
       "id": "tanstack_react_router"
     },
@@ -10376,7 +10356,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 93,
+      "community": 92,
       "norm_label": "@tanstack/react-start",
       "id": "frontend_package_dependencies_tanstack_react_start"
     },
@@ -10386,7 +10366,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 93,
+      "community": 92,
       "norm_label": "@tanstack/react-start",
       "id": "tanstack_react_start"
     },
@@ -10396,7 +10376,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 94,
+      "community": 93,
       "norm_label": "@tanstack/router-plugin",
       "id": "frontend_package_dependencies_tanstack_router_plugin"
     },
@@ -10406,7 +10386,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 94,
+      "community": 93,
       "norm_label": "@tanstack/router-plugin",
       "id": "tanstack_router_plugin"
     },
@@ -10416,7 +10396,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 95,
+      "community": 94,
       "norm_label": "tw-animate-css",
       "id": "frontend_package_dependencies_tw_animate_css"
     },
@@ -10426,7 +10406,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 95,
+      "community": 94,
       "norm_label": "tw-animate-css",
       "id": "tw_animate_css"
     },
@@ -10436,7 +10416,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 96,
+      "community": 95,
       "norm_label": "vaul",
       "id": "frontend_package_dependencies_vaul"
     },
@@ -10446,7 +10426,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 96,
+      "community": 95,
       "norm_label": "vaul",
       "id": "vaul"
     },
@@ -10456,7 +10436,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 97,
+      "community": 96,
       "norm_label": "vite-tsconfig-paths",
       "id": "frontend_package_dependencies_vite_tsconfig_paths"
     },
@@ -10466,7 +10446,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 97,
+      "community": 96,
       "norm_label": "vite-tsconfig-paths",
       "id": "vite_tsconfig_paths"
     },
@@ -10476,7 +10456,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 98,
+      "community": 97,
       "norm_label": "zod",
       "id": "frontend_package_dependencies_zod"
     },
@@ -10486,7 +10466,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 98,
+      "community": 97,
       "norm_label": "zod",
       "id": "frontend_package_json_zod"
     },
@@ -10496,7 +10476,7 @@
       "source_file": "frontend/package.json",
       "source_location": "L71",
       "_origin": "ast",
-      "community": 99,
+      "community": 98,
       "norm_label": "zustand",
       "id": "frontend_package_dependencies_zustand"
     },
@@ -10506,9 +10486,29 @@
       "source_file": "frontend/package.json",
       "source_location": "L71",
       "_origin": "ast",
-      "community": 99,
+      "community": 98,
       "norm_label": "zustand",
       "id": "zustand"
+    },
+    {
+      "label": "@lovable.dev/vite-tanstack-config",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L75",
+      "_origin": "ast",
+      "community": 99,
+      "norm_label": "@lovable.dev/vite-tanstack-config",
+      "id": "frontend_package_devdependencies_lovable_dev_vite_tanstack_config"
+    },
+    {
+      "label": "@lovable.dev/vite-tanstack-config",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L75",
+      "_origin": "ast",
+      "community": 99,
+      "norm_label": "@lovable.dev/vite-tanstack-config",
+      "id": "lovable_dev_vite_tanstack_config"
     }
   ],
   "links": [
@@ -16112,9 +16112,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_hooks_usepermissions_usepermissions",
-      "confidence_score": 1.0
+      "target": "frontend_src_hooks_usepermissions_usepermissions"
     },
     {
       "relation": "imports",
@@ -16124,9 +16124,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_hooks_useauth_useauth",
-      "confidence_score": 1.0
+      "target": "frontend_src_hooks_useauth_useauth"
     },
     {
       "relation": "imports",
@@ -16136,9 +16136,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_config_ai_ai_enabled",
-      "confidence_score": 1.0
+      "target": "frontend_src_config_ai_ai_enabled"
     },
     {
       "relation": "imports",
@@ -19868,9 +19868,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_hooks_usepermissions",
-      "confidence_score": 1.0
+      "target": "frontend_src_hooks_usepermissions"
     },
     {
       "relation": "imports_from",
@@ -19880,9 +19880,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_hooks_useauth",
-      "confidence_score": 1.0
+      "target": "frontend_src_hooks_useauth"
     },
     {
       "relation": "imports_from",
@@ -19892,9 +19892,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_config_ai",
-      "confidence_score": 1.0
+      "target": "frontend_src_config_ai"
     },
     {
       "relation": "imports_from",
@@ -23742,9 +23742,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_components_layout_applayout_nav",
-      "confidence_score": 1.0
+      "target": "frontend_src_components_layout_applayout_nav"
     },
     {
       "relation": "contains",
@@ -23753,9 +23753,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
+      "confidence_score": 1.0,
       "source": "frontend_src_components_layout_applayout",
-      "target": "frontend_src_components_layout_applayout_applayout",
-      "confidence_score": 1.0
+      "target": "frontend_src_components_layout_applayout_applayout"
     },
     {
       "relation": "contains",
@@ -30866,5 +30866,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "5b1e3eac3bd3f485636b6db63d7c25918e583e52"
+  "built_at_commit": "b2d258da56d48f8cf8098b3c823e2d283a23a03a"
 }
