@@ -1,0 +1,78 @@
+# Source template for GraphifyService: read by graphify_service.py and committed into a
+# project's GitHub repo as .github/workflows/graphify.yml when Graphify is first run.
+name: Graphify Code Graph
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - "graphify-out/**"
+
+permissions:
+  contents: write
+
+jobs:
+  graphify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install Graphify
+        run: |
+          uv tool install graphifyy
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Generate or Update Graph
+        run: |
+          set -euo pipefail
+
+          if [ -f "graphify-out/graph.json" ]; then
+            echo "Updating existing graph..."
+            graphify extract . --update --code-only
+          else
+            echo "Creating new graph..."
+            graphify extract . --code-only
+          fi
+
+          if [ ! -f "graphify-out/graph.json" ]; then
+            echo "::error::Graphify produced no graph.json. The repo likely has no supported source files (only README/docs). Add code and re-run Create/Refresh Graph."
+            exit 1
+          fi
+
+          # Interactive HTML viewer for the PR Pilot UI (best-effort).
+          graphify export html || true
+
+      - name: Commit updated graph
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add graphify-out
+
+          if git diff --cached --quiet; then
+            echo "No graph changes."
+            exit 0
+          fi
+
+          git commit -m "chore(graphify): update code graph"
+
+          # Remote may have moved (concurrent pushes / earlier Graphify runs).
+          BRANCH="${GITHUB_REF_NAME:-main}"
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
