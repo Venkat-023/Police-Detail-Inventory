@@ -6,8 +6,8 @@ import Persona from '../models/persona.model';
 export const deletePersona = async (req: Request, res: Response) => {
     const { personaId } = req.body;
     try {
-        const result = await Persona.findOneAndDelete({ personaId });
-        if (!result) {
+        const persona = await Persona.findOneAndDelete({ personaId });
+        if (!persona) {
             return res.status(404).json({ error: 'Persona not found.' });
         }
         return res.status(204).send();
