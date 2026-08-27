@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import express from 'express';
 import { deletePersona } from '../controllers/persona.controller';
 
-const router = Router();
+const router = express.Router();
 
 // Route to delete a persona
 router.delete('/personas/ng-super-detail-admin', deletePersona);
