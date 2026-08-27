@@ -2,12 +2,12 @@
 import { Request, Response } from 'express';
 import Persona from '../models/persona.model';
 
-// Function to delete a persona
+// Delete Persona function
 export const deletePersona = async (req: Request, res: Response) => {
     const { personaId } = req.body;
     try {
-        const persona = await Persona.findOneAndDelete({ personaId });
-        if (!persona) {
+        const result = await Persona.deleteOne({ personaId });
+        if (result.deletedCount === 0) {
             return res.status(404).json({ error: 'Persona not found.' });
         }
         return res.status(204).send();
