@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ConfirmationDialog from '../components/ui/ConfirmationDialog';
 
 const AdminDashboard = () => {
-    const [isDialogOpen, setDialogOpen] = React.useState(false);
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
-    const handleDelete = async () => {
-        const response = await fetch('/api/v1/personas/ng-super-detail-admin', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ personaId: 'ng-super-detail-admin' }) });
-        if (response.status === 204) {
-            // Handle successful deletion
-        } else {
-            // Handle error
-        }
+    const handleDeletePersona = () => {
+        // Call API to delete persona
+        setDialogOpen(false);
     };
 
     return (
         <div>
             <h1>Admin Dashboard</h1>
             <button onClick={() => setDialogOpen(true)}>Delete Persona</button>
-            {isDialogOpen && <ConfirmationDialog onConfirm={handleDelete} onCancel={() => setDialogOpen(false)} />}
+            <ConfirmationDialog 
+                isOpen={isDialogOpen} 
+                onConfirm={handleDeletePersona} 
+                onCancel={() => setDialogOpen(false)} 
+            />
         </div>
     );
 };
