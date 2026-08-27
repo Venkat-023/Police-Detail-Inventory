@@ -20,11 +20,17 @@ const PersonaList = ({ personas, onDelete }) => {
             <ul>
                 {personas.map(persona => (
                     <li key={persona.id}>
-                        {persona.name} <button onClick={() => handleDeleteClick(persona)}>Delete</button>
+                        {persona.name}
+                        <button onClick={() => handleDeleteClick(persona)}>Delete</button>
                     </li>
                 ))}
             </ul>
-            {isDialogOpen && <ConfirmationDialog onConfirm={handleConfirmDelete} onCancel={() => setDialogOpen(false)} />}
+            {isDialogOpen && (
+                <ConfirmationDialog 
+                    onConfirm={handleConfirmDelete} 
+                    onCancel={() => setDialogOpen(false)}
+                />
+            )}
         </div>
     );
 };
