@@ -4,9 +4,9 @@ export const deletePersona = async (personaId) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ personaId }),
+        body: JSON.stringify({ personaId })
     });
     if (!response.ok) {
-        throw new Error('Failed to delete persona.');
+        throw new Error('Failed to delete persona');
     }
 };
