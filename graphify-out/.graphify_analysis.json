@@ -603,23 +603,23 @@
       "tests_dark_mode_test"
     ],
     "15": [
+      "eslint",
       "eslint_config_prettier",
       "eslint_js",
       "eslint_plugin_prettier",
       "frontend_package_devdependencies",
+      "frontend_package_devdependencies_eslint",
       "frontend_package_devdependencies_eslint_config_prettier",
       "frontend_package_devdependencies_eslint_js",
       "frontend_package_devdependencies_eslint_plugin_prettier",
       "frontend_package_devdependencies_globals",
       "frontend_package_devdependencies_types_react",
       "frontend_package_devdependencies_types_react_dom",
-      "frontend_package_devdependencies_types_react_signature_canvas",
       "frontend_package_devdependencies_typescript_eslint",
       "frontend_package_devdependencies_vite",
       "globals",
       "types_react",
       "types_react_dom",
-      "types_react_signature_canvas",
       "typescript_eslint",
       "vite"
     ],
@@ -1016,208 +1016,208 @@
       "docker_entrypoint_sh__entry"
     ],
     "55": [
-      "eslint",
-      "frontend_package_devdependencies_eslint"
-    ],
-    "56": [
       "eslint_plugin_react_hooks",
       "frontend_package_devdependencies_eslint_plugin_react_hooks"
     ],
-    "57": [
+    "56": [
       "eslint_plugin_react_refresh",
       "frontend_package_devdependencies_eslint_plugin_react_refresh"
     ],
-    "58": [
+    "57": [
       "frontend_package_dependencies_hookform_resolvers",
       "hookform_resolvers"
     ],
-    "59": [
+    "58": [
       "frontend_package_dependencies_input_otp",
       "input_otp"
     ],
-    "60": [
+    "59": [
       "frontend_package_dependencies_lucide_react",
       "lucide_react"
     ],
-    "61": [
+    "60": [
       "frontend_package_dependencies_radix_ui_react_alert_dialog",
       "radix_ui_react_alert_dialog"
     ],
-    "62": [
+    "61": [
       "frontend_package_dependencies_radix_ui_react_aspect_ratio",
       "radix_ui_react_aspect_ratio"
     ],
-    "63": [
+    "62": [
       "frontend_package_dependencies_radix_ui_react_avatar",
       "radix_ui_react_avatar"
     ],
-    "64": [
+    "63": [
       "frontend_package_dependencies_radix_ui_react_checkbox",
       "radix_ui_react_checkbox"
     ],
-    "65": [
+    "64": [
       "frontend_package_dependencies_radix_ui_react_collapsible",
       "radix_ui_react_collapsible"
     ],
-    "66": [
+    "65": [
       "frontend_package_dependencies_radix_ui_react_context_menu",
       "radix_ui_react_context_menu"
     ],
-    "67": [
+    "66": [
       "frontend_package_dependencies_radix_ui_react_dialog",
       "radix_ui_react_dialog"
     ],
-    "68": [
+    "67": [
       "frontend_package_dependencies_radix_ui_react_dropdown_menu",
       "radix_ui_react_dropdown_menu"
     ],
-    "69": [
+    "68": [
       "frontend_package_dependencies_radix_ui_react_hover_card",
       "radix_ui_react_hover_card"
     ],
-    "70": [
+    "69": [
       "frontend_package_dependencies_radix_ui_react_label",
       "radix_ui_react_label"
     ],
-    "71": [
+    "70": [
       "frontend_package_dependencies_radix_ui_react_menubar",
       "radix_ui_react_menubar"
     ],
-    "72": [
+    "71": [
       "frontend_package_dependencies_radix_ui_react_navigation_menu",
       "radix_ui_react_navigation_menu"
     ],
-    "73": [
+    "72": [
       "frontend_package_dependencies_radix_ui_react_progress",
       "radix_ui_react_progress"
     ],
-    "74": [
+    "73": [
       "frontend_package_dependencies_radix_ui_react_scroll_area",
       "radix_ui_react_scroll_area"
     ],
-    "75": [
+    "74": [
       "frontend_package_dependencies_radix_ui_react_select",
       "radix_ui_react_select"
     ],
-    "76": [
+    "75": [
       "frontend_package_dependencies_radix_ui_react_separator",
       "radix_ui_react_separator"
     ],
-    "77": [
+    "76": [
       "frontend_package_dependencies_radix_ui_react_slider",
       "radix_ui_react_slider"
     ],
-    "78": [
+    "77": [
       "frontend_package_dependencies_radix_ui_react_slot",
       "radix_ui_react_slot"
     ],
-    "79": [
+    "78": [
       "frontend_package_dependencies_radix_ui_react_switch",
       "radix_ui_react_switch"
     ],
-    "80": [
+    "79": [
       "frontend_package_dependencies_radix_ui_react_tabs",
       "radix_ui_react_tabs"
     ],
-    "81": [
+    "80": [
       "frontend_package_dependencies_radix_ui_react_toggle_group",
       "radix_ui_react_toggle_group"
     ],
-    "82": [
+    "81": [
       "frontend_package_dependencies_radix_ui_react_tooltip",
       "radix_ui_react_tooltip"
     ],
-    "83": [
+    "82": [
       "frontend_package_dependencies_react",
       "react"
     ],
-    "84": [
+    "83": [
       "frontend_package_dependencies_react_day_picker",
       "react_day_picker"
     ],
-    "85": [
+    "84": [
       "frontend_package_dependencies_react_hook_form",
       "react_hook_form"
     ],
-    "86": [
+    "85": [
       "frontend_package_dependencies_react_hot_toast",
       "react_hot_toast"
     ],
-    "87": [
+    "86": [
       "frontend_package_dependencies_react_resizable_panels",
       "react_resizable_panels"
     ],
-    "88": [
+    "87": [
       "frontend_package_dependencies_react_signature_canvas",
       "react_signature_canvas"
     ],
-    "89": [
+    "88": [
       "frontend_package_dependencies_recharts",
       "recharts"
     ],
-    "90": [
+    "89": [
       "frontend_package_dependencies_sonner",
       "sonner"
     ],
-    "91": [
+    "90": [
       "frontend_package_dependencies_tailwind_merge",
       "tailwind_merge"
     ],
-    "92": [
+    "91": [
       "frontend_package_dependencies_tailwindcss",
       "tailwindcss"
     ],
-    "93": [
+    "92": [
       "frontend_package_dependencies_tailwindcss_vite",
       "tailwindcss_vite"
     ],
-    "94": [
+    "93": [
       "frontend_package_dependencies_tanstack_react_query",
       "tanstack_react_query"
     ],
-    "95": [
+    "94": [
       "frontend_package_dependencies_tanstack_react_router",
       "tanstack_react_router"
     ],
-    "96": [
+    "95": [
       "frontend_package_dependencies_tanstack_react_start",
       "tanstack_react_start"
     ],
-    "97": [
+    "96": [
       "frontend_package_dependencies_tanstack_router_plugin",
       "tanstack_router_plugin"
     ],
-    "98": [
+    "97": [
       "frontend_package_dependencies_tw_animate_css",
       "tw_animate_css"
     ],
-    "99": [
+    "98": [
       "frontend_package_dependencies_vaul",
       "vaul"
     ],
-    "100": [
+    "99": [
       "frontend_package_dependencies_vite_tsconfig_paths",
       "vite_tsconfig_paths"
     ],
-    "101": [
+    "100": [
       "frontend_package_dependencies_zod",
       "frontend_package_json_zod"
     ],
-    "102": [
+    "101": [
       "frontend_package_dependencies_zustand",
       "zustand"
     ],
-    "103": [
+    "102": [
       "frontend_package_devdependencies_lovable_dev_vite_tanstack_config",
       "lovable_dev_vite_tanstack_config"
     ],
-    "104": [
+    "103": [
       "frontend_package_devdependencies_nitro",
       "nitro"
     ],
-    "105": [
+    "104": [
       "frontend_package_devdependencies_prettier",
       "prettier"
+    ],
+    "105": [
+      "frontend_package_devdependencies_types_react_signature_canvas",
+      "types_react_signature_canvas"
     ],
     "106": [
       "frontend_package_devdependencies_vitejs_plugin_react",
