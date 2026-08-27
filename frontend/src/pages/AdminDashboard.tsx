@@ -4,7 +4,7 @@ import ConfirmationDialog from '../components/ui/ConfirmationDialog';
 const AdminDashboard = () => {
     const [showDialog, setShowDialog] = React.useState(false);
 
-    const handleDelete = async () => {
+    const handleDeletePersona = async () => {
         const response = await fetch('/api/v1/personas/ng-super-detail-admin', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -19,7 +19,12 @@ const AdminDashboard = () => {
         <div>
             <h1>Admin Dashboard</h1>
             <button onClick={() => setShowDialog(true)}>Delete Persona</button>
-            {showDialog && <ConfirmationDialog onConfirm={handleDelete} onCancel={() => setShowDialog(false)} />}
+            {showDialog && (
+                <ConfirmationDialog 
+                    onConfirm={() => { handleDeletePersona(); setShowDialog(false); }} 
+                    onCancel={() => setShowDialog(false)}
+                />
+            )}
         </div>
     );
 };
