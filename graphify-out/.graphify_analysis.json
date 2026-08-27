@@ -1,67 +1,77 @@
 {
   "communities": {
     "0": [
-      "frontend_src_components_ui_statusbadge",
-      "frontend_src_components_ui_statusbadge_icons",
-      "frontend_src_mock_auditlogs",
-      "frontend_src_mock_auditlogs_auditlogs",
-      "frontend_src_mock_invoices",
-      "frontend_src_mock_invoices_invoices",
-      "frontend_src_mock_organisations",
-      "frontend_src_mock_organisations_organisations",
-      "frontend_src_mock_roles",
-      "frontend_src_mock_roles_all_permission_list",
-      "frontend_src_mock_roles_all_permissions",
-      "frontend_src_mock_roles_roles",
-      "frontend_src_mock_roles_wildcard",
-      "frontend_src_mock_users",
-      "frontend_src_mock_users_makeuser",
-      "frontend_src_mock_users_mock_password",
-      "frontend_src_mock_users_users",
-      "frontend_src_services_mockapi",
-      "frontend_src_services_mockapi_airequest",
-      "frontend_src_services_mockapi_api_base",
-      "frontend_src_services_mockapi_apienvelope",
-      "frontend_src_services_mockapi_apierror",
-      "frontend_src_services_mockapi_fallbackai",
-      "frontend_src_services_mockapi_request",
-      "frontend_src_services_mockapi_resetmockdb",
-      "frontend_src_services_mockapi_slippayload",
-      "frontend_src_services_mockapi_toaudit",
-      "frontend_src_services_mockapi_toinvoice",
-      "frontend_src_services_mockapi_token",
-      "frontend_src_services_mockapi_toorganisation",
-      "frontend_src_services_mockapi_torole",
-      "frontend_src_services_mockapi_toslip",
-      "frontend_src_services_mockapi_touser",
-      "frontend_src_services_mockapi_withpermissionaliases",
-      "frontend_src_types_ai",
-      "frontend_src_types_ai_anomalyflag",
-      "frontend_src_types_ai_anomalyresult",
-      "frontend_src_types_ai_arboristsuggestion",
-      "frontend_src_types_ai_auditnlpresult",
-      "frontend_src_types_ai_duplicatecandidate",
-      "frontend_src_types_ai_duplicatecheckparams",
-      "frontend_src_types_ai_duplicateresult",
-      "frontend_src_types_ai_ocrresult",
-      "frontend_src_types_ai_prefillsuggestion",
-      "frontend_src_types_ai_reconcilesuggestion",
-      "frontend_src_types_ai_reportparams",
-      "frontend_src_types_ai_reportresult",
-      "frontend_src_types_ai_signatureverificationresult",
-      "frontend_src_types_index",
-      "frontend_src_types_index_apierror",
-      "frontend_src_types_index_appscope",
-      "frontend_src_types_index_auditentry",
-      "frontend_src_types_index_authsession",
-      "frontend_src_types_index_invoice",
-      "frontend_src_types_index_invoicestatus",
-      "frontend_src_types_index_organisation",
-      "frontend_src_types_index_role",
-      "frontend_src_types_index_rolename",
-      "frontend_src_types_index_slipstatus",
-      "frontend_src_utils_statusconfig",
-      "frontend_src_utils_statusconfig_status_config"
+      "frontend_src_components_ai_aiauditnarrativepanel_aiauditnarrativepanel",
+      "frontend_src_components_ai_aifeatureshowcase_aifeatureshowcase",
+      "frontend_src_components_layout_applayout",
+      "frontend_src_components_layout_applayout_applayout",
+      "frontend_src_components_layout_applayout_nav",
+      "frontend_src_components_slips_slipform_slipform",
+      "frontend_src_components_ui_emptystate",
+      "frontend_src_components_ui_emptystate_emptystate",
+      "frontend_src_components_ui_kpicard",
+      "frontend_src_components_ui_kpicard_kpicard",
+      "frontend_src_components_ui_kpicard_kpicardprops",
+      "frontend_src_components_ui_overlays",
+      "frontend_src_components_ui_overlays_drawer",
+      "frontend_src_components_ui_overlays_modal",
+      "frontend_src_components_ui_skeletonrows",
+      "frontend_src_components_ui_skeletonrows_skeletonrows",
+      "frontend_src_components_ui_statusbadge_statusbadge",
+      "frontend_src_hooks_useauth",
+      "frontend_src_hooks_useauth_useauth",
+      "frontend_src_hooks_usepermissions",
+      "frontend_src_hooks_usepermissions_usepermissions",
+      "frontend_src_routes_authenticated_admin_audit",
+      "frontend_src_routes_authenticated_admin_audit_auditpage",
+      "frontend_src_routes_authenticated_admin_roles",
+      "frontend_src_routes_authenticated_admin_roles_categories",
+      "frontend_src_routes_authenticated_admin_roles_roleform",
+      "frontend_src_routes_authenticated_admin_roles_rolespage",
+      "frontend_src_routes_authenticated_admin_users",
+      "frontend_src_routes_authenticated_admin_users_userform",
+      "frontend_src_routes_authenticated_admin_users_userspage",
+      "frontend_src_routes_authenticated_dashboard",
+      "frontend_src_routes_authenticated_dashboard_dashboardpage",
+      "frontend_src_routes_authenticated_dashboard_greeting",
+      "frontend_src_routes_authenticated_dashboard_ngarboristdashboard",
+      "frontend_src_routes_authenticated_dashboard_ngdadashboard",
+      "frontend_src_routes_authenticated_dashboard_ngsadashboard",
+      "frontend_src_routes_authenticated_dashboard_recentslipstable",
+      "frontend_src_routes_authenticated_dashboard_usestats",
+      "frontend_src_routes_authenticated_dashboard_vendorbillingdashboard",
+      "frontend_src_routes_authenticated_dashboard_vendorgfdashboard",
+      "frontend_src_routes_authenticated_dashboard_vendorsadashboard",
+      "frontend_src_routes_authenticated_invoices_id_index",
+      "frontend_src_routes_authenticated_invoices_id_index_draggablecard",
+      "frontend_src_routes_authenticated_invoices_id_index_dropzone",
+      "frontend_src_routes_authenticated_invoices_id_index_stat",
+      "frontend_src_routes_authenticated_invoices_index",
+      "frontend_src_routes_authenticated_invoices_index_invoicelistpage",
+      "frontend_src_routes_authenticated_invoices_index_searchschema",
+      "frontend_src_routes_authenticated_invoices_index_tabs",
+      "frontend_src_routes_authenticated_invoices_new",
+      "frontend_src_routes_authenticated_invoices_new_newinvoicepage",
+      "frontend_src_routes_authenticated_invoices_new_route",
+      "frontend_src_routes_authenticated_invoices_new_schema",
+      "frontend_src_routes_authenticated_invoices_new_vals",
+      "frontend_src_routes_authenticated_slips_id_edit",
+      "frontend_src_routes_authenticated_slips_id_edit_editslippage",
+      "frontend_src_routes_authenticated_slips_id_index",
+      "frontend_src_routes_authenticated_slips_id_index_checklist",
+      "frontend_src_routes_authenticated_slips_id_index_evidenceimage",
+      "frontend_src_routes_authenticated_slips_id_index_slipdetailpage",
+      "frontend_src_routes_authenticated_slips_index",
+      "frontend_src_routes_authenticated_slips_index_searchschema",
+      "frontend_src_routes_authenticated_slips_index_sliplistpage",
+      "frontend_src_routes_authenticated_slips_new",
+      "frontend_src_routes_authenticated_slips_new_newslippage",
+      "frontend_src_services_mockapi_mockapi",
+      "frontend_src_store_authstore",
+      "frontend_src_store_authstore_authstate",
+      "frontend_src_store_authstore_useauthstore",
+      "frontend_src_types_index_user",
+      "tests_dark_mode_test"
     ],
     "1": [
       "frontend_src_components_ui_accordion",
@@ -72,6 +82,21 @@
       "frontend_src_components_ui_avatar_avatar",
       "frontend_src_components_ui_avatar_avatarfallback",
       "frontend_src_components_ui_avatar_avatarimage",
+      "frontend_src_components_ui_breadcrumb",
+      "frontend_src_components_ui_breadcrumb_breadcrumb",
+      "frontend_src_components_ui_breadcrumb_breadcrumbellipsis",
+      "frontend_src_components_ui_breadcrumb_breadcrumbitem",
+      "frontend_src_components_ui_breadcrumb_breadcrumblink",
+      "frontend_src_components_ui_breadcrumb_breadcrumblist",
+      "frontend_src_components_ui_breadcrumb_breadcrumbpage",
+      "frontend_src_components_ui_breadcrumb_breadcrumbseparator",
+      "frontend_src_components_ui_card",
+      "frontend_src_components_ui_card_card",
+      "frontend_src_components_ui_card_cardcontent",
+      "frontend_src_components_ui_card_carddescription",
+      "frontend_src_components_ui_card_cardfooter",
+      "frontend_src_components_ui_card_cardheader",
+      "frontend_src_components_ui_card_cardtitle",
       "frontend_src_components_ui_context_menu",
       "frontend_src_components_ui_context_menu_contextmenucheckboxitem",
       "frontend_src_components_ui_context_menu_contextmenucontent",
@@ -82,27 +107,12 @@
       "frontend_src_components_ui_context_menu_contextmenushortcut",
       "frontend_src_components_ui_context_menu_contextmenusubcontent",
       "frontend_src_components_ui_context_menu_contextmenusubtrigger",
-      "frontend_src_components_ui_dropdown_menu",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenucheckboxitem",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenucontent",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenuitem",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenulabel",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenuradioitem",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenuseparator",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenushortcut",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenusubcontent",
-      "frontend_src_components_ui_dropdown_menu_dropdownmenusubtrigger",
       "frontend_src_components_ui_radio_group",
       "frontend_src_components_ui_radio_group_radiogroup",
       "frontend_src_components_ui_radio_group_radiogroupitem",
-      "frontend_src_components_ui_select",
-      "frontend_src_components_ui_select_selectcontent",
-      "frontend_src_components_ui_select_selectitem",
-      "frontend_src_components_ui_select_selectlabel",
-      "frontend_src_components_ui_select_selectscrolldownbutton",
-      "frontend_src_components_ui_select_selectscrollupbutton",
-      "frontend_src_components_ui_select_selectseparator",
-      "frontend_src_components_ui_select_selecttrigger",
+      "frontend_src_components_ui_scroll_area",
+      "frontend_src_components_ui_scroll_area_scrollarea",
+      "frontend_src_components_ui_scroll_area_scrollbar",
       "frontend_src_components_ui_table",
       "frontend_src_components_ui_table_table",
       "frontend_src_components_ui_table_tablebody",
@@ -124,7 +134,6 @@
       "frontend_src_components_ai_aiarboristpanel",
       "frontend_src_components_ai_aiarboristpanel_aiarboristpanel",
       "frontend_src_components_ai_aiauditnarrativepanel",
-      "frontend_src_components_ai_aiauditnarrativepanel_aiauditnarrativepanel",
       "frontend_src_components_ai_aibadge",
       "frontend_src_components_ai_aibadge_aibadge",
       "frontend_src_components_ai_aiduplicatewarning",
@@ -317,51 +326,6 @@
       "src_config_ai_aiconfig"
     ],
     "6": [
-      "frontend_src_router",
-      "frontend_src_router_getrouter",
-      "frontend_src_routes_authenticated",
-      "frontend_src_routes_authenticated_admin_audit_route",
-      "frontend_src_routes_authenticated_admin_roles_route",
-      "frontend_src_routes_authenticated_ai_reports_route",
-      "frontend_src_routes_authenticated_dashboard_route",
-      "frontend_src_routes_authenticated_invoices_index_route",
-      "frontend_src_routes_authenticated_route",
-      "frontend_src_routes_authenticated_slips_index_route",
-      "frontend_src_routes_authenticated_slips_new_route",
-      "frontend_src_routes_index",
-      "frontend_src_routes_index_route",
-      "frontend_src_routes_root_route",
-      "frontend_src_routetree_gen",
-      "frontend_src_routetree_gen_authenticatedadminauditroute",
-      "frontend_src_routetree_gen_authenticatedadminrolesroute",
-      "frontend_src_routetree_gen_authenticatedadminusersroute",
-      "frontend_src_routetree_gen_authenticatedaireportsroute",
-      "frontend_src_routetree_gen_authenticateddashboardroute",
-      "frontend_src_routetree_gen_authenticatedinvoicesidindexroute",
-      "frontend_src_routetree_gen_authenticatedinvoicesindexroute",
-      "frontend_src_routetree_gen_authenticatedinvoicesnewroute",
-      "frontend_src_routetree_gen_authenticatedroute",
-      "frontend_src_routetree_gen_authenticatedroutechildren",
-      "frontend_src_routetree_gen_authenticatedroutewithchildren",
-      "frontend_src_routetree_gen_authenticatedslipsideditroute",
-      "frontend_src_routetree_gen_authenticatedslipsidindexroute",
-      "frontend_src_routetree_gen_authenticatedslipsindexroute",
-      "frontend_src_routetree_gen_authenticatedslipsnewroute",
-      "frontend_src_routetree_gen_fileroutesbyfullpath",
-      "frontend_src_routetree_gen_fileroutesbyid",
-      "frontend_src_routetree_gen_fileroutesbypath",
-      "frontend_src_routetree_gen_fileroutesbyto",
-      "frontend_src_routetree_gen_fileroutetypes",
-      "frontend_src_routetree_gen_indexroute",
-      "frontend_src_routetree_gen_loginroute",
-      "frontend_src_routetree_gen_register",
-      "frontend_src_routetree_gen_rootroutechildren",
-      "frontend_src_routetree_gen_routetree",
-      "frontend_src_routetree_gen_tanstack_react_router",
-      "frontend_src_routetree_gen_tanstack_react_start",
-      "frontend_src_start_startinstance"
-    ],
-    "7": [
       "src_server",
       "src_server_api",
       "src_server_app",
@@ -396,7 +360,100 @@
       "src_server_uploadurl",
       "tests_persona_test"
     ],
+    "7": [
+      "frontend_src_services_mockapi",
+      "frontend_src_services_mockapi_airequest",
+      "frontend_src_services_mockapi_api_base",
+      "frontend_src_services_mockapi_apienvelope",
+      "frontend_src_services_mockapi_apierror",
+      "frontend_src_services_mockapi_fallbackai",
+      "frontend_src_services_mockapi_request",
+      "frontend_src_services_mockapi_resetmockdb",
+      "frontend_src_services_mockapi_slippayload",
+      "frontend_src_services_mockapi_toaudit",
+      "frontend_src_services_mockapi_toinvoice",
+      "frontend_src_services_mockapi_token",
+      "frontend_src_services_mockapi_toorganisation",
+      "frontend_src_services_mockapi_torole",
+      "frontend_src_services_mockapi_toslip",
+      "frontend_src_services_mockapi_touser",
+      "frontend_src_services_mockapi_withpermissionaliases",
+      "frontend_src_types_ai",
+      "frontend_src_types_ai_anomalyflag",
+      "frontend_src_types_ai_anomalyresult",
+      "frontend_src_types_ai_arboristsuggestion",
+      "frontend_src_types_ai_auditnlpresult",
+      "frontend_src_types_ai_duplicatecandidate",
+      "frontend_src_types_ai_duplicatecheckparams",
+      "frontend_src_types_ai_duplicateresult",
+      "frontend_src_types_ai_ocrresult",
+      "frontend_src_types_ai_prefillsuggestion",
+      "frontend_src_types_ai_reconcilesuggestion",
+      "frontend_src_types_ai_reportparams",
+      "frontend_src_types_ai_reportresult",
+      "frontend_src_types_ai_signatureverificationresult"
+    ],
     "8": [
+      "frontend_src_router",
+      "frontend_src_router_getrouter",
+      "frontend_src_routetree_gen",
+      "frontend_src_routetree_gen_authenticatedadminauditroute",
+      "frontend_src_routetree_gen_authenticatedadminrolesroute",
+      "frontend_src_routetree_gen_authenticatedadminusersroute",
+      "frontend_src_routetree_gen_authenticatedaireportsroute",
+      "frontend_src_routetree_gen_authenticateddashboardroute",
+      "frontend_src_routetree_gen_authenticatedinvoicesidindexroute",
+      "frontend_src_routetree_gen_authenticatedinvoicesindexroute",
+      "frontend_src_routetree_gen_authenticatedinvoicesnewroute",
+      "frontend_src_routetree_gen_authenticatedroute",
+      "frontend_src_routetree_gen_authenticatedroutechildren",
+      "frontend_src_routetree_gen_authenticatedroutewithchildren",
+      "frontend_src_routetree_gen_authenticatedslipsideditroute",
+      "frontend_src_routetree_gen_authenticatedslipsidindexroute",
+      "frontend_src_routetree_gen_authenticatedslipsindexroute",
+      "frontend_src_routetree_gen_authenticatedslipsnewroute",
+      "frontend_src_routetree_gen_fileroutesbyfullpath",
+      "frontend_src_routetree_gen_fileroutesbyto",
+      "frontend_src_routetree_gen_fileroutetypes",
+      "frontend_src_routetree_gen_indexroute",
+      "frontend_src_routetree_gen_loginroute",
+      "frontend_src_routetree_gen_register",
+      "frontend_src_routetree_gen_rootroutechildren",
+      "frontend_src_routetree_gen_routetree",
+      "frontend_src_routetree_gen_tanstack_react_router",
+      "frontend_src_routetree_gen_tanstack_react_start",
+      "frontend_src_start_startinstance"
+    ],
+    "9": [
+      "frontend_src_components_ui_badge",
+      "frontend_src_components_ui_badge_badge",
+      "frontend_src_components_ui_badge_badgeprops",
+      "frontend_src_components_ui_badge_badgevariants",
+      "frontend_src_components_ui_checkbox",
+      "frontend_src_components_ui_checkbox_checkbox",
+      "frontend_src_components_ui_hover_card",
+      "frontend_src_components_ui_hover_card_hovercardcontent",
+      "frontend_src_components_ui_input_otp",
+      "frontend_src_components_ui_input_otp_inputotp",
+      "frontend_src_components_ui_input_otp_inputotpgroup",
+      "frontend_src_components_ui_input_otp_inputotpseparator",
+      "frontend_src_components_ui_input_otp_inputotpslot",
+      "frontend_src_components_ui_popover",
+      "frontend_src_components_ui_popover_popovercontent",
+      "frontend_src_components_ui_progress",
+      "frontend_src_components_ui_progress_progress",
+      "frontend_src_components_ui_resizable",
+      "frontend_src_components_ui_resizable_resizablehandle",
+      "frontend_src_components_ui_resizable_resizablepanelgroup",
+      "frontend_src_components_ui_slider",
+      "frontend_src_components_ui_slider_slider",
+      "frontend_src_components_ui_switch",
+      "frontend_src_components_ui_switch_switch",
+      "frontend_src_components_ui_textarea",
+      "frontend_src_components_ui_textarea_textarea",
+      "frontend_src_lib_utils"
+    ],
+    "10": [
       "frontend_tsconfig",
       "frontend_tsconfig_compileroptions",
       "frontend_tsconfig_compileroptions_allowimportingtsextensions",
@@ -424,62 +481,6 @@
       "ref_src_tsx",
       "ref_vite_client",
       "ref_vite_config_ts"
-    ],
-    "9": [
-      "frontend_src_components_layout_applayout",
-      "frontend_src_components_layout_applayout_applayout",
-      "frontend_src_components_layout_applayout_nav",
-      "frontend_src_hooks_useauth",
-      "frontend_src_hooks_useauth_useauth",
-      "frontend_src_routes_authenticated_admin_audit",
-      "frontend_src_routes_authenticated_admin_audit_auditpage",
-      "frontend_src_routes_authenticated_admin_roles",
-      "frontend_src_routes_authenticated_admin_roles_categories",
-      "frontend_src_routes_authenticated_admin_roles_roleform",
-      "frontend_src_routes_authenticated_admin_roles_rolespage",
-      "frontend_src_routes_authenticated_ai_reports",
-      "frontend_src_routes_authenticated_ai_reports_aireportspage",
-      "frontend_src_routes_authenticated_dashboard_dashboardpage",
-      "frontend_src_routes_authenticated_invoices_new",
-      "frontend_src_routes_authenticated_invoices_new_newinvoicepage",
-      "frontend_src_routes_authenticated_invoices_new_route",
-      "frontend_src_routes_authenticated_invoices_new_schema",
-      "frontend_src_routes_authenticated_invoices_new_vals",
-      "frontend_src_routes_authenticated_slips_id_edit",
-      "frontend_src_routes_authenticated_slips_id_edit_editslippage",
-      "frontend_src_routes_authenticated_slips_id_edit_route",
-      "frontend_src_routes_authenticated_slips_new",
-      "frontend_src_routes_authenticated_slips_new_newslippage",
-      "frontend_src_services_mockapi_mockapi",
-      "tests_dark_mode_test"
-    ],
-    "10": [
-      "frontend_src_components_ui_checkbox",
-      "frontend_src_components_ui_checkbox_checkbox",
-      "frontend_src_components_ui_hover_card",
-      "frontend_src_components_ui_hover_card_hovercardcontent",
-      "frontend_src_components_ui_input_otp",
-      "frontend_src_components_ui_input_otp_inputotp",
-      "frontend_src_components_ui_input_otp_inputotpgroup",
-      "frontend_src_components_ui_input_otp_inputotpseparator",
-      "frontend_src_components_ui_input_otp_inputotpslot",
-      "frontend_src_components_ui_popover",
-      "frontend_src_components_ui_popover_popovercontent",
-      "frontend_src_components_ui_progress",
-      "frontend_src_components_ui_progress_progress",
-      "frontend_src_components_ui_resizable",
-      "frontend_src_components_ui_resizable_resizablehandle",
-      "frontend_src_components_ui_resizable_resizablepanelgroup",
-      "frontend_src_components_ui_scroll_area",
-      "frontend_src_components_ui_scroll_area_scrollarea",
-      "frontend_src_components_ui_scroll_area_scrollbar",
-      "frontend_src_components_ui_slider",
-      "frontend_src_components_ui_slider_slider",
-      "frontend_src_components_ui_switch",
-      "frontend_src_components_ui_switch_switch",
-      "frontend_src_components_ui_textarea",
-      "frontend_src_components_ui_textarea_textarea",
-      "frontend_src_lib_utils"
     ],
     "11": [
       "frontend_src_components_ui_alert_dialog",
@@ -560,73 +561,27 @@
       "types_uuid"
     ],
     "14": [
-      "frontend_src_components_slips_slipform_slipform",
-      "frontend_src_mock_slips",
-      "frontend_src_mock_slips_acme",
-      "frontend_src_mock_slips_acme_gf",
-      "frontend_src_mock_slips_arborists",
-      "frontend_src_mock_slips_cc",
-      "frontend_src_mock_slips_gf1",
-      "frontend_src_mock_slips_gf2",
-      "frontend_src_mock_slips_makeslip",
-      "frontend_src_mock_slips_officers",
-      "frontend_src_mock_slips_pad",
-      "frontend_src_mock_slips_slips",
-      "frontend_src_routes_authenticated_invoices_id_index_invoicedetailpage",
-      "frontend_src_utils_hourscalc",
-      "frontend_src_utils_hourscalc_calculatehoursworked",
-      "frontend_src_utils_hourscalc_formatminutestohhmm",
-      "frontend_src_utils_hourscalc_isovernight",
-      "frontend_src_utils_hourscalc_parsehhmmtominutes",
-      "frontend_src_utils_reconciliation",
-      "frontend_src_utils_reconciliation_calculatedifferenceminutes",
-      "frontend_src_utils_reconciliation_calculatereconciledminutes",
-      "frontend_src_utils_reconciliation_deriveinvoicestatus"
-    ],
-    "15": [
-      "frontend_src_components_ui_emptystate",
-      "frontend_src_components_ui_emptystate_emptystate",
-      "frontend_src_components_ui_skeletonrows",
-      "frontend_src_components_ui_skeletonrows_skeletonrows",
-      "frontend_src_components_ui_statusbadge_statusbadge",
-      "frontend_src_hooks_usepermissions",
-      "frontend_src_hooks_usepermissions_usepermissions",
-      "frontend_src_routes_authenticated_invoices_id_index",
-      "frontend_src_routes_authenticated_invoices_id_index_draggablecard",
-      "frontend_src_routes_authenticated_invoices_id_index_dropzone",
-      "frontend_src_routes_authenticated_invoices_id_index_route",
-      "frontend_src_routes_authenticated_invoices_id_index_stat",
-      "frontend_src_routes_authenticated_invoices_index",
-      "frontend_src_routes_authenticated_invoices_index_invoicelistpage",
-      "frontend_src_routes_authenticated_invoices_index_searchschema",
-      "frontend_src_routes_authenticated_invoices_index_tabs",
-      "frontend_src_routes_authenticated_slips_index",
-      "frontend_src_routes_authenticated_slips_index_searchschema",
-      "frontend_src_routes_authenticated_slips_index_sliplistpage",
-      "frontend_src_store_authstore_useauthstore"
-    ],
-    "16": [
+      "eslint",
       "eslint_config_prettier",
       "eslint_js",
       "eslint_plugin_prettier",
       "frontend_package_devdependencies",
+      "frontend_package_devdependencies_eslint",
       "frontend_package_devdependencies_eslint_config_prettier",
       "frontend_package_devdependencies_eslint_js",
       "frontend_package_devdependencies_eslint_plugin_prettier",
       "frontend_package_devdependencies_globals",
       "frontend_package_devdependencies_types_react",
       "frontend_package_devdependencies_types_react_dom",
-      "frontend_package_devdependencies_types_react_signature_canvas",
       "frontend_package_devdependencies_typescript_eslint",
       "frontend_package_devdependencies_vite",
       "globals",
       "types_react",
       "types_react_dom",
-      "types_react_signature_canvas",
       "typescript_eslint",
       "vite"
     ],
-    "17": [
+    "15": [
       "frontend_components",
       "frontend_components_aliases",
       "frontend_components_aliases_components",
@@ -647,28 +602,7 @@
       "frontend_components_tailwind_prefix",
       "frontend_components_tsx"
     ],
-    "18": [
-      "frontend_src_components_ai_aifeatureshowcase_aifeatureshowcase",
-      "frontend_src_components_slips_slipform_props",
-      "frontend_src_components_ui_kpicard",
-      "frontend_src_components_ui_kpicard_kpicard",
-      "frontend_src_components_ui_kpicard_kpicardprops",
-      "frontend_src_routes_authenticated_dashboard",
-      "frontend_src_routes_authenticated_dashboard_greeting",
-      "frontend_src_routes_authenticated_dashboard_ngarboristdashboard",
-      "frontend_src_routes_authenticated_dashboard_ngdadashboard",
-      "frontend_src_routes_authenticated_dashboard_ngsadashboard",
-      "frontend_src_routes_authenticated_dashboard_recentslipstable",
-      "frontend_src_routes_authenticated_dashboard_usestats",
-      "frontend_src_routes_authenticated_dashboard_vendorbillingdashboard",
-      "frontend_src_routes_authenticated_dashboard_vendorgfdashboard",
-      "frontend_src_routes_authenticated_dashboard_vendorsadashboard",
-      "frontend_src_store_authstore",
-      "frontend_src_store_authstore_authstate",
-      "frontend_src_types_index_policeslip",
-      "frontend_src_types_index_user"
-    ],
-    "19": [
+    "16": [
       "frontend_src_components_ui_command",
       "frontend_src_components_ui_command_command",
       "frontend_src_components_ui_command_commanddialog",
@@ -687,7 +621,7 @@
       "frontend_src_components_ui_dialog_dialogoverlay",
       "frontend_src_components_ui_dialog_dialogtitle"
     ],
-    "20": [
+    "17": [
       "frontend_src_components_ui_menubar",
       "frontend_src_components_ui_menubar_menubar",
       "frontend_src_components_ui_menubar_menubarcheckboxitem",
@@ -706,7 +640,26 @@
       "frontend_src_components_ui_menubar_menubarsubtrigger",
       "frontend_src_components_ui_menubar_menubartrigger"
     ],
-    "21": [
+    "18": [
+      "frontend_src_components_ui_statusbadge",
+      "frontend_src_components_ui_statusbadge_icons",
+      "frontend_src_mock_auditlogs",
+      "frontend_src_mock_auditlogs_auditlogs",
+      "frontend_src_mock_invoices",
+      "frontend_src_mock_invoices_invoices",
+      "frontend_src_types_index",
+      "frontend_src_types_index_apierror",
+      "frontend_src_types_index_appscope",
+      "frontend_src_types_index_auditentry",
+      "frontend_src_types_index_authsession",
+      "frontend_src_types_index_invoice",
+      "frontend_src_types_index_invoicestatus",
+      "frontend_src_types_index_rolename",
+      "frontend_src_types_index_slipstatus",
+      "frontend_src_utils_statusconfig",
+      "frontend_src_utils_statusconfig_status_config"
+    ],
+    "19": [
       "package_devdependencies_prisma",
       "prisma",
       "ref_node",
@@ -725,11 +678,11 @@
       "tsconfig_compileroptions_types",
       "tsconfig_include"
     ],
-    "22": [
-      "clsx",
+    "20": [
+      "class_variance_authority",
       "embla_carousel_react",
       "frontend_package_dependencies",
-      "frontend_package_dependencies_clsx",
+      "frontend_package_dependencies_class_variance_authority",
       "frontend_package_dependencies_embla_carousel_react",
       "frontend_package_dependencies_radix_ui_react_accordion",
       "frontend_package_dependencies_radix_ui_react_popover",
@@ -742,7 +695,7 @@
       "radix_ui_react_toggle",
       "react_dom"
     ],
-    "23": [
+    "21": [
       "frontend_src_components_ui_form",
       "frontend_src_components_ui_form_formcontrol",
       "frontend_src_components_ui_form_formdescription",
@@ -759,7 +712,24 @@
       "frontend_src_components_ui_label_label",
       "frontend_src_components_ui_label_labelvariants"
     ],
-    "24": [
+    "22": [
+      "frontend_src_routes_authenticated",
+      "frontend_src_routes_authenticated_admin_audit_route",
+      "frontend_src_routes_authenticated_admin_roles_route",
+      "frontend_src_routes_authenticated_admin_users_route",
+      "frontend_src_routes_authenticated_dashboard_route",
+      "frontend_src_routes_authenticated_invoices_id_index_route",
+      "frontend_src_routes_authenticated_invoices_index_route",
+      "frontend_src_routes_authenticated_route",
+      "frontend_src_routes_authenticated_slips_id_edit_route",
+      "frontend_src_routes_authenticated_slips_id_index_route",
+      "frontend_src_routes_authenticated_slips_index_route",
+      "frontend_src_routes_authenticated_slips_new_route",
+      "frontend_src_routes_index",
+      "frontend_src_routes_index_route",
+      "frontend_src_routetree_gen_fileroutesbypath"
+    ],
+    "23": [
       "scripts_story_workflow_check",
       "scripts_story_workflow_check_add",
       "scripts_story_workflow_check_assertdata",
@@ -776,7 +746,7 @@
       "scripts_story_workflow_check_session",
       "scripts_story_workflow_check_slippayload"
     ],
-    "25": [
+    "24": [
       "frontend_src_components_ui_carousel",
       "frontend_src_components_ui_carousel_carousel",
       "frontend_src_components_ui_carousel_carouselapi",
@@ -792,7 +762,37 @@
       "frontend_src_components_ui_carousel_usecarousel",
       "frontend_src_components_ui_carousel_usecarouselparameters"
     ],
+    "25": [
+      "frontend_src_components_slips_slipform_props",
+      "frontend_src_mock_slips",
+      "frontend_src_mock_slips_acme",
+      "frontend_src_mock_slips_acme_gf",
+      "frontend_src_mock_slips_arborists",
+      "frontend_src_mock_slips_cc",
+      "frontend_src_mock_slips_gf1",
+      "frontend_src_mock_slips_gf2",
+      "frontend_src_mock_slips_makeslip",
+      "frontend_src_mock_slips_officers",
+      "frontend_src_mock_slips_pad",
+      "frontend_src_mock_slips_slips",
+      "frontend_src_types_index_policeslip"
+    ],
     "26": [
+      "frontend_src_mock_organisations",
+      "frontend_src_mock_organisations_organisations",
+      "frontend_src_mock_roles",
+      "frontend_src_mock_roles_all_permission_list",
+      "frontend_src_mock_roles_all_permissions",
+      "frontend_src_mock_roles_roles",
+      "frontend_src_mock_roles_wildcard",
+      "frontend_src_mock_users",
+      "frontend_src_mock_users_makeuser",
+      "frontend_src_mock_users_mock_password",
+      "frontend_src_mock_users_users",
+      "frontend_src_types_index_organisation",
+      "frontend_src_types_index_role"
+    ],
+    "27": [
       "frontend_package",
       "frontend_package_name",
       "frontend_package_private",
@@ -805,20 +805,6 @@
       "frontend_package_scripts_preview",
       "frontend_package_sideeffects",
       "frontend_package_type"
-    ],
-    "27": [
-      "frontend_src_components_ui_overlays",
-      "frontend_src_components_ui_overlays_drawer",
-      "frontend_src_components_ui_overlays_modal",
-      "frontend_src_routes_authenticated_admin_users",
-      "frontend_src_routes_authenticated_admin_users_route",
-      "frontend_src_routes_authenticated_admin_users_userform",
-      "frontend_src_routes_authenticated_admin_users_userspage",
-      "frontend_src_routes_authenticated_slips_id_index",
-      "frontend_src_routes_authenticated_slips_id_index_checklist",
-      "frontend_src_routes_authenticated_slips_id_index_evidenceimage",
-      "frontend_src_routes_authenticated_slips_id_index_route",
-      "frontend_src_routes_authenticated_slips_id_index_slipdetailpage"
     ],
     "28": [
       "frontend_src_lib_error_capture",
@@ -835,6 +821,20 @@
       "frontend_src_start_errormiddleware"
     ],
     "29": [
+      "frontend_src_lib_lovable_error_reporting",
+      "frontend_src_lib_lovable_error_reporting_lovableerroroptions",
+      "frontend_src_lib_lovable_error_reporting_lovableevents",
+      "frontend_src_lib_lovable_error_reporting_reportlovableerror",
+      "frontend_src_lib_lovable_error_reporting_window",
+      "frontend_src_routes_root",
+      "frontend_src_routes_root_errorcomponent",
+      "frontend_src_routes_root_notfoundcomponent",
+      "frontend_src_routes_root_rootcomponent",
+      "frontend_src_routes_root_rootshell",
+      "frontend_src_routes_root_route",
+      "frontend_src_routetree_gen_fileroutesbyid"
+    ],
+    "30": [
       "frontend_src_components_ui_chart",
       "frontend_src_components_ui_chart_chartconfig",
       "frontend_src_components_ui_chart_chartcontainer",
@@ -847,29 +847,31 @@
       "frontend_src_components_ui_chart_themes",
       "frontend_src_components_ui_chart_usechart"
     ],
-    "30": [
-      "frontend_src_lib_lovable_error_reporting",
-      "frontend_src_lib_lovable_error_reporting_lovableerroroptions",
-      "frontend_src_lib_lovable_error_reporting_lovableevents",
-      "frontend_src_lib_lovable_error_reporting_reportlovableerror",
-      "frontend_src_lib_lovable_error_reporting_window",
-      "frontend_src_routes_root",
-      "frontend_src_routes_root_errorcomponent",
-      "frontend_src_routes_root_notfoundcomponent",
-      "frontend_src_routes_root_rootcomponent",
-      "frontend_src_routes_root_rootshell"
-    ],
     "31": [
-      "frontend_src_components_ui_breadcrumb",
-      "frontend_src_components_ui_breadcrumb_breadcrumb",
-      "frontend_src_components_ui_breadcrumb_breadcrumbellipsis",
-      "frontend_src_components_ui_breadcrumb_breadcrumbitem",
-      "frontend_src_components_ui_breadcrumb_breadcrumblink",
-      "frontend_src_components_ui_breadcrumb_breadcrumblist",
-      "frontend_src_components_ui_breadcrumb_breadcrumbpage",
-      "frontend_src_components_ui_breadcrumb_breadcrumbseparator"
+      "frontend_src_components_ui_dropdown_menu",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenucheckboxitem",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenucontent",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenuitem",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenulabel",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenuradioitem",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenuseparator",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenushortcut",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenusubcontent",
+      "frontend_src_components_ui_dropdown_menu_dropdownmenusubtrigger"
     ],
     "32": [
+      "frontend_src_routes_authenticated_invoices_id_index_invoicedetailpage",
+      "frontend_src_utils_hourscalc",
+      "frontend_src_utils_hourscalc_calculatehoursworked",
+      "frontend_src_utils_hourscalc_formatminutestohhmm",
+      "frontend_src_utils_hourscalc_isovernight",
+      "frontend_src_utils_hourscalc_parsehhmmtominutes",
+      "frontend_src_utils_reconciliation",
+      "frontend_src_utils_reconciliation_calculatedifferenceminutes",
+      "frontend_src_utils_reconciliation_calculatereconciledminutes",
+      "frontend_src_utils_reconciliation_deriveinvoicestatus"
+    ],
+    "33": [
       "frontend_src_components_ui_drawer",
       "frontend_src_components_ui_drawer_drawer",
       "frontend_src_components_ui_drawer_drawercontent",
@@ -879,7 +881,7 @@
       "frontend_src_components_ui_drawer_draweroverlay",
       "frontend_src_components_ui_drawer_drawertitle"
     ],
-    "33": [
+    "34": [
       "frontend_src_components_ui_navigation_menu",
       "frontend_src_components_ui_navigation_menu_navigationmenu",
       "frontend_src_components_ui_navigation_menu_navigationmenucontent",
@@ -889,16 +891,17 @@
       "frontend_src_components_ui_navigation_menu_navigationmenutriggerstyle",
       "frontend_src_components_ui_navigation_menu_navigationmenuviewport"
     ],
-    "34": [
-      "frontend_src_components_ui_card",
-      "frontend_src_components_ui_card_card",
-      "frontend_src_components_ui_card_cardcontent",
-      "frontend_src_components_ui_card_carddescription",
-      "frontend_src_components_ui_card_cardfooter",
-      "frontend_src_components_ui_card_cardheader",
-      "frontend_src_components_ui_card_cardtitle"
-    ],
     "35": [
+      "frontend_src_components_ui_select",
+      "frontend_src_components_ui_select_selectcontent",
+      "frontend_src_components_ui_select_selectitem",
+      "frontend_src_components_ui_select_selectlabel",
+      "frontend_src_components_ui_select_selectscrolldownbutton",
+      "frontend_src_components_ui_select_selectscrollupbutton",
+      "frontend_src_components_ui_select_selectseparator",
+      "frontend_src_components_ui_select_selecttrigger"
+    ],
+    "36": [
       "frontend_src_components_ui_toggle",
       "frontend_src_components_ui_toggle_group",
       "frontend_src_components_ui_toggle_group_togglegroup",
@@ -907,7 +910,7 @@
       "frontend_src_components_ui_toggle_toggle",
       "frontend_src_components_ui_toggle_togglevariants"
     ],
-    "36": [
+    "37": [
       "src_controllers_persona_controller",
       "src_controllers_persona_controller_deletepersona",
       "src_models_persona_model",
@@ -916,45 +919,41 @@
       "src_routes_ai_routes",
       "src_routes_ai_routes_router"
     ],
-    "37": [
+    "38": [
+      "frontend_src_components_ui_confirmationdialog",
+      "frontend_src_components_ui_confirmationdialog_confirmationdialog",
+      "frontend_src_components_ui_personalist",
+      "frontend_src_components_ui_personalist_personalist",
+      "frontend_src_pages_admindashboard",
+      "frontend_src_pages_admindashboard_admindashboard"
+    ],
+    "39": [
       "frontend_src_components_ui_alert",
       "frontend_src_components_ui_alert_alert",
       "frontend_src_components_ui_alert_alertdescription",
       "frontend_src_components_ui_alert_alerttitle",
       "frontend_src_components_ui_alert_alertvariants"
     ],
-    "38": [
+    "40": [
       "frontend_src_routes_login",
       "frontend_src_routes_login_formvals",
       "frontend_src_routes_login_loginpage",
       "frontend_src_routes_login_route",
       "frontend_src_routes_login_schema"
     ],
-    "39": [
+    "41": [
       "src_middleware_auth",
       "src_middleware_auth_authenticate",
       "src_middleware_auth_authuser",
       "src_middleware_auth_prisma",
       "src_middleware_auth_userpayload"
     ],
-    "40": [
+    "42": [
       "src_server_checkpermission",
       "src_server_haspermission",
       "src_server_requireuser",
       "src_server_vendorinvoicewhere",
       "src_server_vendorslipwhere"
-    ],
-    "41": [
-      "frontend_src_components_ui_badge",
-      "frontend_src_components_ui_badge_badge",
-      "frontend_src_components_ui_badge_badgeprops",
-      "frontend_src_components_ui_badge_badgevariants"
-    ],
-    "42": [
-      "frontend_src_components_ui_confirmationdialog",
-      "frontend_src_components_ui_confirmationdialog_confirmationdialog",
-      "frontend_src_pages_admindashboard",
-      "frontend_src_pages_admindashboard_admindashboard"
     ],
     "43": [
       "prisma_seed",
@@ -979,47 +978,48 @@
       "frontend_src_components_ui_sonner_toasterprops"
     ],
     "47": [
+      "frontend_src_routes_authenticated_ai_reports",
+      "frontend_src_routes_authenticated_ai_reports_aireportspage",
+      "frontend_src_routes_authenticated_ai_reports_route"
+    ],
+    "48": [
       "scripts_smoke_test",
       "scripts_smoke_test_assert",
       "scripts_smoke_test_request"
     ],
-    "48": [
+    "49": [
       "src_server_calculatereconciliation",
       "src_server_formatminutestohhmm",
       "src_server_parsehhmmtominutes"
     ],
-    "49": [
+    "50": [
       "src_server_dateonly",
       "src_server_shapeinvoice",
       "src_server_shapeslip"
     ],
-    "50": [
-      "class_variance_authority",
-      "frontend_package_dependencies_class_variance_authority"
-    ],
     "51": [
+      "clsx",
+      "frontend_package_dependencies_clsx"
+    ],
+    "52": [
       "cmdk",
       "frontend_package_dependencies_cmdk"
     ],
-    "52": [
+    "53": [
       "date_fns",
       "frontend_package_dependencies_date_fns"
     ],
-    "53": [
+    "54": [
       "dnd_kit_core",
       "frontend_package_dependencies_dnd_kit_core"
     ],
-    "54": [
+    "55": [
       "dnd_kit_sortable",
       "frontend_package_dependencies_dnd_kit_sortable"
     ],
-    "55": [
+    "56": [
       "docker_entrypoint",
       "docker_entrypoint_sh__entry"
-    ],
-    "56": [
-      "eslint",
-      "frontend_package_devdependencies_eslint"
     ],
     "57": [
       "eslint_plugin_react_hooks",
@@ -1222,86 +1222,94 @@
       "prettier"
     ],
     "107": [
+      "frontend_package_devdependencies_types_react_signature_canvas",
+      "types_react_signature_canvas"
+    ],
+    "108": [
       "frontend_package_devdependencies_vitejs_plugin_react",
       "vitejs_plugin_react"
     ],
-    "108": [
+    "109": [
+      "frontend_src_services_api",
+      "frontend_src_services_api_deletepersona"
+    ],
+    "110": [
       "frontend_src_utils_api",
       "frontend_src_utils_api_deletepersona"
     ],
-    "109": [
+    "111": [
       "src_server_apierror",
       "src_server_apierror_constructor"
     ],
-    "110": [
+    "112": [
       "src_server_assessslipverification",
       "src_server_distancemeters"
     ],
-    "111": [
+    "113": [
       "src_server_authenticatejwt",
       "src_server_userpayload"
     ],
-    "112": [
+    "114": [
       "src_server_cleandraftinput",
       "src_server_hasdraftcontent"
     ],
-    "113": [
+    "115": [
       "frontend_eslint_config"
     ],
-    "114": [
+    "116": [
       "frontend_src_components_ui_aspect_ratio"
     ],
-    "115": [
+    "117": [
       "frontend_vite_config"
     ],
-    "116": [
+    "118": [
       "tests_login_test"
     ]
   },
   "cohesion": {
-    "0": 0.053551912568306013,
-    "1": 0.06966618287373004,
-    "2": 0.09306122448979592,
+    "0": 0.0744466800804829,
+    "1": 0.06821480406386067,
+    "2": 0.09523809523809523,
     "3": 0.0425531914893617,
     "4": 0.05735430157261795,
     "5": 0.08115942028985507,
-    "6": 0.06533776301218161,
-    "7": 0.06060606060606061,
-    "8": 0.07407407407407407,
-    "9": 0.15692307692307692,
-    "10": 0.07692307692307693,
+    "6": 0.06060606060606061,
+    "7": 0.1010752688172043,
+    "8": 0.07881773399014778,
+    "9": 0.07692307692307693,
+    "10": 0.07407407407407407,
     "11": 0.11666666666666667,
     "12": 0.10144927536231885,
     "13": 0.08695652173913043,
-    "14": 0.1471861471861472,
-    "15": 0.18421052631578946,
-    "16": 0.10526315789473684,
-    "17": 0.10526315789473684,
-    "18": 0.15789473684210525,
-    "19": 0.125,
-    "20": 0.11764705882352941,
-    "21": 0.11764705882352941,
+    "14": 0.10526315789473684,
+    "15": 0.10526315789473684,
+    "16": 0.125,
+    "17": 0.11764705882352941,
+    "18": 0.17647058823529413,
+    "19": 0.11764705882352941,
+    "20": 0.13333333333333333,
+    "21": 0.19047619047619047,
     "22": 0.13333333333333333,
-    "23": 0.19047619047619047,
-    "24": 0.29523809523809524,
-    "25": 0.18681318681318682,
-    "26": 0.16666666666666666,
-    "27": 0.21212121212121213,
+    "23": 0.29523809523809524,
+    "24": 0.18681318681318682,
+    "25": 0.16666666666666666,
+    "26": 0.1794871794871795,
+    "27": 0.16666666666666666,
     "28": 0.30303030303030304,
-    "29": 0.2545454545454545,
-    "30": 0.24444444444444444,
-    "31": 0.25,
-    "32": 0.25,
-    "33": 0.2857142857142857,
+    "29": 0.19696969696969696,
+    "30": 0.2545454545454545,
+    "31": 0.2,
+    "32": 0.4,
+    "33": 0.25,
     "34": 0.2857142857142857,
-    "35": 0.42857142857142855,
-    "36": 0.3333333333333333,
-    "37": 0.5,
-    "38": 0.4,
+    "35": 0.25,
+    "36": 0.42857142857142855,
+    "37": 0.3333333333333333,
+    "38": 0.4666666666666667,
     "39": 0.5,
     "40": 0.4,
-    "41": 0.6666666666666666,
-    "42": 0.6666666666666666,
+    "41": 0.5,
+    "42": 0.4,
     "43": 0.5,
     "44": 0.5,
     "45": 0.6666666666666666,
@@ -1309,7 +1317,7 @@
     "47": 0.6666666666666666,
     "48": 0.6666666666666666,
     "49": 0.6666666666666666,
-    "50": 1.0,
+    "50": 0.6666666666666666,
     "51": 1.0,
     "52": 1.0,
     "53": 1.0,
@@ -1375,7 +1383,9 @@
     "113": 1.0,
     "114": 1.0,
     "115": 1.0,
-    "116": 1.0
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0
   },
   "gods": [
     {
@@ -1431,7 +1441,40 @@
   ],
   "surprises": [
     {
-      "source": "AlertDialogFooter()",
+      "source": "DropdownMenuShortcut()",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/dropdown-menu.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DropdownMenuShortcut()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDescription",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertDescription` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertTitle",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertTitle` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDialogContent",
       "target": "cn()",
       "source_files": [
         "frontend/src/components/ui/alert-dialog.tsx",
@@ -1439,10 +1482,10 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertDialogFooter()` unexpectedly reaches hub `cn()`"
+      "why": "bridges separate communities; peripheral node `AlertDialogContent` unexpectedly reaches hub `cn()`"
     },
     {
-      "source": "AlertDialogHeader()",
+      "source": "AlertDialogDescription",
       "target": "cn()",
       "source_files": [
         "frontend/src/components/ui/alert-dialog.tsx",
@@ -1450,40 +1493,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertDialogHeader()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "Pagination()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/pagination.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `Pagination()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "PaginationEllipsis()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/pagination.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `PaginationEllipsis()` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "PaginationNext()",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/pagination.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `PaginationNext()` unexpectedly reaches hub `cn()`"
+      "why": "bridges separate communities; peripheral node `AlertDialogDescription` unexpectedly reaches hub `cn()`"
     }
   ],
   "tokens": {
