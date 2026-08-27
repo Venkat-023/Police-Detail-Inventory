@@ -2,10 +2,10 @@ import React from 'react';
 
 const ConfirmationDialog = ({ onConfirm, onCancel }) => {
     return (
-        <div>
-            <h2>Are you sure you want to delete this persona?</h2>
-            <button onClick={onConfirm}>Yes</button>
-            <button onClick={onCancel}>No</button>
+        <div className="confirmation-dialog">
+            <p>Are you sure you want to delete the 'ng super detail admin' persona?</p>
+            <button onClick={onConfirm}>Confirm</button>
+            <button onClick={onCancel}>Cancel</button>
         </div>
     );
 };
