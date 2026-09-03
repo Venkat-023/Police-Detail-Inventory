@@ -4631,6 +4631,16 @@
       "source_location": "L1"
     },
     {
+      "id": "tests_test_officer_badge_display_spec",
+      "label": "test_officer_badge_display.spec.ts",
+      "_origin": "ast",
+      "community": 119,
+      "file_type": "code",
+      "norm_label": "test_officer_badge_display.spec.ts",
+      "source_file": "tests/test_officer_badge_display.spec.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "scripts_dev_memory_api",
       "label": "dev-memory-api.mjs",
       "_origin": "ast",
@@ -31151,5 +31161,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "179f86ef9186c4c86818787c7c0874e9d831ed87"
+  "built_at_commit": "477c13f0b98c1549c681e1b6a193415d4ae9e744"
 }

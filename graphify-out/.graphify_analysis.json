@@ -1273,6 +1273,9 @@
     ],
     "118": [
       "tests_login_test"
+    ],
+    "119": [
+      "tests_test_officer_badge_display_spec"
     ]
   },
   "cohesion": {
@@ -1394,7 +1397,8 @@
     "115": 1.0,
     "116": 1.0,
     "117": 1.0,
-    "118": 1.0
+    "118": 1.0,
+    "119": 1.0
   },
   "gods": [
     {
@@ -1450,48 +1454,26 @@
   ],
   "surprises": [
     {
-      "source": "AlertDescription",
+      "source": "ResizableHandle()",
       "target": "cn()",
       "source_files": [
-        "frontend/src/components/ui/alert.tsx",
+        "frontend/src/components/ui/resizable.tsx",
         "frontend/src/lib/utils.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertDescription` unexpectedly reaches hub `cn()`"
+      "why": "bridges separate communities; peripheral node `ResizableHandle()` unexpectedly reaches hub `cn()`"
     },
     {
-      "source": "AlertTitle",
+      "source": "ResizablePanelGroup()",
       "target": "cn()",
       "source_files": [
-        "frontend/src/components/ui/alert.tsx",
+        "frontend/src/components/ui/resizable.tsx",
         "frontend/src/lib/utils.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertTitle` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "AlertDialogContent",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/alert-dialog.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertDialogContent` unexpectedly reaches hub `cn()`"
-    },
-    {
-      "source": "AlertDialogDescription",
-      "target": "cn()",
-      "source_files": [
-        "frontend/src/components/ui/alert-dialog.tsx",
-        "frontend/src/lib/utils.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities; peripheral node `AlertDialogDescription` unexpectedly reaches hub `cn()`"
+      "why": "bridges separate communities; peripheral node `ResizablePanelGroup()` unexpectedly reaches hub `cn()`"
     },
     {
       "source": "AlertDialogFooter()",
@@ -1503,6 +1485,28 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities; peripheral node `AlertDialogFooter()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "AlertDialogHeader()",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/alert-dialog.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `AlertDialogHeader()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "Pagination()",
+      "target": "cn()",
+      "source_files": [
+        "frontend/src/components/ui/pagination.tsx",
+        "frontend/src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `Pagination()` unexpectedly reaches hub `cn()`"
     }
   ],
   "tokens": {
