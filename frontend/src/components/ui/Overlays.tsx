@@ -26,8 +26,8 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" role="dialog" aria-modal="true" aria-label={title}>
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className={`relative w-full ${widths[size]} rounded-xl bg-surface shadow-xl`}>
-        <div className="flex items-center justify-between border-b border-border px-5 py-3">
+      <div className={`relative w-full ${widths[size]} rounded-xl bg-surface shadow-xl`}> 
+        <div className="flex items-center justify-between border-b border-border px-5 py-3"> 
           <h2 className="text-base font-semibold text-foreground">{title}</h2>
           <button onClick={onClose} aria-label="Close" className="rounded p-1 text-muted-foreground hover:bg-muted">
             <X size={18} />
@@ -59,8 +59,8 @@ export function Drawer({
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={title}>
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <aside className="absolute right-0 top-0 flex h-full w-full flex-col bg-surface shadow-2xl sm:w-[480px]">
-        <div className="flex items-center justify-between border-b border-border px-5 py-3">
+      <aside className="absolute right-0 top-0 flex h-full w-full flex-col bg-surface shadow-2xl sm:w-[480px]"> 
+        <div className="flex items-center justify-between border-b border-border px-5 py-3"> 
           <h2 className="text-base font-semibold text-foreground">{title}</h2>
           <button onClick={onClose} aria-label="Close" className="rounded p-1 text-muted-foreground hover:bg-muted">
             <X size={18} />
