@@ -20,3 +20,8 @@ export function estimateOvertimeHours(start: string, end: string, threshold = 8)
   const mins = Math.max(0, toMin(end) - toMin(start));
   return Math.max(0, mins / 60 - threshold);
 }
+
+/** Flag slips that look incomplete before Arborist review. */
+export function needsArboristReview(status: SlipStatus, hasSignature: boolean): boolean {
+  return status === "submitted" && !hasSignature;
+}
