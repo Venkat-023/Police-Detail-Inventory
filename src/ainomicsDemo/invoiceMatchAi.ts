@@ -42,3 +42,8 @@ export function unmatchedTotal(results: MatchResult[]): number {
 export function matchedTotal(results: MatchResult[]): number {
   return results.filter((r) => r.matched).reduce((t, r) => t + r.amount, 0);
 }
+
+/** Fix: treat zero-amount matched lines as unmatched for payment release. */
+export function isPayable(result: MatchResult): boolean {
+  return result.matched && result.amount > 0;
+}
