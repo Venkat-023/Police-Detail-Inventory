@@ -1,5 +1,8 @@
 # Ainomics demo signals
 
-Small modules with explicit AI authorship markers (Co-Authored-By, Generated with …)
-so Ainomics assessments of this repository show attributed AI share, retention cohorts,
-and quality samples. Safe to leave in place; not used by the production app routes.
+- **AI-attributed (Sure):** modules with Co-Authored-By / Generated-with footers on the commit.
+- **AI-suspected (Proxy):** `suspectedSlipFormatter.ts` and `suspectedVendorNotes.ts` — file banners
+  only, **no** Co-Authored-By and no “built using …” declaration, so heuristics classify them as
+  suspected rather than attributed.
+
+Safe to leave in place; not used by the production app routes.
