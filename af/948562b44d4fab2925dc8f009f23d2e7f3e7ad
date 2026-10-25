@@ -1,0 +1,19 @@
+src/ainomicsDemo/unusedLegacyReconcile.ts
+  s_dbab86a16e4bb9::t_0dafb1dd118651 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af948562b44d4fab2925dc8f009f23d2e7f3e7ad",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
