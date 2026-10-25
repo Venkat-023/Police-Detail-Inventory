@@ -1,0 +1,21 @@
+src/ainomicsDemo/dead/README.md
+  s_dbab86a16e4bb9::t_3b2bd83bd49404 1-7
+src/ainomicsDemo/dead/retiredNgPaymentBatch.ts
+  s_dbab86a16e4bb9::t_1f3d58f3d2e8a2 1-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6ce36f66a41eb007060e0acf3490b33c48227b1",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
