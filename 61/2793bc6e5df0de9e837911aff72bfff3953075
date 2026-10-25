@@ -1,0 +1,19 @@
+src/ainomicsDemo/detailSlipAiHelpers.ts
+  s_dbab86a16e4bb9::t_bf1ca161d702d7 23-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "612793bc6e5df0de9e837911aff72bfff3953075",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
