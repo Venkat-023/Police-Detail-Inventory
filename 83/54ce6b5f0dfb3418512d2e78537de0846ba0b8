@@ -1,0 +1,21 @@
+src/ainomicsDemo/suspectedSlipFormatter.ts
+  s_dbab86a16e4bb9::t_c3a8c96c4b6d23 1-21
+src/ainomicsDemo/suspectedVendorNotes.ts
+  s_dbab86a16e4bb9::t_6335117a5d1847 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8354ce6b5f0dfb3418512d2e78537de0846ba0b8",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
