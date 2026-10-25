@@ -1,0 +1,19 @@
+src/ainomicsDemo/humanReviewNotes.ts
+  s_dbab86a16e4bb9::t_ebd4263f767463 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c70586206ff4710e489842cc0b20eb6cc5449ae9",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
