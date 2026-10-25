@@ -1,0 +1,19 @@
+src/ainomicsDemo/paymentReleaseNotes.ts
+  s_dbab86a16e4bb9::t_6bb9af78e0abb6 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c8a6901eece411c4142c9051fb1de7a8f8c3460e",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
