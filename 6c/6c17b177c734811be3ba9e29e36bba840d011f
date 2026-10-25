@@ -1,0 +1,19 @@
+src/ainomicsDemo/dead/legacyVendorSync.ts
+  s_26051ba9a60085::t_fa64b8246a910b 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6c6c17b177c734811be3ba9e29e36bba840d011f",
+  "prompts": {},
+  "sessions": {
+    "s_26051ba9a60085": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "s_26051ba9a60085",
+        "model": "unknown"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
