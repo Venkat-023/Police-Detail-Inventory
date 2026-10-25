@@ -1,0 +1,33 @@
+src/ainomicsDemo/aiModule1.test.ts
+  s_dbab86a16e4bb9::t_5fc54f0c6d70e8 1-7
+src/ainomicsDemo/aiModule2.test.ts
+  s_dbab86a16e4bb9::t_9e41f5f6cb8cd0 1-7
+src/ainomicsDemo/aiModule3.test.ts
+  s_dbab86a16e4bb9::t_bd2e17850429f7 1-7
+src/ainomicsDemo/aiModule4.test.ts
+  s_dbab86a16e4bb9::t_e51fa182daf4f2 1-7
+src/ainomicsDemo/aiModule5.test.ts
+  s_dbab86a16e4bb9::t_8409f0ac30b13e 1-7
+src/ainomicsDemo/aiModule6.test.ts
+  s_dbab86a16e4bb9::t_64319f74c2c659 1-7
+src/ainomicsDemo/aiModule7.test.ts
+  s_dbab86a16e4bb9::t_6213fab7db7478 1-7
+src/ainomicsDemo/aiModule8.test.ts
+  s_dbab86a16e4bb9::t_2d5f27848e0339 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3b85f3b57eac5940f381244273c262328aa08914",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
