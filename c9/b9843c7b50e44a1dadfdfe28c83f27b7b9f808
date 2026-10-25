@@ -1,0 +1,19 @@
+src/ainomicsDemo/aiModule6.ts
+  s_dbab86a16e4bb9::t_9c3a6716689a99 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c9b9843c7b50e44a1dadfdfe28c83f27b7b9f808",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
