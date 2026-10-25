@@ -1,0 +1,19 @@
+src/ainomicsDemo/dead/unusedReconciliationReports.ts
+  s_dbab86a16e4bb9::t_8ed89e4f90e839 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "62a7e0c22df1a3b75ed796b0519a3c7dc63caa14",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
