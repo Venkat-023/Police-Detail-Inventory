@@ -1,0 +1,21 @@
+src/ainomicsDemo/invoiceMatchAi.test.ts
+  s_dbab86a16e4bb9::t_7d5d585cd00468 1-12
+src/ainomicsDemo/invoiceMatchAi.ts
+  s_dbab86a16e4bb9::t_ebfb1f0d19cc6f 1-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9622d3362dd185aff5bc1337720b70073a976e57",
+  "prompts": {},
+  "sessions": {
+    "s_dbab86a16e4bb9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "d691de01-1cc7-44b6-b21c-784274310c18",
+        "model": "default"
+      },
+      "human_author": "sw <sw@sws-MacBook-Pro.local>"
+    }
+  }
+}
